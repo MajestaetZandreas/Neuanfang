@@ -2,6 +2,8 @@ import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
+
+
 /**
  * Die Grafik-Klasse oder so
  * 
@@ -90,7 +92,7 @@ public class Sprite extends Rectangle2D.Double implements Drawable, Movable
         dy=newDy;
     }
     
-    /*#---------------------------------------------------------------Priavte-Methoden-----------------------------------------------------*/
+    /*#---------------------------------------------------------------Private-Methoden-----------------------------------------------------*/
     /**
      * 
      */
@@ -104,8 +106,5 @@ public class Sprite extends Rectangle2D.Double implements Drawable, Movable
         }
     }
     
-    private BufferedImage[] loadPics(String path, int pics)
-    {
-        return null;
-    }
+    
 }
