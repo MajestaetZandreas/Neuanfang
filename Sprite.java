@@ -14,7 +14,7 @@ public class Sprite extends Rectangle2D.Double implements Drawable, Movable
 {
     private long delay;
     private long animation=0;
-    private Spielfeld parent;
+    protected Spielfeld parent;
     private BufferedImage[] pics;
     private int currentpic = 0;
     private double x;
@@ -72,9 +72,29 @@ public class Sprite extends Rectangle2D.Double implements Drawable, Movable
     }
     
     /*#---------------------------------------------------------------Get-und Set-Methoden-------------------------------------------------*/
+    public double getX()
+    {
+        return x;
+    }
+    
+    public double getY()
+    {
+        return y;
+    }
+    
     public double getHorizontalSpeed()
     {
         return dx;
+    }
+    
+    public void setX(double x)
+    {
+        this.x=x;
+    }
+    
+    public void setY(double y)
+    {
+        this.y=y;
     }
     
     public void setHorizontalSpeed(double newDx)
