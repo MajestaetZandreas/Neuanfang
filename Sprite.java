@@ -65,15 +65,8 @@ public class Sprite extends Rectangle2D.Double implements Drawable, Movable
      */
     public void move(long delta)
     {
-        if(dx!=0)
-        {
-            x=x+dx*(delta/1e9);
-        }
-        
-        if(dy!=0)
-        {
-            y=y+dy*(delta/1e9);
-        }
+        x=x+dx*(delta/1e9);
+        y=y+dy*(delta/1e9);
     }
     
     /*#---------------------------------------------------------------Get-und Set-Methoden-------------------------------------------------*/
@@ -109,5 +102,10 @@ public class Sprite extends Rectangle2D.Double implements Drawable, Movable
         {
             currentpic=0;
         }
+    }
+    
+    private BufferedImage[] loadPics(String path, int pics)
+    {
+        return null;
     }
 }
