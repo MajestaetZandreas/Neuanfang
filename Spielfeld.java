@@ -75,6 +75,9 @@ public class Spielfeld extends JPanel implements Runnable
             doLogic();
             moveObjects();
             
+            Sprite copter;
+            Vector<Sprite> actors;
+            
             repaint();//Neuzeichnung wird ausgelöst
             try
             {
@@ -171,6 +174,8 @@ public class Spielfeld extends JPanel implements Runnable
     private void doInitialisierung()
     {
         last=System.nanoTime();
+        
+        BufferedImage[] spieler = loadPics("pics/heli.gif",4);
     }
 }
 
