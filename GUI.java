@@ -56,7 +56,7 @@ public class GUI extends JFrame implements ActionListener
     {
         if(e.getSource()==start)
         {
-            spielfeld = new Spielfeld("Hüpfburg-2D",800,600);
+            spielfensterStarten();
         }
         
         if(e.getSource()==einstellungen)
@@ -73,5 +73,11 @@ public class GUI extends JFrame implements ActionListener
         {
             System.exit(0);
         }
+    }
+    
+    public void spielfensterStarten()
+    {
+        spielfeld.main(null);
+        dispose();
     }
 }
