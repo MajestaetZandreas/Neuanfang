@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.util.Vector;
+import java.util.ListIterator;
 
 //...
 /**
@@ -27,6 +28,10 @@ public class Spielfeld extends JPanel implements Runnable
     private long last;//Die Zeit vom Anfang eines Durchlaufs
     private long fps;//Anzahl Bilder pro Sekunde
     
+    private Sprite copter;
+    private Vector<Sprite> actors;
+    private Vector<Sprite> painter;
+            
     /**
     * Die Methode, mit der man das Programm als .jar-File öffnen kann
     */
@@ -75,9 +80,8 @@ public class Spielfeld extends JPanel implements Runnable
             checkKeys();
             doLogic();
             moveObjects();
+            cloneVectors();
             
-            Sprite copter;
-            Vector<Sprite> actors;
             
             repaint();//Neuzeichnung wird ausgelöst
             try
@@ -101,8 +105,24 @@ public class Spielfeld extends JPanel implements Runnable
     public void paintComponent(Graphics graphics)
     {
         super.paintComponents(graphics);
+        
         graphics.setColor(Color.red);
+        long lastFps=0;
+        if(lastFps!=fps)
+        {
+            graphics.clearRect(0, 0, 100, 10);
+            lastFps=fps;
+        }
         graphics.drawString("FPS: " + Long.toString(fps), 20, 10);
+        
+        if(painter!=null)
+        {
+            for(ListIterator<Sprite> it=actors.listIterator();it.hasNext();)
+            {
+                Sprite r = it.next();
+                r.drawObjects(graphics);
+            }
+        }
     }
     
     /*#--------------------------------------------Private-Methoden-------------------------------------------------*/
@@ -119,7 +139,11 @@ public class Spielfeld extends JPanel implements Runnable
      */
     private void doLogic()
     {
-        
+        for(ListIterator<Sprite> it=actors.listIterator();it.hasNext();)
+        {
+            Sprite r = it.next();
+            r.doLogic(delta);
+        }
     }
     
     /**
@@ -127,7 +151,11 @@ public class Spielfeld extends JPanel implements Runnable
      */
     private void moveObjects()
     {
-        
+        for(ListIterator<Sprite> it=actors.listIterator();it.hasNext();)
+        {
+            Sprite r = it.next();
+            r.move(delta);
+        }
     }
     
     /**
@@ -176,7 +204,18 @@ public class Spielfeld extends JPanel implements Runnable
     {
         last=System.nanoTime();
         
-        BufferedImage[] spieler = loadPics("pics/heli.gif",4);
+        BufferedImage[] spieler = loadPics("src/pics/heli.gif",4);
+        
+        actors = new Vector<Sprite>();
+        copter = new Sprite(spieler,400,300,100,this);
+        painter = new Vector<Sprite>();
+        actors.add(copter);
+    }
+    
+    @SuppressWarnings("unchecked")
+    private void cloneVectors()
+    {
+        painter= (Vector<Sprite>) actors.clone();
     }
 }
 
