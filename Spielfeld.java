@@ -4,6 +4,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Color;
+import java.net.URL;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+
 //...
 /**
  * Die Klasse Spielfeld erstellt das Fenster, in welchem das Spiel angezeigt wird
@@ -55,14 +60,7 @@ public class Spielfeld extends JPanel implements Runnable
       thread.start();
     }
     
-    /**
-     * Diese Methode übernimmt das Laden von Grafiken
-     */
-    private void doInitialisierung()
-    {
-        last=System.nanoTime();
-    }
-
+    /*#----------------------------------------------------------Public-Methoden------------------------------------------------------*/
     /**
      * Überschreibung der Methode run() aus der Klasse Runnable
      */
@@ -88,15 +86,7 @@ public class Spielfeld extends JPanel implements Runnable
         }
     }
     
-    /**
-     * Errechnung der Zeit für einen Schleifendurchlauf
-     */
-    private void computeDelta()
-    {
-        delta = System.nanoTime() - last;
-        last = System.nanoTime();
-        fps = ((long) 1e9)/delta;//10^9 dividiert durch die Dauer des Durchlaufs um nicht so viele Nachkommastellen zu haben
-    }
+    
     
     /**
      * Überschreibt die Methode paintComponent() aus der Klasse Runnable
@@ -111,6 +101,7 @@ public class Spielfeld extends JPanel implements Runnable
         graphics.drawString("FPS: " + Long.toString(fps), 20, 10);
     }
     
+    /*#--------------------------------------------Private-Methoden-------------------------------------------------*/
     /**
      * Diese Methode übernimmt Abfrage von Tastatureingaben
      */
@@ -133,6 +124,53 @@ public class Spielfeld extends JPanel implements Runnable
     private void moveObjects()
     {
         
+    }
+    
+    /**
+     * Diese Methode lädt die Bilder aus dem pics-Ordner
+     * 
+     * @param path - der Speicherort der Bilder
+     *        pics - die Anzahl Bilder im Ordner
+     */
+    private BufferedImage[] loadPics(String path, int pics)
+    {
+        BufferedImage[] anim = new BufferedImage[pics];
+        BufferedImage source=null;
+        
+        URL pic_url=getClass().getClassLoader().getResource(path);
+        
+        try
+        {
+            source=ImageIO.read(pic_url);
+        }
+        catch(IOException e)
+        {
+        }
+        
+        for(int i=0;i<pics;i++)
+        {
+            anim[i]=source.getSubimage(i*source.getWidth()/pics, 0, source.getWidth()/pics, source.getHeight());
+        }
+        
+        return anim;
+    }
+    
+    /**
+     * Errechnung der Zeit für einen Schleifendurchlauf
+     */
+    private void computeDelta()
+    {
+        delta = System.nanoTime() - last;
+        last = System.nanoTime();
+        fps = ((long) 1e9)/delta;//10^9 dividiert durch die Dauer des Durchlaufs um nicht so viele Nachkommastellen zu haben
+    }
+    
+    /**
+     * Diese Methode übernimmt das Laden von Grafiken
+     */
+    private void doInitialisierung()
+    {
+        last=System.nanoTime();
     }
 }
 
