@@ -8,9 +8,9 @@ import java.awt.image.BufferedImage;
  */
 public class Spieler extends Sprite
 {
-    public Spieler(BufferedImage[] i, double x, double y, long delay, Spielfeld spielfeld)
+    public Spieler(BufferedImage[] i, double x, double y, long delay)
     {
-        super(i, x, y, delay, spielfeld);
+        super(i, x, y, delay);
     }
     
     @Override
@@ -24,9 +24,9 @@ public class Spieler extends Sprite
             setX(0);
         }
         
-        if(getX()+getWidth()>parent.getWidth())
+        if(getX()+getWidth()>800)
         {
-            setX(parent.getWidth()-getWidth());
+            setX(800-getWidth());
             setHorizontalSpeed(0);
         }
         
@@ -36,9 +36,9 @@ public class Spieler extends Sprite
             setVerticalSpeed(0);
         }
         
-        if(getY()+getHeight()>parent.getHeight())
+        if(getY()+getHeight()>600)
         {
-            setY(parent.getHeight()-getHeight());
+            setY(600-getHeight());
             setVerticalSpeed(0);
         }
     }

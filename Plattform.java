@@ -11,9 +11,9 @@ public class Plattform extends Sprite
 {
    private final int SPEED = 20;
    
-   public Plattform(BufferedImage[] i, double x, double y, long delay, Spielfeld spielfeld)
+   public Plattform(BufferedImage[] i, double x, double y, long delay)
    {
-       super(i, x, y, delay, spielfeld);
+       super(i, x, y, delay);
        
        // if((int) (Math.random()*2)<1)
        // {

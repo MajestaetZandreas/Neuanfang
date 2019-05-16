@@ -14,7 +14,6 @@ public class Sprite extends Rectangle2D.Double implements Drawable, Movable
 {
     private long delay;
     private long animation=0;
-    protected Spielfeld parent;
     private BufferedImage[] pics;
     private int currentpic = 0;
     private double x;
@@ -28,7 +27,7 @@ public class Sprite extends Rectangle2D.Double implements Drawable, Movable
     /**
      * Konstruktor der Klasse Sprite
      */
-    public Sprite(BufferedImage[] i, double x, double y, long delay, Spielfeld p)
+    public Sprite(BufferedImage[] i, double x, double y, long delay)
     {
         pics=i;
         this.x=x;
@@ -36,7 +35,6 @@ public class Sprite extends Rectangle2D.Double implements Drawable, Movable
         this.delay=delay;
         this.width=pics[0].getWidth();
         this.height=pics[0].getHeight();
-        parent = p;
     }
     
     /*#---------------------------------------------------------------------Public-Methoden----------------------------------------------------*/
@@ -47,6 +45,11 @@ public class Sprite extends Rectangle2D.Double implements Drawable, Movable
     public void drawObjects(Graphics graphics)
     {
         graphics.drawImage(pics[currentpic], (int) x, (int) y, null); //double wird zu int, da es keine halben Pixel gibt
+    }
+    
+    public void drawString(Graphics graphics, String string, int x, int y)
+    {
+        graphics.drawString(string,x,y);
     }
     
     /**

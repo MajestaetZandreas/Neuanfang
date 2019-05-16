@@ -1,4 +1,6 @@
 // import java.awt.Canvas;
+import java.awt.*;
+import java.awt.event.*;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,6 +12,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.util.Vector;
 import java.util.ListIterator;
+import java.lang.Math;
 
 //...
 /**
@@ -17,7 +20,7 @@ import java.util.ListIterator;
  * Author(Clemens Zander, Jupp Bruns, Gideon Schafroth)
  * Version(10.5.19)
  */
-public class Spielfeld extends JPanel implements Runnable
+public class Spielfeld extends JPanel implements Runnable, KeyListener
 {
     private JFrame frame;
     // private Canvas canvas;
@@ -28,9 +31,20 @@ public class Spielfeld extends JPanel implements Runnable
     private long last;//Die Zeit vom Anfang eines Durchlaufs
     private long fps;//Anzahl Bilder pro Sekunde
     
+    private boolean jump;
+    private boolean fall;
+    private boolean left;
+    private boolean right;
+    private int speed = 50;
+    private double fallgeschwindigkeit=0.5;
+    
+    private int prevVertSpeed;
+    
     private Sprite copter;
+    private Sprite hinterGrund;
     private Vector<Sprite> actors;
     private Vector<Sprite> painter;
+    
     
     /**
     * Konstruktor der Klasse Spielfeld
@@ -40,22 +54,24 @@ public class Spielfeld extends JPanel implements Runnable
     */
     public Spielfeld(String title, int width, int height)
     {
-      titel = title;
-      breite = width;
-      hoehe = height;
-      //Spielfeld wird erstellt
-      this.setPreferredSize(new Dimension(breite, hoehe));
-      frame = new JFrame(titel);
-      frame.setLocation(100,100);
-      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      
-      frame.add(this);
-      frame.pack();
-      frame.setVisible(true);
-      
-      doInitialisierung();
-      Thread thread = new Thread(this);
-      thread.start();
+        titel = title;
+        breite = width;
+        hoehe = height;
+        //Spielfeld wird erstellt
+        this.setPreferredSize(new Dimension(breite, hoehe));
+        frame = new JFrame(titel);
+        frame.setLocation(100,100);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        frame.addKeyListener(this);
+        
+        frame.add(this);
+        frame.pack();
+        frame.setVisible(true);
+        
+        doInitialisierung();
+        Thread thread = new Thread(this);
+        thread.start();
     }
     
     /*#----------------------------------------------------------Public-Methoden------------------------------------------------------*/
@@ -96,14 +112,6 @@ public class Spielfeld extends JPanel implements Runnable
     {
         super.paintComponents(graphics);
         
-        graphics.setColor(Color.red);
-        long lastFps=0;
-        if(lastFps!=fps)
-        {
-            graphics.clearRect(0, 0, 100, 10);
-            lastFps=fps;
-        }
-        graphics.drawString("FPS: " + Long.toString(fps), 20, 10);
         
         if(painter!=null)
         {
@@ -115,13 +123,79 @@ public class Spielfeld extends JPanel implements Runnable
         }
     }
     
+    /**
+     * Diese Methode sorgt dafür, dass wenn eine Taste gedrückt wird, eine 
+     * entsprechende Reaktion erfolgt
+     */
+    @Override
+    public void keyPressed(KeyEvent e)
+    {
+        if(e.getKeyCode()==KeyEvent.VK_W)
+        {
+            jump=true;
+        }
+        
+        if(e.getKeyCode()==KeyEvent.VK_A)
+        {
+            left=true;
+        }
+        
+        if(e.getKeyCode()==KeyEvent.VK_D)
+        {
+            right=true;
+        }
+    }
+    
+    /**
+     * Diese Methode sorgt dafür, dass wenn eine Taste losgelassen wird, eine 
+     * entsprechende Reaktion erfolgt
+     */
+    @Override
+    public void keyReleased(KeyEvent e)
+    {
+        if(e.getKeyCode()==KeyEvent.VK_W)
+        {
+            jump=false;
+            fall=true;
+        }
+        
+        if(e.getKeyCode()==KeyEvent.VK_A)
+        {
+            left=false;
+        }
+        
+        if(e.getKeyCode()==KeyEvent.VK_D)
+        {
+            right=false;
+        }
+    }
+    
+    @Override
+    public void keyTyped(KeyEvent e)
+    {
+        
+    }
+    
     /*#--------------------------------------------Private-Methoden-------------------------------------------------*/
     /**
-     * Diese Methode übernimmt Abfrage von Tastatureingaben
+     * Diese Methode übernimmt Abfrage von Tastatureingaben und die jeweiligen Änderungen
      */
     private void checkKeys()
     {
+        if(jump)
+        {
+            copter.setVerticalSpeed(-speed);
+            prevVertSpeed=0;
+        }
+        if(left) copter.setHorizontalSpeed(-speed);
+        if(right) copter.setHorizontalSpeed(speed);
         
+        if(!left&&!right) copter.setHorizontalSpeed(0);
+        if(!jump)
+        {
+            copter.setVerticalSpeed(fallgeschwindigkeit*prevVertSpeed); //Fallgeschwindigkeit
+            prevVertSpeed++;
+        }
     }
     
     /**
@@ -195,10 +269,13 @@ public class Spielfeld extends JPanel implements Runnable
         last=System.nanoTime();
         
         BufferedImage[] spieler = loadPics("src/pics/heli.gif",4);
+        BufferedImage[] hintergrund = loadPics("src/pics/gelb3.jpg",1);
         
         actors = new Vector<Sprite>();
-        copter = new Sprite(spieler,400,300,100,this);
+        copter = new Sprite(spieler,400,300,100);
+        hinterGrund = new Sprite(hintergrund,0,0,100);
         painter = new Vector<Sprite>();
+        actors.add(hinterGrund);
         actors.add(copter);
     }
     
