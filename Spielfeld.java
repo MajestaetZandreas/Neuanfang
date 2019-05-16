@@ -31,14 +31,6 @@ public class Spielfeld extends JPanel implements Runnable
     private Sprite copter;
     private Vector<Sprite> actors;
     private Vector<Sprite> painter;
-            
-    /**
-    * Die Methode, mit der man das Programm als .jar-File öffnen kann
-    */
-    public static void main(String[] args)
-    {
-       new Spielfeld("Hüpfburg-2D",800,600);
-    }
     
     /**
     * Konstruktor der Klasse Spielfeld
@@ -93,8 +85,6 @@ public class Spielfeld extends JPanel implements Runnable
             }
         }
     }
-    
-    
     
     /**
      * Überschreibt die Methode paintComponent() aus der Klasse Runnable

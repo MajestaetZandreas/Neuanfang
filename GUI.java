@@ -77,7 +77,7 @@ public class GUI extends JFrame implements ActionListener
     
     public void spielfensterStarten()
     {
-        spielfeld.main(null);
+        Spielfeld spielfeld = new Spielfeld("Hüpfburg-2D", 800, 600);
         dispose();
     }
 }
