@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
  * @author (Jupp Bruns, Gideon Schafroth, Clemens Zander) 
  * @version (15.05.2019)
  */
-public class Sprite extends Rectangle2D.Double implements Drawable, Movable
+public abstract class Sprite extends Rectangle2D.Double implements Drawable, Movable
 {
     private long delay;
     private long animation=0;
@@ -73,6 +73,8 @@ public class Sprite extends Rectangle2D.Double implements Drawable, Movable
         x=x+dx*(delta/1e9);
         y=y+dy*(delta/1e9);
     }
+    
+    public abstract boolean collidedWith(Sprite s);
     
     /*#---------------------------------------------------------------Get-und Set-Methoden-------------------------------------------------*/
     public double getX()

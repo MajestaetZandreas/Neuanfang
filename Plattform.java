@@ -9,26 +9,30 @@ import java.awt.image.BufferedImage;
  */
 public class Plattform extends Sprite
 {
-   private final int SPEED = 20;
-   
-   public Plattform(BufferedImage[] i, double x, double y, long delay)
-   {
-       super(i, x, y, delay);
+    private final int SPEED = 20;
+    
+    public Plattform(BufferedImage[] i, double x, double y, long delay)
+    {
+        super(i, x, y, delay);
        
-       // if((int) (Math.random()*2)<1)
-       // {
-           // setHorizontalSpeed(-SPEED);
-       // }
-       // else
-       // {
-           // setHorizontalSpeed(SPEED);
-       // }
-   }
+        // if((int) (Math.random()*2)<1)
+        // {
+            // setHorizontalSpeed(-SPEED);
+            // }
+            // else
+            // {
+                // setHorizontalSpeed(SPEED);
+            // }
+    }    
+        
+    @Override
+    public void doLogic(long delta)
+    {
+        super.doLogic(delta);
+    }
    
-   @Override
-   public void doLogic(long delta)
-   {
-       super.doLogic(delta);
-   }
-   
+    public boolean collidedWith(Sprite s)
+    {
+        return false;
+    }
 }

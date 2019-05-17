@@ -40,8 +40,9 @@ public class Spielfeld extends JPanel implements Runnable, KeyListener
     
     private int prevVertSpeed;
     
-    private Sprite copter;
-    private Sprite hinterGrund;
+    private Spieler copter;
+    private Hintergrund hinterGrund;
+    private Plattform plattform;
     private Vector<Sprite> actors;
     private Vector<Sprite> painter;
     
@@ -72,6 +73,11 @@ public class Spielfeld extends JPanel implements Runnable, KeyListener
         doInitialisierung();
         Thread thread = new Thread(this);
         thread.start();
+    }
+    /*#----------------------------------------------------------Get- und Set-Methoden-------------------------------*/
+    public void setPrevVertSpeed(int newSpeed)
+    {
+        prevVertSpeed=newSpeed;
     }
     
     /*#----------------------------------------------------------Public-Methoden------------------------------------------------------*/
@@ -156,7 +162,6 @@ public class Spielfeld extends JPanel implements Runnable, KeyListener
         if(e.getKeyCode()==KeyEvent.VK_W)
         {
             jump=false;
-            fall=true;
         }
         
         if(e.getKeyCode()==KeyEvent.VK_A)
@@ -182,20 +187,23 @@ public class Spielfeld extends JPanel implements Runnable, KeyListener
      */
     private void checkKeys()
     {
+        if(!copter.getInAir()) prevVertSpeed=0;
+        
         if(jump)
         {
-            copter.setVerticalSpeed(-speed);
-            prevVertSpeed=0;
+            copter.setVerticalSpeed(-speed+fallgeschwindigkeit*prevVertSpeed);
+            prevVertSpeed++;
+            copter.setInAir(true);
         }
         if(left) copter.setHorizontalSpeed(-speed);
         if(right) copter.setHorizontalSpeed(speed);
         
         if(!left&&!right) copter.setHorizontalSpeed(0);
-        if(!jump)
-        {
-            copter.setVerticalSpeed(fallgeschwindigkeit*prevVertSpeed); //Fallgeschwindigkeit
-            prevVertSpeed++;
-        }
+        // if(!jump)
+        // {
+            // copter.setVerticalSpeed(fallgeschwindigkeit*prevVertSpeed); //Fallgeschwindigkeit
+            // prevVertSpeed++;
+        // }
     }
     
     /**
@@ -207,6 +215,17 @@ public class Spielfeld extends JPanel implements Runnable, KeyListener
         {
             Sprite r = it.next();
             r.doLogic(delta);
+        }
+        
+        for(int i=0;i<actors.size();i++)
+        {
+            for(int n=i+1;n<actors.size();n++)
+            {
+                Sprite s1= actors.elementAt(i);
+                Sprite s2= actors.elementAt(n);
+                
+                s1.collidedWith(s2);
+            }
         }
     }
     
@@ -270,13 +289,17 @@ public class Spielfeld extends JPanel implements Runnable, KeyListener
         
         BufferedImage[] spieler = loadPics("src/pics/heli.gif",4);
         BufferedImage[] hintergrund = loadPics("src/pics/gelb3.jpg",1);
+        BufferedImage[] plattForm = loadPics("src/pics/image-2019-05-17.png",1);
         
         actors = new Vector<Sprite>();
-        copter = new Sprite(spieler,400,300,100);
-        hinterGrund = new Sprite(hintergrund,0,0,100);
+        copter = new Spieler(spieler,400,300,100);
+        plattform = new Plattform(plattForm,500,400,100);
+        hinterGrund = new Hintergrund(hintergrund,0,0,100);
         painter = new Vector<Sprite>();
         actors.add(hinterGrund);
+        actors.add(plattform);
         actors.add(copter);
+        
     }
     
     @SuppressWarnings("unchecked")

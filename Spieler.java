@@ -8,6 +8,8 @@ import java.awt.image.BufferedImage;
  */
 public class Spieler extends Sprite
 {
+    private boolean inAir;
+    
     public Spieler(BufferedImage[] i, double x, double y, long delay)
     {
         super(i, x, y, delay);
@@ -41,5 +43,29 @@ public class Spieler extends Sprite
             setY(600-getHeight());
             setVerticalSpeed(0);
         }
+    }
+    
+    public boolean collidedWith(Sprite s)
+    {
+        if(s instanceof Hintergrund)return false;
+        else
+        {
+            if(this.intersects(s))
+            {
+                inAir=false;
+                return true;
+            }
+            else return false;
+        }
+    }
+    
+    public void setInAir(boolean newBoolean)
+    {
+        inAir=newBoolean;
+    }
+    
+    public boolean getInAir()
+    {
+        return inAir;
     }
 }
