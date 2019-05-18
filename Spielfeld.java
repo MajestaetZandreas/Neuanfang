@@ -31,12 +31,13 @@ public class Spielfeld extends JPanel implements Runnable, KeyListener
     private long last;//Die Zeit vom Anfang eines Durchlaufs
     private long fps;//Anzahl Bilder pro Sekunde
     
+    private boolean canJump;
     private boolean jump;
     private boolean fall;
     private boolean left;
     private boolean right;
     private int speed = 50;
-    private double fallgeschwindigkeit=0.5;
+    private double fallgeschwindigkeit=1;
     
     private int prevVertSpeed;
     
@@ -91,6 +92,8 @@ public class Spielfeld extends JPanel implements Runnable, KeyListener
         {
             computeDelta();//Errechnung der Zeit für den vorhergehenden Schleifendurchlauf
             
+            
+            
             checkKeys();
             doLogic();
             moveObjects();
@@ -136,9 +139,10 @@ public class Spielfeld extends JPanel implements Runnable, KeyListener
     @Override
     public void keyPressed(KeyEvent e)
     {
-        if(e.getKeyCode()==KeyEvent.VK_W)
+        if(e.getKeyCode()==KeyEvent.VK_W/*&&canJump*/)
         {
             jump=true;
+            canJump=false;
         }
         
         if(e.getKeyCode()==KeyEvent.VK_A)
@@ -159,10 +163,10 @@ public class Spielfeld extends JPanel implements Runnable, KeyListener
     @Override
     public void keyReleased(KeyEvent e)
     {
-        if(e.getKeyCode()==KeyEvent.VK_W)
-        {
-            jump=false;
-        }
+        // if(e.getKeyCode()==KeyEvent.VK_W)
+        // {
+            // jump=false;
+        // }
         
         if(e.getKeyCode()==KeyEvent.VK_A)
         {
@@ -187,23 +191,30 @@ public class Spielfeld extends JPanel implements Runnable, KeyListener
      */
     private void checkKeys()
     {
-        if(!copter.getInAir()) prevVertSpeed=0;
+        
         
         if(jump)
         {
             copter.setVerticalSpeed(-speed+fallgeschwindigkeit*prevVertSpeed);
             prevVertSpeed++;
             copter.setInAir(true);
+            // if(prevVertSpeed>=20)
+            // {
+                // jump=false;
+            // }
         }
         if(left) copter.setHorizontalSpeed(-speed);
         if(right) copter.setHorizontalSpeed(speed);
         
         if(!left&&!right) copter.setHorizontalSpeed(0);
-        // if(!jump)
-        // {
-            // copter.setVerticalSpeed(fallgeschwindigkeit*prevVertSpeed); //Fallgeschwindigkeit
-            // prevVertSpeed++;
-        // }
+        // if(!jump) copter.setVerticalSpeed(-speed+fallgeschwindigkeit*prevVertSpeed);
+        if(copter.getInAir()==false)
+        {
+            prevVertSpeed=0;
+            copter.setVerticalSpeed(0);
+            canJump=true;
+            jump=false;
+        }
     }
     
     /**
