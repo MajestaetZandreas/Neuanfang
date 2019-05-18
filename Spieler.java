@@ -47,16 +47,16 @@ public class Spieler extends Sprite
     
     public boolean collidedWith(Sprite s)
     {
-        if(s instanceof Hintergrund)return false;
-        else
+        if(this.intersects(s))
         {
-            if(this.intersects(s))
+            if(s instanceof Hintergrund)return false;
+            else
             {
                 inAir=false;
                 return true;
             }
-            else return false;
         }
+        else return false;
     }
     
     public void setInAir(boolean newBoolean)
