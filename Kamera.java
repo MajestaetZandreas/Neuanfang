@@ -1,47 +1,43 @@
 
 /**
- * Beschreiben Sie hier die Klasse Kamera.
+ * Diese Klasse ist dafür zuständig, dass der Ausschnitt des Spiels angezeigtr wird,
+ * in welchem sich der Spieler befindet
  * 
- * @author (Ihr Name) 
- * @version (eine Versionsnummer oder ein Datum)
+ * @author (Clemens Zander, Shium Rahman, Gideon Schafroth) 
+ * @version (22.05.2019)
  */
 public class Kamera
 {
     
     private int xOffset,yOffset;
-    private int sizeX, sizeY;
+    private float x, y;
 
     /**
      * Konstruktor für Objekte der Klasse Kamera
      */
-    public Kamera(int sizeX, int sizeY)
+    public Kamera(float x, float y)
     {
-        this.sizeX=sizeX;
-        this.sizeY=sizeY;
+        this.x=x;
+        this.y=y;
     }
 
-    /**
-     * Ein Beispiel einer Methode - ersetzen Sie diesen Kommentar mit Ihrem eigenen
-     * 
-     * @param  y    ein Beispielparameter für eine Methode
-     * @return        die Summe aus x und y
-     */
-    public void centerOnEntity(final Spieler s, int spielBreite)
+    public float getX()
     {
-        xOffset= (int)s.getX() - spielBreite/2;
-        if(xOffset < 0)
-        {
-            xOffset = 0;
-        }
-        else
-        {
-            int t = sizeX * 64 - (spielBreite);
-            if(xOffset > t)
-            {
-                xOffset = t;
-            }
-            
-        }
-        
+        return x;
+    }
+    
+    public float getY()
+    {
+        return y;
+    }
+    
+    public void setX(float newX)
+    {
+        x=newX;
+    }
+    
+    public void getY(float newY)
+    {
+        y=newY;
     }
 }

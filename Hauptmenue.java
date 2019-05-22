@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
  * @author (Clemens Zander, Shium Rahman)
  * @version (15.05.2019)
  */
-public class GUI extends JFrame implements ActionListener
+public class Hauptmenue extends JFrame implements ActionListener
 {
     private JButton start;
     private JButton einstellungen;
@@ -18,16 +18,16 @@ public class GUI extends JFrame implements ActionListener
     private JButton ende;
     private Spielfeld spielfeld;
     
-    public static void main(String[] args)
+    public void erstelleHauptmenue()
     {
-        GUI frame = new GUI("Hauptmenü");
+        Hauptmenue frame = new Hauptmenue("Hauptmenü");
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setSize(400,400);
         frame.setLayout(null);
         frame.setVisible(true);
     }
     
-    public GUI(String title)
+    public Hauptmenue(String title)
     {
         super(title);
         start = new JButton("Spiel Starten");
