@@ -20,7 +20,7 @@ import java.lang.Math;
  * Author(Clemens Zander, Jupp Bruns, Gideon Schafroth)
  * Version(10.5.19)
  */
-public class Spielfeld extends JPanel implements Runnable, KeyListener
+public class Spielfeld extends JPanel implements KeyListener
 {
     private JFrame frame;
     // private Canvas canvas;
@@ -72,8 +72,6 @@ public class Spielfeld extends JPanel implements Runnable, KeyListener
         frame.setVisible(true);
         
         doInitialisierung();
-        Thread thread = new Thread(this);
-        thread.start();
     }
     /*#----------------------------------------------------------Get- und Set-Methoden-------------------------------*/
     public void setPrevVertSpeed(int newSpeed)
@@ -82,34 +80,7 @@ public class Spielfeld extends JPanel implements Runnable, KeyListener
     }
     
     /*#----------------------------------------------------------Public-Methoden------------------------------------------------------*/
-    /**
-     * Überschreibung der Methode run() aus der Klasse Runnable
-     */
-    @Override
-    public void run()
-    {
-        while(frame.isVisible())//solange das Fenster angezeigt wird
-        {
-            computeDelta();//Errechnung der Zeit für den vorhergehenden Schleifendurchlauf
-            
-            
-            
-            checkKeys();
-            doLogic();
-            moveObjects();
-            cloneVectors();
-            
-            
-            repaint();//Neuzeichnung wird ausgelöst
-            try
-            {
-                Thread.sleep(10);//Programm wartet ("schläft")
-            }
-            catch(InterruptedException e)//sonst macht er nichts
-            {
-            }
-        }
-    }
+    
     
     /**
      * Überschreibt die Methode paintComponent() aus der Klasse Runnable

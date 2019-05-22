@@ -70,6 +70,8 @@ public class Hauptmenue extends JFrame implements ActionListener
         }
     }
     
+    
+    
     public boolean getIstGestartet()
     {
         return istGestartet;
