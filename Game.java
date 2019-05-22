@@ -83,6 +83,7 @@ public class Game implements Runnable
                 {
                     computeDelta();//Errechnung der Zeit für den vorhergehenden Schleifendurchlauf
                     
+                    
                     checkKeys();
                     doLogic();
                     moveObjects();
@@ -113,6 +114,7 @@ public class Game implements Runnable
      */
     private void checkKeys()
     {
+        keyManager.update();
         if(keyManager.jump)
         {
             copter.setVerticalSpeed(-speed+fallgeschwindigkeit*prevVertSpeed);
