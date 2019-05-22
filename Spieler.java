@@ -36,6 +36,7 @@ public class Spieler extends Sprite
         {
             setY(0);
             setVerticalSpeed(0);
+            inAir=false;
         }
         
         if(getY()+getHeight()>600)
@@ -49,14 +50,24 @@ public class Spieler extends Sprite
     {
         if(this.intersects(s))
         {
-            if(s instanceof Hintergrund)return false;
-            else
+            if(!(s instanceof Hintergrund))
             {
                 inAir=false;
+                System.out.println("klappt");
                 return true;
             }
+            else
+            {
+                System.out.println("klappt nicht");
+                inAir=true;
+                return false;
+            }
         }
-        else return false;
+        else
+        {
+            System.out.println("klappt gar nicht");
+            return false;
+        }
     }
     
     public void setInAir(boolean newBoolean)

@@ -20,7 +20,7 @@ import java.lang.Math;
  * Author(Clemens Zander, Jupp Bruns, Gideon Schafroth)
  * Version(10.5.19)
  */
-public class Spielfeld extends JPanel implements KeyListener
+public class Spielfeld extends JPanel implements Runnable, KeyListener
 {
     private JFrame frame;
     // private Canvas canvas;
@@ -72,6 +72,8 @@ public class Spielfeld extends JPanel implements KeyListener
         frame.setVisible(true);
         
         doInitialisierung();
+        Thread thread = new Thread(this);
+        thread.start();
     }
     /*#----------------------------------------------------------Get- und Set-Methoden-------------------------------*/
     public void setPrevVertSpeed(int newSpeed)
@@ -80,7 +82,34 @@ public class Spielfeld extends JPanel implements KeyListener
     }
     
     /*#----------------------------------------------------------Public-Methoden------------------------------------------------------*/
-    
+    /**
+     * Überschreibung der Methode run() aus der Klasse Runnable
+     */
+    @Override
+    public void run()
+    {
+        while(frame.isVisible())//solange das Fenster angezeigt wird
+        {
+            computeDelta();//Errechnung der Zeit für den vorhergehenden Schleifendurchlauf
+            
+            
+            
+            checkKeys();
+            doLogic();
+            moveObjects();
+            cloneVectors();
+            
+            
+            repaint();//Neuzeichnung wird ausgelöst
+            try
+            {
+                Thread.sleep(10);//Programm wartet ("schläft")
+            }
+            catch(InterruptedException e)//sonst macht er nichts
+            {
+            }
+        }
+    }
     
     /**
      * Überschreibt die Methode paintComponent() aus der Klasse Runnable
@@ -110,7 +139,7 @@ public class Spielfeld extends JPanel implements KeyListener
     @Override
     public void keyPressed(KeyEvent e)
     {
-        if(e.getKeyCode()==KeyEvent.VK_W/*&&canJump*/)
+        if(e.getKeyCode()==KeyEvent.VK_W && copter.getInAir()==false)
         {
             jump=true;
             canJump=false;
@@ -163,7 +192,6 @@ public class Spielfeld extends JPanel implements KeyListener
     private void checkKeys()
     {
         
-        
         if(jump)
         {
             copter.setVerticalSpeed(-speed+fallgeschwindigkeit*prevVertSpeed);
@@ -205,7 +233,6 @@ public class Spielfeld extends JPanel implements KeyListener
             {
                 Sprite s1= actors.elementAt(i);
                 Sprite s2= actors.elementAt(n);
-                
                 s1.collidedWith(s2);
             }
         }
@@ -278,16 +305,19 @@ public class Spielfeld extends JPanel implements KeyListener
         plattform = new Plattform(plattForm,500,400,100);
         hinterGrund = new Hintergrund(hintergrund,0,0,100);
         painter = new Vector<Sprite>();
+       
         actors.add(hinterGrund);
-        actors.add(plattform);
         actors.add(copter);
-        
+        actors.add(plattform);
     }
     
     @SuppressWarnings("unchecked")
     private void cloneVectors()
     {
-        painter= (Vector<Sprite>) actors.clone();
+        for(int i=0; i<actors.size();i++)
+        {
+            painter.add(actors.elementAt(i));
+        }
     }
     
     public JFrame getFrame()
