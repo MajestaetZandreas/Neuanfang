@@ -8,8 +8,6 @@
  */
 public class Kamera
 {
-    
-    private int xOffset,yOffset;
     private float x, y;
 
     /**
@@ -40,4 +38,5 @@ public class Kamera
     {
         y=newY;
     }
+    
 }

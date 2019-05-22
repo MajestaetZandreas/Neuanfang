@@ -16,20 +16,15 @@ public class Hauptmenue extends JFrame implements ActionListener
     private JButton einstellungen;
     private JButton info;
     private JButton ende;
-    private Spielfeld spielfeld;
-    
-    public void erstelleHauptmenue()
-    {
-        Hauptmenue frame = new Hauptmenue("Hauptmenü");
-        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        frame.setSize(400,400);
-        frame.setLayout(null);
-        frame.setVisible(true);
-    }
+    private boolean istGestartet=false;
     
     public Hauptmenue(String title)
     {
         super(title);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setSize(400,400);
+        this.setLayout(null);
+        this.setVisible(true);
         start = new JButton("Spiel Starten");
         start.setBounds(120, 40, 160, 40);
         add(start);
@@ -56,7 +51,7 @@ public class Hauptmenue extends JFrame implements ActionListener
     {
         if(e.getSource()==start)
         {
-            spielfensterStarten();
+            istGestartet=true;
         }
         
         if(e.getSource()==einstellungen)
@@ -75,9 +70,8 @@ public class Hauptmenue extends JFrame implements ActionListener
         }
     }
     
-    public void spielfensterStarten()
+    public boolean getIstGestartet()
     {
-        Spielfeld spielfeld = new Spielfeld("Hüpfburg-2D", 800, 600);
-        dispose();
+        return istGestartet;
     }
 }

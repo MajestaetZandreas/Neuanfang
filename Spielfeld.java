@@ -318,5 +318,10 @@ public class Spielfeld extends JPanel implements Runnable, KeyListener
     {
         painter= (Vector<Sprite>) actors.clone();
     }
+    
+    public JFrame getFrame()
+    {
+        return frame;
+    }
 }
 
