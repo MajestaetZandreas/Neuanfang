@@ -16,7 +16,8 @@ public class Hauptmenue extends JFrame implements ActionListener
     private JButton einstellungen;
     private JButton info;
     private JButton ende;
-    private boolean istGestartet=false;
+    private boolean istSpielGestartet=false;
+    private boolean istHauptmenueBeended=false;
     
     public Hauptmenue(String title)
     {
@@ -51,29 +52,34 @@ public class Hauptmenue extends JFrame implements ActionListener
     {
         if(e.getSource()==start)
         {
-            istGestartet=true;
+            istSpielGestartet=true;
+            this.setVisible(false);
         }
         
         if(e.getSource()==einstellungen)
         {
-            //ToDo:
+            //nur für das Design/beinhaltet keine Funktionen
         }
         
         if(e.getSource()==info)
         {
-            //ToDo:
+            //nur für das Design/beinhaltet keine Funktionen
         }
         
         if(e.getSource()==ende)
         {
+            istHauptmenueBeended=true;
             System.exit(0);
         }
     }
     
-    
-    
-    public boolean getIstGestartet()
+    public boolean getIstHauptmenueBeended()
     {
-        return istGestartet;
+        return istHauptmenueBeended;
+    }
+    
+    public boolean getIstSpielGestartet()
+    {
+        return istSpielGestartet;
     }
 }

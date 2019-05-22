@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
  */
 public class Spieler extends Sprite
 {
-    private boolean inAir =false;
+    private boolean inAir = false;
     
     public Spieler(BufferedImage[] i, double x, double y, long delay)
     {
@@ -79,4 +79,6 @@ public class Spieler extends Sprite
     {
         return inAir;
     }
+    
+    
 }
