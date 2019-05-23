@@ -162,20 +162,16 @@ public class Game implements Runnable
      */
     private void doLogic()
     {
+        for(int i=0;i<plattforms.size();i++)
+        {
+            Sprite s = plattforms.get(i);
+            copter.collidedWith(s);
+        }
+        
         for(ListIterator<Sprite> it=actors.listIterator();it.hasNext();)
         {
             Sprite r = it.next();
             r.doLogic(delta);
-        }
-        
-        for(int i=0;i<plattforms.size();i++)
-        {
-            // for(int n=i+1;n<actors.size();n++)
-            // {
-                Sprite s1 = plattforms.get(i);
-                // Sprite s2= actors.elementAt(n);
-                copter.collidedWith(s1);
-            // }
         }
     }
     
@@ -248,18 +244,18 @@ public class Game implements Runnable
         
         BufferedImage[] spieler = loadPics("src/pics/sheeet4.gif",4);
         BufferedImage[] hintergrund = loadPics("src/pics/gelb3.png",1);
-        //BufferedImage[] plattForm = loadPics("src/pics/image-2019-05-17.png",1);
         BufferedImage[] plattForm2 = loadPics("src/pics/plattform2.png",1);
+        
         actors = new Vector<Sprite>();
+        plattforms = new ArrayList<Plattform>();
+        painter = new Vector<Sprite>();
+        
         copter = new Spieler(spieler,500,100,100, keyManager);
         hinterGrund = new Hintergrund(hintergrund,0,0,100);
-        painter = new Vector<Sprite>();
         plattform2 = new Plattform(plattForm2,600,400,100);
         plattform = new Plattform(plattForm2,200,400,100);
         plattform3 = new Plattform(plattForm2,0,400,100);
-        
-        plattforms = new ArrayList<Plattform>();
-        
+
         actors.add(hinterGrund);
         actors.add(copter);
         actors.add(plattform3);
@@ -269,7 +265,6 @@ public class Game implements Runnable
         plattforms.add(plattform);
         plattforms.add(plattform2);
         plattforms.add(plattform3);
-        //Nur das letzte wird betretbar
     }
     
     // private void setKamera()
