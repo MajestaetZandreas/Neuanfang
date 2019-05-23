@@ -16,7 +16,6 @@ public class Hauptmenue extends JFrame implements ActionListener
     private JButton einstellungen;
     private JButton info;
     private JButton ende;
-    private JLabel spieltitel;
     private int screenWidthMiddle;
     private int screenHeightMiddle;
     private boolean istSpielGestartet=false;
@@ -34,14 +33,15 @@ public class Hauptmenue extends JFrame implements ActionListener
         setLayout(null);
         setVisible(true);
         
-        
-        // spieltitel = new JLabel("Hüpfburg-2D");
-        // add(spieltitel);
+        ImageIcon background_image=new ImageIcon("src/pics/menu hintergrund.png");
+        JLabel background = new JLabel("",background_image,JLabel.CENTER);
+        background.setBounds(0,0,400,400);
+        add(background);
         
             //Buttons
         //SpielStart-Button
         start = new JButton("Spiel Starten");
-        start.setBounds(buttonX, 150 + buttonYVerschiebung, 120, 30);
+        start.setBounds(buttonX, 50 + buttonYVerschiebung, 140, 40);
         start.setBackground(new Color(0,0,0,255));
         start.setForeground(new Color(255,255,255,255));
         add(start);
@@ -49,7 +49,7 @@ public class Hauptmenue extends JFrame implements ActionListener
         
         //Einstellungen-Button
         einstellungen = new JButton("Einstellungen");
-        einstellungen.setBounds(buttonX, 200 + buttonYVerschiebung, 120, 30);
+        einstellungen.setBounds(buttonX, 130 + buttonYVerschiebung, 140, 40);
         einstellungen.setBackground(new Color(0,0,0,255));
         einstellungen.setForeground(new Color(255,255,255,255));
         add(einstellungen);
@@ -57,7 +57,7 @@ public class Hauptmenue extends JFrame implements ActionListener
         
         //Spielanleitung-Button
         info = new JButton("Spielanleitung");
-        info.setBounds(buttonX, 250 + buttonYVerschiebung, 120, 30);
+        info.setBounds(buttonX, 210 + buttonYVerschiebung, 140, 40);
         info.setBackground(new Color(0,0,0,255));
         info.setForeground(new Color(255,255,255,255));
         add(info);
@@ -66,7 +66,7 @@ public class Hauptmenue extends JFrame implements ActionListener
         //Beenden-Button
         ende = new JButton("Beenden");
         ende.setPreferredSize(new Dimension(10,20));
-        ende.setBounds(buttonX, 300 + buttonYVerschiebung, 120, 30);
+        ende.setBounds(buttonX, 290 + buttonYVerschiebung, 140, 40);
         ende.setBackground(new Color(0,0,0,255));
         ende.setForeground(new Color(255,255,255,255));
         add(ende);
