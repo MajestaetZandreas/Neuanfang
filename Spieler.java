@@ -58,7 +58,7 @@ public class Spieler extends Sprite
                 // System.out.println("klappt");
                 if(keyManager.jump||inAir==1) 
                 {
-                    setY(getY()-10);
+                    setY(getY()-2);
                     inAir=1;
                     return false;
                 }

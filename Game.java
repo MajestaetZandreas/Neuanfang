@@ -44,6 +44,7 @@ public class Game implements Runnable
     private Vector<Sprite> painter;
     private Hintergrund hinterGrund;
     private Plattform plattform;
+    private Plattform plattform2;
 
     public static void main(String[] args)
     {
@@ -245,12 +246,14 @@ public class Game implements Runnable
         actors = new Vector<Sprite>();
         copter = new Spieler(spieler,400,300,100, keyManager);
         plattform = new Plattform(plattForm,500,400,100);
+        plattform2 = new Plattform(plattForm,480,400,100);
         hinterGrund = new Hintergrund(hintergrund,0,0,100);
         painter = new Vector<Sprite>();
        
         actors.add(hinterGrund);
         actors.add(copter);
         actors.add(plattform);
+        actors.add(plattform2);
     }
     
     // private void setKamera()
