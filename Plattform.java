@@ -14,15 +14,6 @@ public class Plattform extends Sprite
     public Plattform(BufferedImage[] i, double x, double y, long delay)
     {
         super(i, x, y, delay);
-       
-        // if((int) (Math.random()*2)<1)
-        // {
-            // setHorizontalSpeed(-SPEED);
-            // }
-            // else
-            // {
-                // setHorizontalSpeed(SPEED);
-            // }
     }    
         
     @Override

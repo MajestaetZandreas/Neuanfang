@@ -61,7 +61,6 @@ public class Game implements Runnable
         keyManager = new KeyManager();
         camera = new Kamera(0,0);
         
-        
         doInitialisierung();
         Thread thread = new Thread(this);
         thread.start();
@@ -78,7 +77,6 @@ public class Game implements Runnable
     @Override
     public void run()
     {
-        
         while(spielStart)
         {
             if(hauptmenue.getIstSpielGestartet())
@@ -122,7 +120,6 @@ public class Game implements Runnable
      */
     private void checkKeys()
     {
-        
         keyManager.update();
         if((keyManager.jump || copter.getInAir()==1) /*|| (copter.getInAir()==false && copter.getX()==400 && copter.getY()==300 && keyManager.jump) || 
         (copter.getX()>=plattform.getX() && copter.getX()<=(plattform.getX()+20)) && ((copter.getY())==plattform.getY() && keyManager.jump)*/)
