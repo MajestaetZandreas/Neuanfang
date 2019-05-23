@@ -16,6 +16,8 @@ public class Hauptmenue extends JFrame implements ActionListener
     private JButton einstellungen;
     private JButton info;
     private JButton ende;
+    private int screenWidthMiddle;
+    private int screenHeightMiddle;
     private boolean istSpielGestartet=false;
     private boolean istHauptmenueBeended=false;
     
@@ -24,6 +26,10 @@ public class Hauptmenue extends JFrame implements ActionListener
         super(title);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(400,400);
+        
+        setBildschirmmitte();
+        this.setLocation(screenWidthMiddle, screenHeightMiddle);
+        
         this.setLayout(null);
         this.setVisible(true);
         start = new JButton("Spiel Starten");
@@ -71,6 +77,13 @@ public class Hauptmenue extends JFrame implements ActionListener
             istHauptmenueBeended=true;
             System.exit(0);
         }
+    }
+    
+    public void setBildschirmmitte()
+    {
+        Dimension d = this.getToolkit().getScreenSize();//
+        screenWidthMiddle = ((int) ((d.getWidth() - this.getWidth()) / 2));
+        screenHeightMiddle = ((int) ((d.getHeight() - this.getHeight()) / 2));
     }
     
     public boolean getIstHauptmenueBeended()
