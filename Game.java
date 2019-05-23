@@ -11,15 +11,16 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.util.Vector;
 import java.util.ListIterator;
+import java.util.ArrayList;
 import java.lang.Math;
 
 
 /**
- * Die Hauptklasse des Spiels, von der alles "gesteuert" wird.
- *  
- * @author (Clemens Zander, Shium Rahman) 
- * @version (22.05.2019)
- */
+* Die Hauptklasse des Spiels, von der alles "gesteuert" wird.
+*  
+* @author (Clemens Zander, Shium Rahman) 
+* @version (22.05.2019)
+*/
 public class Game implements Runnable
 {
     private static Hauptmenue hauptmenue;
@@ -45,7 +46,10 @@ public class Game implements Runnable
     private Hintergrund hinterGrund;
     private Plattform plattform;
     private Plattform plattform2;
-
+    private Plattform plattform3;
+    
+    private ArrayList<Plattform> plattforms;
+    
     public static void main(String[] args)
     {
         Game game = new Game();
@@ -81,16 +85,18 @@ public class Game implements Runnable
             {
                 spielfeld = new Spielfeld("Huepfburg-2D", 800, 600, painter, actors);
                 spielfeld.getFrame().addKeyListener(keyManager);
-                    while(spielfeld.getFrame().isVisible())//solange das Fenster angezeigt wird
+                while(spielfeld.getFrame().isVisible())//solange das Fenster angezeigt wird
                 {
                     computeDelta();//Errechnung der Zeit für den vorhergehenden Schleifendurchlauf
                     
                     
                     checkKeys();
                     doLogic();
+                    
                     moveObjects();
                     cloneVectors();
                     // setKamera();
+                    
                     
                     
                     spielfeld.repaint();//Neuzeichnung wird ausgelöst
@@ -116,7 +122,6 @@ public class Game implements Runnable
      */
     private void checkKeys()
     {
-        
         keyManager.update();
         if((keyManager.jump || copter.getInAir()==1) /*|| (copter.getInAir()==false && copter.getX()==400 && copter.getY()==300 && keyManager.jump) || 
         (copter.getX()>=plattform.getX() && copter.getX()<=(plattform.getX()+20)) && ((copter.getY())==plattform.getY() && keyManager.jump)*/)
@@ -162,14 +167,14 @@ public class Game implements Runnable
             r.doLogic(delta);
         }
         
-        for(int i=0;i<actors.size();i++)
+        for(int i=0;i<plattforms.size();i++)
         {
-            for(int n=i+1;n<actors.size();n++)
-            {
-                Sprite s1= actors.elementAt(i);
-                Sprite s2= actors.elementAt(n);
-                s1.collidedWith(s2);
-            }
+            // for(int n=i+1;n<actors.size();n++)
+            // {
+                Sprite s1 = plattforms.get(i);
+                // Sprite s2= actors.elementAt(n);
+                copter.collidedWith(s1);
+            // }
         }
     }
     
@@ -224,8 +229,6 @@ public class Game implements Runnable
         fps = ((long) 1e9)/delta;//10^9 dividiert durch die Dauer des Durchlaufs um nicht so viele Nachkommastellen zu haben
     }
     
-    
-    
     @SuppressWarnings("unchecked")
     private void cloneVectors()
     {
@@ -243,20 +246,29 @@ public class Game implements Runnable
         last=System.nanoTime();
         
         BufferedImage[] spieler = loadPics("src/pics/heli.gif",4);
-        BufferedImage[] hintergrund = loadPics("src/pics/gelb3.jpg",1);
-        BufferedImage[] plattForm = loadPics("src/pics/image-2019-05-17.png",1);
+        BufferedImage[] hintergrund = loadPics("src/pics/gelb3.png",1);
+        //BufferedImage[] plattForm = loadPics("src/pics/image-2019-05-17.png",1);
         BufferedImage[] plattForm2 = loadPics("src/pics/plattform2.png",1);
         actors = new Vector<Sprite>();
-        copter = new Spieler(spieler,700,0,100, keyManager);
-        plattform = new Plattform(plattForm2,500,400,100);
-        plattform2 = new Plattform(plattForm2,650,500,100);
+        copter = new Spieler(spieler,500,100,100, keyManager);
         hinterGrund = new Hintergrund(hintergrund,0,0,100);
         painter = new Vector<Sprite>();
-       
+        plattform2 = new Plattform(plattForm2,600,400,100);
+        plattform = new Plattform(plattForm2,200,400,100);
+        plattform3 = new Plattform(plattForm2,0,400,100);
+        
+        plattforms = new ArrayList<Plattform>();
+        
         actors.add(hinterGrund);
         actors.add(copter);
+        actors.add(plattform3);
         actors.add(plattform);
         actors.add(plattform2);
+        
+        plattforms.add(plattform);
+        plattforms.add(plattform2);
+        plattforms.add(plattform3);
+        //Nur das letzte wird betretbar
     }
     
     // private void setKamera()

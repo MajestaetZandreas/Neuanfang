@@ -62,28 +62,19 @@ public class Spieler extends Sprite
     {
         if(this.intersects(s))
         {
-            if(!(s instanceof Hintergrund))
+            inAir=0;
+            System.out.println("klappt");
+            if(keyManager.jump||inAir==1) 
             {
-                inAir=0;
-                // System.out.println("klappt");
-                if(keyManager.jump||inAir==1) 
-                {
-                    setY(getY()-2);
-                    inAir=1;
-                    return false;
-                }
-                else return true;
-            }
-            else
-            {
-                // System.out.println("klappt nicht");
-                inAir=0;
+                setY(getY()-3);
+                inAir=1;
                 return false;
             }
+            else return true;
         }
         else
         {
-            // System.out.println("klappt gar nicht");
+            System.out.println("klappt gar nicht");
             inAir=2;
             return false;
         }

@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
  * @author (Jupp Bruns, Gideon Schafroth, Clemens Zander) 
  * @version (15.05.2019)
  */
-public abstract class Sprite extends Rectangle2D.Double implements Drawable, Movable
+public abstract class Sprite extends Rectangle2D.Double
 {
     private long delay;
     private long animation=0;
