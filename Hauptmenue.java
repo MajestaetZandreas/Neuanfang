@@ -16,49 +16,66 @@ public class Hauptmenue extends JFrame implements ActionListener
     private JButton einstellungen;
     private JButton info;
     private JButton ende;
+    private JLabel spieltitel;
     private int screenWidthMiddle;
     private int screenHeightMiddle;
     private boolean istSpielGestartet=false;
     private boolean istHauptmenueBeended=false;
+    private static final int buttonX=132;
+    private static final int buttonYVerschiebung=10;
     
     public Hauptmenue(String title)
     {
         super(title);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setSize(400,400);
-        
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(400,400);
         getBildschirmmitte();
-        this.setLocation(screenWidthMiddle, screenHeightMiddle);
+        setLocation(screenWidthMiddle, screenHeightMiddle);
+        setLayout(null);
+        setVisible(true);
         
-        this.setLayout(null);
-        this.setVisible(true);
+        
+        // spieltitel = new JLabel("Hüpfburg-2D");
+        // add(spieltitel);
+        
+            //Buttons
+        //SpielStart-Button
         start = new JButton("Spiel Starten");
-        start.setBounds(120, 40, 160, 40);
-        start.setBackground(Color.black);
-        start.setForeground(Color.white);
+        start.setBounds(buttonX, 150 + buttonYVerschiebung, 120, 30);
+        start.setBackground(new Color(0,0,0,255));
+        start.setForeground(new Color(255,255,255,255));
         add(start);
         start.addActionListener(this);
         
+        //Einstellungen-Button
         einstellungen = new JButton("Einstellungen");
-        einstellungen.setBounds(120, 120, 160, 40);
-        einstellungen.setBackground(Color.black);
-        einstellungen.setForeground(Color.white);
+        einstellungen.setBounds(buttonX, 200 + buttonYVerschiebung, 120, 30);
+        einstellungen.setBackground(new Color(0,0,0,255));
+        einstellungen.setForeground(new Color(255,255,255,255));
         add(einstellungen);
         einstellungen.addActionListener(this);
         
+        //Spielanleitung-Button
         info = new JButton("Spielanleitung");
-        info.setBounds(120, 200, 160, 40);
-        info.setBackground(Color.black);
-        info.setForeground(Color.white);
+        info.setBounds(buttonX, 250 + buttonYVerschiebung, 120, 30);
+        info.setBackground(new Color(0,0,0,255));
+        info.setForeground(new Color(255,255,255,255));
         add(info);
         info.addActionListener(this);
         
+        //Beenden-Button
         ende = new JButton("Beenden");
-        ende.setBounds(120, 280, 160, 40);
-        ende.setBackground(Color.black);
-        ende.setForeground(Color.white);
+        ende.setPreferredSize(new Dimension(10,20));
+        ende.setBounds(buttonX, 300 + buttonYVerschiebung, 120, 30);
+        ende.setBackground(new Color(0,0,0,255));
+        ende.setForeground(new Color(255,255,255,255));
         add(ende);
         ende.addActionListener(this);
+        
+        // ImageIcon icon = new ImageIcon ("src/pics/menu hintergrund.png");
+        // JLabel l1 = new JLabel (icon);
+        // add(l1);
+        
     }
     
     @Override

@@ -1,18 +1,12 @@
 // import java.awt.Canvas;
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.Dimension;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.Graphics;
-import java.awt.Color;
+import javax.swing.*;
 import java.net.URL;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.util.Vector;
-import java.util.ListIterator;
+import java.util.*;
 import java.lang.Math;
+import java.lang.String;
 
 //...
 /**
@@ -23,8 +17,8 @@ import java.lang.Math;
 public class Spielfeld extends JPanel
 {
     private JFrame frame;
-    // private Canvas canvas;
-    private String titel;
+    private String fenstertitel;
+
     private int breite;
     private int hoehe;
     private Vector<Sprite> painter;
@@ -42,21 +36,19 @@ public class Spielfeld extends JPanel
     */
     public Spielfeld(String title, int width, int height, Vector<Sprite> painter, Vector<Sprite> actors)
     {
-        titel = title;
+        fenstertitel = title;
         breite = width;
         hoehe = height;
         this.painter=painter;
         this.actors=actors;
+        this.setPreferredSize(new Dimension(breite, hoehe));
         
-
         //Spielfeld wird erstellt
-        frame = new JFrame(titel);
-        frame.setPreferredSize(new Dimension(breite, hoehe));
+        frame = new JFrame(fenstertitel);
         getBildschirmmitte();
         frame.setLocation(screenWidthMiddle, screenHeightMiddle);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
-
         frame.add(this);
         frame.pack();
         frame.setVisible(true);
