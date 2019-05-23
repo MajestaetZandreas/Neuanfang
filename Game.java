@@ -122,6 +122,7 @@ public class Game implements Runnable
      */
     private void checkKeys()
     {
+        
         keyManager.update();
         if((keyManager.jump || copter.getInAir()==1) /*|| (copter.getInAir()==false && copter.getX()==400 && copter.getY()==300 && keyManager.jump) || 
         (copter.getX()>=plattform.getX() && copter.getX()<=(plattform.getX()+20)) && ((copter.getY())==plattform.getY() && keyManager.jump)*/)
@@ -245,7 +246,7 @@ public class Game implements Runnable
     {
         last=System.nanoTime();
         
-        BufferedImage[] spieler = loadPics("src/pics/heli.gif",4);
+        BufferedImage[] spieler = loadPics("src/pics/sheeet4.gif",4);
         BufferedImage[] hintergrund = loadPics("src/pics/gelb3.png",1);
         //BufferedImage[] plattForm = loadPics("src/pics/image-2019-05-17.png",1);
         BufferedImage[] plattForm2 = loadPics("src/pics/plattform2.png",1);

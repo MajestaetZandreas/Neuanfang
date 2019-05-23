@@ -58,7 +58,7 @@ public class Spieler extends Sprite
         }
     }
     
-    public boolean collidedWith(Sprite s)
+    public void collidedWith(Sprite s)
     {
         if(this.intersects(s))
         {
@@ -68,15 +68,12 @@ public class Spieler extends Sprite
             {
                 setY(getY()-3);
                 inAir=1;
-                return false;
             }
-            else return true;
         }
         else
         {
             System.out.println("klappt gar nicht");
             inAir=2;
-            return false;
         }
     }
     
