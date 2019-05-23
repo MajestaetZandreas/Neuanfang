@@ -30,6 +30,9 @@ public class Spielfeld extends JPanel
     private Vector<Sprite> painter;
     private Vector<Sprite> actors;
     
+    private int screenWidthMiddle;
+    private int screenHeightMiddle;
+    
     
     /**
     * Konstruktor der Klasse Spielfeld
@@ -37,18 +40,20 @@ public class Spielfeld extends JPanel
     * @param width die Breite des Fensters
     * @param height die Höhe des Fensters
     */
-    public Spielfeld(String title, int width, int height,Vector<Sprite> painter, Vector<Sprite> actors)
+    public Spielfeld(String title, int width, int height, Vector<Sprite> painter, Vector<Sprite> actors)
     {
         titel = title;
         breite = width;
         hoehe = height;
         this.painter=painter;
         this.actors=actors;
-        //Spielfeld wird erstellt
-        this.setPreferredSize(new Dimension(breite, hoehe));
         
+
+        //Spielfeld wird erstellt
         frame = new JFrame(titel);
-        frame.setLocation(100,100);
+        frame.setPreferredSize(new Dimension(breite, hoehe));
+        getBildschirmmitte();
+        frame.setLocation(screenWidthMiddle, screenHeightMiddle);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
 
@@ -57,7 +62,12 @@ public class Spielfeld extends JPanel
         frame.setVisible(true);
     }
     
-    
+    public void getBildschirmmitte()
+    {
+        Dimension d = this.getToolkit().getScreenSize();
+        screenWidthMiddle = ((int) ((d.getWidth() / 2 - breite / 2)));
+        screenHeightMiddle = ((int) ((d.getHeight() / 2 - hoehe / 2)));
+    }
     
     public JFrame getFrame()
     {
