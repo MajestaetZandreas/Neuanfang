@@ -17,7 +17,7 @@ import java.lang.Math;
 //...
 /**
  * Die Klasse Spielfeld erstellt das Fenster, in welchem das Spiel angezeigt wird
- * Author(Clemens Zander, Jupp Bruns, Gideon Schafroth)
+ * Author(Clemens Zander, Jupp Bruns, Gideon Schafroth, Cihan Karahan)
  * Version(10.5.19)
  */
 public class Spielfeld extends JPanel
@@ -46,10 +46,11 @@ public class Spielfeld extends JPanel
         this.actors=actors;
         //Spielfeld wird erstellt
         this.setPreferredSize(new Dimension(breite, hoehe));
+        
         frame = new JFrame(titel);
         frame.setLocation(100,100);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+        frame.setResizable(false);
 
         frame.add(this);
         frame.pack();

@@ -115,11 +115,12 @@ public class Game implements Runnable
     private void checkKeys()
     {
         keyManager.update();
-        if(keyManager.jump)
+        if((keyManager.jump || copter.getInAir()==1) /*|| (copter.getInAir()==false && copter.getX()==400 && copter.getY()==300 && keyManager.jump) || 
+        (copter.getX()>=plattform.getX() && copter.getX()<=(plattform.getX()+20)) && ((copter.getY())==plattform.getY() && keyManager.jump)*/)
         {
             copter.setVerticalSpeed(-speed+fallgeschwindigkeit*prevVertSpeed);
             prevVertSpeed++;
-            copter.setInAir(true);
+            copter.setInAir(1);
             // if(prevVertSpeed>=20)
             // {
                 // jump=false;
@@ -129,13 +130,20 @@ public class Game implements Runnable
         if(keyManager.right) copter.setHorizontalSpeed(speed);
         
         if(!keyManager.left && !keyManager.right) copter.setHorizontalSpeed(0);
-        // if(!jump) copter.setVerticalSpeed(-speed+fallgeschwindigkeit*prevVertSpeed);
-        if(copter.getInAir()==false)
+        //if(!jump) copter.setVerticalSpeed(-speed+fallgeschwindigkeit*prevVertSpeed);
+        if(copter.getInAir()==0)
         {
             prevVertSpeed=0;
             copter.setVerticalSpeed(0);
-            canJump=true;
-            jump=false;
+            if(keyManager.jump)copter.setInAir(1);
+            // jump=false;
+        }
+        
+        if(copter.getInAir()==2)
+        {
+             copter.setVerticalSpeed(fallgeschwindigkeit*prevVertSpeed);
+            prevVertSpeed++;
+            copter.setInAir(1);
         }
     }
     
@@ -235,7 +243,7 @@ public class Game implements Runnable
         BufferedImage[] plattForm = loadPics("src/pics/image-2019-05-17.png",1);
         
         actors = new Vector<Sprite>();
-        copter = new Spieler(spieler,400,300,100);
+        copter = new Spieler(spieler,400,300,100, keyManager);
         plattform = new Plattform(plattForm,500,400,100);
         hinterGrund = new Hintergrund(hintergrund,0,0,100);
         painter = new Vector<Sprite>();

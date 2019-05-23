@@ -3,16 +3,18 @@ import java.awt.image.BufferedImage;
 /**
  * Diese Klasse beschäftigt sich mit dem Spieler und seinen Funktionen
  *
- * @author (Shium Rahman, Clemens Zander)
+ * @author (Shium Rahman, Clemens Zander, Cihan Karahan)
  * @version (15.05.2019)
  */
 public class Spieler extends Sprite
 {
-    private boolean inAir = false;
+    private int inAir = 1;
+    private KeyManager keyManager;
     
-    public Spieler(BufferedImage[] i, double x, double y, long delay)
+    public Spieler(BufferedImage[] i, double x, double y, long delay, KeyManager kManager)
     {
         super(i, x, y, delay);
+        keyManager=kManager;
     }
     
     @Override
@@ -36,7 +38,7 @@ public class Spieler extends Sprite
         {
             setY(0);
             setVerticalSpeed(0);
-            inAir=false;
+            inAir=0;
         }
         
         if(getY()+getHeight()>600)
@@ -52,30 +54,37 @@ public class Spieler extends Sprite
         {
             if(!(s instanceof Hintergrund))
             {
-                inAir=false;
-                System.out.println("klappt");
-                return true;
+                inAir=0;
+                // System.out.println("klappt");
+                if(keyManager.jump||inAir==1) 
+                {
+                    setY(getY()-10);
+                    inAir=1;
+                    return false;
+                }
+                else return true;
             }
             else
             {
-                System.out.println("klappt nicht");
-                inAir=true;
+                // System.out.println("klappt nicht");
+                inAir=0;
                 return false;
             }
         }
         else
         {
-            System.out.println("klappt gar nicht");
+            // System.out.println("klappt gar nicht");
+            inAir=2;
             return false;
         }
     }
     
-    public void setInAir(boolean newBoolean)
+    public void setInAir(int newInt)
     {
-        inAir=newBoolean;
+        inAir=newInt;
     }
     
-    public boolean getInAir()
+    public int getInAir()
     {
         return inAir;
     }
