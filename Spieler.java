@@ -9,12 +9,21 @@ import java.awt.image.BufferedImage;
 public class Spieler extends Sprite
 {
     private int inAir = 1;
+    private int pvs;
     private KeyManager keyManager;
     
     public Spieler(BufferedImage[] i, double x, double y, long delay, KeyManager kManager)
     {
         super(i, x, y, delay);
         keyManager=kManager;
+    }
+    
+    
+    public int logic(int prevVertSpeed, long delta)
+    {
+        pvs=prevVertSpeed;
+        doLogic(delta);
+        return pvs;
     }
     
     @Override
@@ -45,6 +54,7 @@ public class Spieler extends Sprite
         {
             setY(600-getHeight());
             setVerticalSpeed(0);
+            pvs=0;
         }
     }
     

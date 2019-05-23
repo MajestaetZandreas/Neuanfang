@@ -36,7 +36,7 @@ public class Game implements Runnable
     
     private boolean canJump;
     private boolean jump;
-    private int speed = 50;
+    private int speed = 250;
     private double fallgeschwindigkeit=1;
     
     private int prevVertSpeed;
@@ -74,6 +74,7 @@ public class Game implements Runnable
     @Override
     public void run()
     {
+        
         while(spielStart)
         {
             if(hauptmenue.getIstSpielGestartet())
@@ -115,6 +116,7 @@ public class Game implements Runnable
      */
     private void checkKeys()
     {
+        
         keyManager.update();
         if((keyManager.jump || copter.getInAir()==1) /*|| (copter.getInAir()==false && copter.getX()==400 && copter.getY()==300 && keyManager.jump) || 
         (copter.getX()>=plattform.getX() && copter.getX()<=(plattform.getX()+20)) && ((copter.getY())==plattform.getY() && keyManager.jump)*/)
@@ -142,10 +144,11 @@ public class Game implements Runnable
         
         if(copter.getInAir()==2)
         {
-             copter.setVerticalSpeed(fallgeschwindigkeit*prevVertSpeed);
+            copter.setVerticalSpeed(fallgeschwindigkeit*prevVertSpeed);
             prevVertSpeed++;
             copter.setInAir(1);
         }
+        prevVertSpeed=copter.logic(prevVertSpeed,delta);
     }
     
     /**
@@ -242,11 +245,11 @@ public class Game implements Runnable
         BufferedImage[] spieler = loadPics("src/pics/heli.gif",4);
         BufferedImage[] hintergrund = loadPics("src/pics/gelb3.jpg",1);
         BufferedImage[] plattForm = loadPics("src/pics/image-2019-05-17.png",1);
-        
+        BufferedImage[] plattForm2 = loadPics("src/pics/plattform2.png",1);
         actors = new Vector<Sprite>();
-        copter = new Spieler(spieler,400,300,100, keyManager);
-        plattform = new Plattform(plattForm,500,400,100);
-        plattform2 = new Plattform(plattForm,480,400,100);
+        copter = new Spieler(spieler,700,0,100, keyManager);
+        plattform = new Plattform(plattForm2,500,400,100);
+        plattform2 = new Plattform(plattForm2,650,500,100);
         hinterGrund = new Hintergrund(hintergrund,0,0,100);
         painter = new Vector<Sprite>();
        
