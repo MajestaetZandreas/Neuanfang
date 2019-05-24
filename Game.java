@@ -374,7 +374,7 @@ public class Game implements Runnable
         herz3 = loadPics("src/pics/herz3voll.png",1);
         herz2 = loadPics("src/pics/herz2voll.png",1);
         herz1 = loadPics("src/pics/herz1voll.png",1);
-        BufferedImage[] gegnerDrache = loadPics("src/pics/heli2.gif",4);
+        BufferedImage[] gegnerDrache = loadPics("src/pics/Enemy_ghost.gif",4);
         energieKugel = loadPics("src/pics/Energiekugel.png", 1);
         
         
@@ -395,7 +395,7 @@ public class Game implements Runnable
         
         gegner.add(drache);
         
-        lebenspunkte=new Lebensanzeige(herz3,0,950,100);
+        lebenspunkte=new Lebensanzeige(herz3,0,10,100);
         lebenspunkteG=new Lebensanzeige(herz3,gegner.get(rndG).getX(),gegner.get(rndG).getY()-25,100);
         
         
