@@ -8,7 +8,6 @@ import java.awt.image.BufferedImage;
  */
 public class Spieler extends Sprite
 {
-    private int inAir = 1;
     private int pvs;
     private KeyManager keyManager;
     
@@ -47,7 +46,6 @@ public class Spieler extends Sprite
         {
             setY(0);
             setVerticalSpeed(0);
-            inAir=0;
         }
         
         if(getY()+getHeight()>960)
@@ -62,32 +60,17 @@ public class Spieler extends Sprite
     {
         if(this.intersects(s))
         {
-            inAir=0;
-            
-            if((keyManager.jump||keyManager.jumpG)||inAir==1) 
+            if((keyManager.jump||keyManager.jumpG)) 
             {
                 setY(getY()-3);
-                inAir=1;
                 return false;
             }
             else return true;
         }
         else
         {
-            inAir=2;
             return false;
         }
     }
-    
-    public void setInAir(int newInt)
-    {
-        inAir=newInt;
-    }
-    
-    public int getInAir()
-    {
-        return inAir;
-    }
-    
     
 }
