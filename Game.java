@@ -260,6 +260,7 @@ public class Game implements Runnable
         {
             spielfeld.getFrame().setVisible(false);
             victory=false;
+            spielStart=false;
         }
         
         if(gegner.get(rndG).getHP()==3)
@@ -278,6 +279,7 @@ public class Game implements Runnable
         {
             spielfeld.getFrame().setVisible(false);
             victory=true;
+            spielStart=false;
         }
     }
     
@@ -363,7 +365,7 @@ public class Game implements Runnable
         plattforms = new ArrayList<Plattform>();
         painter = new Vector<Sprite>();
         gegner = new ArrayList<Kreaturen>();
-        copter = new Spieler(spieler,600,100,100, keyManager);
+        copter = new Spieler(spieler,0,100,100, keyManager);
         
         hintergrund = new Hintergrund(hintergrund_image,0,0,100);
         
@@ -386,6 +388,8 @@ public class Game implements Runnable
         actors.add(plattform);
         actors.add(plattform2);
         actors.add(gegner.get(rndG));
+        actors.add(lebenspunkte);
+        actors.add(lebenspunkteG);
         
         plattforms.add(plattform);
         plattforms.add(plattform2);
