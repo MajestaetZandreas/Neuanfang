@@ -74,7 +74,7 @@ public abstract class Sprite extends Rectangle2D.Double
         y=y+dy*(delta/1e9);
     }
     
-    public abstract void collidedWith(Sprite s);
+    public abstract boolean collidedWith(Sprite s);
     
     /*#---------------------------------------------------------------Get-und Set-Methoden-------------------------------------------------*/
     public double getX()

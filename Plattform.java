@@ -22,7 +22,8 @@ public class Plattform extends Sprite
         super.doLogic(delta);
     }
    
-    public void collidedWith(Sprite s)
+    public boolean collidedWith(Sprite s)
     {
+        return false;
     }
 }
