@@ -52,6 +52,11 @@ public abstract class Sprite extends Rectangle2D.Double
         graphics.drawString(string,x,y);
     }
     
+    public void setImage(BufferedImage[] i)
+    {
+        pics=i;
+    }
+    
     /**
      * Diese Methode ist für die Animation der Spielfigur zuständig
      */

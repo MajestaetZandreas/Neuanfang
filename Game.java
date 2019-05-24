@@ -52,6 +52,9 @@ public class Game implements Runnable
     private int plattformNr;
     private boolean inJump;
     
+    private BufferedImage[] spieler;
+    private BufferedImage[] spielerR;
+    
     private ArrayList<Plattform> plattforms;
     
     public static void main(String[] args)
@@ -183,6 +186,15 @@ public class Game implements Runnable
             Sprite r = it.next();
             r.doLogic(delta);
         }
+        
+        if(copter.getHorizontalSpeed()<0)
+        {
+            copter.setImage(spieler);
+        }
+        else if(copter.getHorizontalSpeed()>0)
+        {
+            copter.setImage(spielerR);
+        }
     }
     
     /**
@@ -252,7 +264,8 @@ public class Game implements Runnable
     {
         last=System.nanoTime();
         
-        BufferedImage[] spieler = loadPics("src/pics/sheeet4.gif",4);
+        spieler = loadPics("src/pics/sheeet4.gif",4);
+        spielerR = loadPics("src/pics/sheeet4_rechts.gif",4);
         BufferedImage[] hintergrund = loadPics("src/pics/gelb3.png",1);
         BufferedImage[] plattForm2 = loadPics("src/pics/plattform2.png",1);
         
@@ -261,6 +274,7 @@ public class Game implements Runnable
         painter = new Vector<Sprite>();
         
         copter = new Spieler(spieler,500,100,100, keyManager);
+        
         hinterGrund = new Hintergrund(hintergrund,0,0,100);
         plattform2 = new Plattform(plattForm2,600,400,100);
         plattform = new Plattform(plattForm2,200,400,100);
