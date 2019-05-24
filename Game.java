@@ -24,7 +24,6 @@ import java.lang.Math;
 public class Game implements Runnable
 {
     private static Hauptmenue hauptmenue;
-    private Kamera camera;
     private Spielfeld spielfeld;
     public boolean spielStart=true;
     private JFrame frame;
@@ -71,7 +70,6 @@ public class Game implements Runnable
     {
         hauptmenue = new Hauptmenue("Huepfburg-2D");
         keyManager = new KeyManager();
-        camera = new Kamera(0,0);
         
         doInitialisierung();
         Thread thread = new Thread(this);
@@ -105,7 +103,6 @@ public class Game implements Runnable
                     
                     moveObjects();
                     cloneVectors();
-                    // setKamera();
                     
                     
                     
@@ -280,7 +277,7 @@ public class Game implements Runnable
         plattforms = new ArrayList<Plattform>();
         painter = new Vector<Sprite>();
         
-        copter = new Spieler(spieler,500,100,100, keyManager);
+        copter = new Spieler(spieler,600,100,100, keyManager);
         
         hintergrund = new Hintergrund(hintergrund_image,0,0,100);
         plattform2 = new Plattform(plattform_image,600,400,100);

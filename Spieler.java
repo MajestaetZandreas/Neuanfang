@@ -10,6 +10,7 @@ public class Spieler extends Sprite
 {
     private int pvs;
     private KeyManager keyManager;
+    private int lebenspunkte;
     
     public Spieler(BufferedImage[] i, double x, double y, long delay, KeyManager kManager)
     {
@@ -60,12 +61,7 @@ public class Spieler extends Sprite
     {
         if(this.intersects(s))
         {
-            if((keyManager.jump||keyManager.jumpG)) 
-            {
-                setY(getY()-3);
-                return false;
-            }
-            else return true;
+            return true;
         }
         else
         {
@@ -73,4 +69,13 @@ public class Spieler extends Sprite
         }
     }
     
+    public void reduceHP()
+    {
+        lebenspunkte--;
+    }
+    
+    public int getHP()
+    {
+        return lebenspunkte;
+    }
 }
