@@ -19,9 +19,9 @@ public class Hauptmenue extends JFrame implements ActionListener
     
     private int screenWidthMiddle;
     private int screenHeightMiddle;
-    private boolean istSpielGestartet=false;
-    private boolean istHauptmenueBeended=false;
-    private boolean istSpielanleitungGeoeffnet=false;
+    private boolean istSpielstartGedrueckt=false;
+    private boolean istBeendenGedrueckt=false;
+    private boolean istSpielanleitungGedrueckt=false;
     // private static final int buttonColorR=0;
     // private static final int buttonColorG=0;
     // private static final int buttonColorB=0;
@@ -94,7 +94,7 @@ public class Hauptmenue extends JFrame implements ActionListener
     {
         if(e.getSource()==start)
         {
-            istSpielGestartet=true;
+            istSpielstartGedrueckt=true;
             this.setVisible(false);
         }
         
@@ -105,12 +105,12 @@ public class Hauptmenue extends JFrame implements ActionListener
         
         if(e.getSource()==info)
         {
-            istSpielanleitungGeoeffnet=true;
+            istSpielanleitungGedrueckt=true;
         }
         
         if(e.getSource()==ende)
         {
-            istHauptmenueBeended=true;
+            istBeendenGedrueckt=true;
             System.exit(0);
         }
     }
@@ -122,18 +122,33 @@ public class Hauptmenue extends JFrame implements ActionListener
         screenHeightMiddle = ((int) ((d.getHeight() - this.getHeight()) / 2));
     }
     
-    public boolean getIstHauptmenueBeended()
+    public boolean getIstBeendenGedrueckt()
     {
-        return istHauptmenueBeended;
+        return istBeendenGedrueckt;
     }
     
-    public boolean getIstSpielGestartet()
+    public boolean getIstSpielstartGedrueckt()
     {
-        return istSpielGestartet;
+        return istSpielstartGedrueckt;
     }
     
-    public boolean getIstSpielanleitungGeoeffnet()
+    public boolean getIstSpielanleitungGedrueckt()
     {
-        return istSpielanleitungGeoeffnet;
+        return istSpielanleitungGedrueckt;
+    }
+    
+    public void setIstBeendenGedrueckt(boolean zustand)
+    {
+        istBeendenGedrueckt=zustand;
+    }
+    
+    public void setIstSpielstartGedrueckt(boolean zustand)
+    {
+        istSpielstartGedrueckt=zustand;
+    }
+    
+    public void setIstSpielanleitungGedrueckt(boolean zustand)
+    {
+        istSpielanleitungGedrueckt=zustand;
     }
 }

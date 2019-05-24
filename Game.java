@@ -115,12 +115,13 @@ public class Game implements Runnable
     {
         while(spielStart)
         {
-            if(hauptmenue.getIstSpielanleitungGeoeffnet())
+            if(hauptmenue.getIstSpielanleitungGedrueckt())
             {
                 spielanleitung = new Spielanleitung();
+                hauptmenue.setIstSpielanleitungGedrueckt(false);
             }
             
-            if(hauptmenue.getIstSpielGestartet())
+            if(hauptmenue.getIstSpielstartGedrueckt())
             {
                 spielfeld = new Spielfeld(1280, 960, painter, actors);
                 spielfeld.getFrame().addKeyListener(keyManager);
@@ -161,7 +162,7 @@ public class Game implements Runnable
                 }
             }
         
-            if(hauptmenue.getIstHauptmenueBeended())
+            if(hauptmenue.getIstBeendenGedrueckt())
             {
                 spielStart=false;
             }
