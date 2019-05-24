@@ -13,6 +13,7 @@ import java.util.Vector;
 import java.util.ListIterator;
 import java.util.ArrayList;
 import java.lang.Math;
+import java.util.Random;
 
 
 /**
@@ -25,13 +26,20 @@ public class Game implements Runnable
 {
     private static Hauptmenue hauptmenue;
     private Spielfeld spielfeld;
-    public boolean spielStart=true;
+    
+    private boolean spielStart=true;
+    private boolean victory=false;
+    
     private JFrame frame;
+    
     private Spieler copter;
+    
     private KeyManager keyManager;
     
     private boolean collided;
     
+    private int rndG;
+    private int rndP;
     private long delta;//Dauer eines Durchlaufs
     private long last;//Die Zeit vom Anfang eines Durchlaufs
     private long fps;//Anzahl Bilder pro Sekunde
@@ -40,8 +48,9 @@ public class Game implements Runnable
     private boolean jump;
     private int speed = 200;
     private double fallgeschwindigkeit=1;
-    
+    private boolean inJump;
     private int prevVertSpeed=201;
+    
     private Vector<Sprite> actors;
     private Vector<Sprite> painter;
     private Hintergrund hintergrund;
@@ -49,17 +58,19 @@ public class Game implements Runnable
     private Plattform plattform2;
     private Plattform plattform3;
     private int plattformNr;
-    private boolean inJump;
     
-    private Lebensanzeige lebenspunkt1;
-    private Lebensanzeige lebenspunkt2;
-    private Lebensanzeige lebenspunkt3;
-    private Lebensanzeige lebenspunkt4;
+    private Kreaturen drache;
+    
+    private Lebensanzeige lebenspunkte;
     
     private BufferedImage[] spieler;
     private BufferedImage[] spielerR;
+    private BufferedImage[] herz1;
+    private BufferedImage[] herz2;
+    private BufferedImage[] herz3;
     
     private ArrayList<Plattform> plattforms;
+    private ArrayList<Kreaturen> gegner;
     
     public static void main(String[] args)
     {
@@ -74,6 +85,10 @@ public class Game implements Runnable
         doInitialisierung();
         Thread thread = new Thread(this);
         thread.start();
+        
+        Random rand=new Random();
+        rndG=rand.nextInt(5);
+        rndP=rand.nextInt(3);
     }
     
     public void setPrevVertSpeed(int newSpeed)
@@ -183,11 +198,13 @@ public class Game implements Runnable
             plattformNr = i;
         }
         
-        for(int i=0;i<gegner.size()&&collidedWithEnimie==false;i++)
+        for(int i=0;i<gegner.size();i++)
         { 
-            Sprite s = gener.get(i);
-            collidedWithEnimie=copter.collidedWith(s);
-            plattformNr = i;
+            Sprite s = gegner.get(i);
+            if(copter.collidedWith(s))
+            {
+                copter.reduceHP();
+            }
         }
         
         for(ListIterator<Sprite> it=actors.listIterator();it.hasNext();)
@@ -203,6 +220,24 @@ public class Game implements Runnable
         else if(copter.getHorizontalSpeed()>0)
         {
             copter.setImage(spielerR);
+        }
+        
+        if(copter.getHP()==3)
+        {
+            lebenspunkte.setImage(herz3);
+        }
+        else if(copter.getHP()==2)
+        {
+            lebenspunkte.setImage(herz2);
+        }
+        else if(copter.getHP()==1)
+        {
+            lebenspunkte.setImage(herz1);
+        }
+        else
+        {
+            spielStart=false;
+            victory=true;
         }
     }
     
@@ -277,29 +312,36 @@ public class Game implements Runnable
         spielerR = loadPics("src/pics/sheeet4_rechts.gif",4);
         BufferedImage[] hintergrund_image = loadPics("src/pics/gelb3.png",1);
         BufferedImage[] plattform_image = loadPics("src/pics/plattform2.png",1);
-        BufferedImage[] lebenspunkt_image = loadPics("src/pics/plattform2.png",1);
+        herz3 = loadPics("src/pics/plattform2.png",1);
+        herz2 = loadPics("src/pics/plattform2.png",1);
+        herz1 = loadPics("src/pics/plattform2.png",1);
+        BufferedImage[] gegnerDrache = loadPics("src/pics/plattform2.png",1);
         
         
         actors = new Vector<Sprite>();
         plattforms = new ArrayList<Plattform>();
         painter = new Vector<Sprite>();
-        
+        gegner = new ArrayList<Kreaturen>();
         copter = new Spieler(spieler,600,100,100, keyManager);
         
         hintergrund = new Hintergrund(hintergrund_image,0,0,100);
-        plattform2 = new Plattform(plattform_image,600,400,100);
-        plattform = new Plattform(plattform_image,200,400,100);
-        plattform3 = new Plattform(plattform_image,0,400,100);
-        lebenspunkt1=new Lebensanzeige(lebenspunkt_image,0,950,100);
-        lebenspunkt2=new Lebensanzeige(lebenspunkt_image,20,950,100);
-        lebenspunkt3=new Lebensanzeige(lebenspunkt_image,40,950,100);
-        lebenspunkt4=new Lebensanzeige(lebenspunkt_image,60,950,100);
+        
+        plattform = new Plattform(plattform_image,0,400,100);
+        plattform2 = new Plattform(plattform_image,200,400,100);
+        plattform3 = new Plattform(plattform_image,600,400,100);
+        
+        lebenspunkte=new Lebensanzeige(herz3,0,950,100);
+        
+        drache=new Kreaturen(gegnerDrache,600,370,100);
+        
+        gegner.add(drache);
 
         actors.add(hintergrund);
         actors.add(copter);
         actors.add(plattform3);
         actors.add(plattform);
         actors.add(plattform2);
+        actors.add(gegner.get(rndG));
         
         plattforms.add(plattform);
         plattforms.add(plattform2);
