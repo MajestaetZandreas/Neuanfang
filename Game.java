@@ -89,7 +89,7 @@ public class Game implements Runnable
     
     public Game()
     {
-        hauptmenue = new Hauptmenue("Huepfburg-2D");
+        hauptmenue = new Hauptmenue("Hauptmenü");
         keyManager = new KeyManager();
         
         doInitialisierung();
