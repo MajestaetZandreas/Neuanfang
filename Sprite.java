@@ -52,6 +52,11 @@ public abstract class Sprite extends Rectangle2D.Double
         graphics.drawString(string,x,y);
     }
     
+    public void setImage(BufferedImage[] i)
+    {
+        pics=i;
+    }
+    
     /**
      * Diese Methode ist für die Animation der Spielfigur zuständig
      */
@@ -74,7 +79,7 @@ public abstract class Sprite extends Rectangle2D.Double
         y=y+dy*(delta/1e9);
     }
     
-    public abstract void collidedWith(Sprite s);
+    public abstract boolean collidedWith(Sprite s);
     
     /*#---------------------------------------------------------------Get-und Set-Methoden-------------------------------------------------*/
     public double getX()

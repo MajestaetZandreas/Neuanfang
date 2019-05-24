@@ -24,7 +24,8 @@ public class Hintergrund extends Sprite
      * 
      * @return false, da der Hintergrund nicht kollidieren darf
      */
-    public void collidedWith(Sprite s)
+    public boolean collidedWith(Sprite s)
     {
+        return false;
     }
 }

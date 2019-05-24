@@ -37,9 +37,9 @@ public class Spieler extends Sprite
             setX(0);
         }
         
-        if(getX()+getWidth()>800)
+        if(getX()+getWidth()>1280)
         {
-            setX(800-getWidth());
+            setX(1280-getWidth());
             setHorizontalSpeed(0);
         }
         
@@ -50,30 +50,32 @@ public class Spieler extends Sprite
             inAir=0;
         }
         
-        if(getY()+getHeight()>600)
+        if(getY()+getHeight()>960)
         {
-            setY(600-getHeight());
+            setY(960-getHeight());
             setVerticalSpeed(0);
             pvs=0;
          }
     }
     
-    public void collidedWith(Sprite s)
+    public boolean collidedWith(Sprite s)
     {
         if(this.intersects(s))
         {
             inAir=0;
-            System.out.println("klappt");
-            if(keyManager.jump||inAir==1) 
+            
+            if((keyManager.jump||keyManager.jumpG)||inAir==1) 
             {
                 setY(getY()-3);
                 inAir=1;
+                return false;
             }
+            else return true;
         }
         else
         {
-            System.out.println("klappt gar nicht");
             inAir=2;
+            return false;
         }
     }
     

@@ -31,22 +31,29 @@ public class Game implements Runnable
     private Spieler copter;
     private KeyManager keyManager;
     
+    private boolean collided;
+    
     private long delta;//Dauer eines Durchlaufs
     private long last;//Die Zeit vom Anfang eines Durchlaufs
     private long fps;//Anzahl Bilder pro Sekunde
     
     private boolean canJump;
     private boolean jump;
-    private int speed = 250;
+    private int speed = 200;
     private double fallgeschwindigkeit=1;
     
-    private int prevVertSpeed;
+    private int prevVertSpeed=201;
     private Vector<Sprite> actors;
     private Vector<Sprite> painter;
     private Hintergrund hinterGrund;
     private Plattform plattform;
     private Plattform plattform2;
     private Plattform plattform3;
+    private int plattformNr;
+    private boolean inJump;
+    
+    private BufferedImage[] spieler;
+    private BufferedImage[] spielerR;
     
     private ArrayList<Plattform> plattforms;
     
@@ -81,7 +88,7 @@ public class Game implements Runnable
         {
             if(hauptmenue.getIstSpielGestartet())
             {
-                spielfeld = new Spielfeld("Huepfburg-2D", 800, 600, painter, actors);
+                spielfeld = new Spielfeld("Huepfburg-2D", 1280, 960, painter, actors);
                 spielfeld.getFrame().addKeyListener(keyManager);
                 while(spielfeld.getFrame().isVisible())//solange das Fenster angezeigt wird
                 {
@@ -121,37 +128,44 @@ public class Game implements Runnable
     private void checkKeys()
     {
         keyManager.update();
-        if((keyManager.jump || copter.getInAir()==1) /*|| (copter.getInAir()==false && copter.getX()==400 && copter.getY()==300 && keyManager.jump) || 
-        (copter.getX()>=plattform.getX() && copter.getX()<=(plattform.getX()+20)) && ((copter.getY())==plattform.getY() && keyManager.jump)*/)
+        prevVertSpeed=copter.logic(prevVertSpeed, delta);
+        if((keyManager.jump||keyManager.jumpG) && (canJump==true || prevVertSpeed==0))
         {
+            copter.setY(copter.getY()-3);
+            inJump=true;
             copter.setVerticalSpeed(-speed+fallgeschwindigkeit*prevVertSpeed);
-            prevVertSpeed++;
-            copter.setInAir(1);
-            // if(prevVertSpeed>=20)
-            // {
-                // jump=false;
-            // }
+            prevVertSpeed=prevVertSpeed+5;
+            canJump=false;
+            collided=false;
         }
-        if(keyManager.left) copter.setHorizontalSpeed(-speed);
-        if(keyManager.right) copter.setHorizontalSpeed(speed);
         
-        if(!keyManager.left && !keyManager.right) copter.setHorizontalSpeed(0);
-        //if(!jump) copter.setVerticalSpeed(-speed+fallgeschwindigkeit*prevVertSpeed);
-        if(copter.getInAir()==0)
+        if(collided==true)
         {
+            canJump=true;
+            inJump=false;
             prevVertSpeed=0;
             copter.setVerticalSpeed(0);
-            if(keyManager.jump)copter.setInAir(1);
-            // jump=false;
+            copter.setY(plattforms.get(plattformNr).getY()-30);
         }
         
-        if(copter.getInAir()==2)
+        if(prevVertSpeed>4)
+        {
+            canJump=false;
+            copter.setVerticalSpeed(-speed+fallgeschwindigkeit*prevVertSpeed);
+            prevVertSpeed++;
+        }
+        
+        if(collided==false&&inJump==false)
         {
             copter.setVerticalSpeed(fallgeschwindigkeit*prevVertSpeed);
             prevVertSpeed++;
-            copter.setInAir(1);
         }
-        prevVertSpeed=copter.logic(prevVertSpeed,delta);
+        
+        if(keyManager.left||keyManager.leftG) copter.setHorizontalSpeed(-speed);
+        if(keyManager.right||keyManager.rightG) copter.setHorizontalSpeed(speed);
+        if((!keyManager.left&&!keyManager.leftG) && (!keyManager.right&&!keyManager.rightG)) copter.setHorizontalSpeed(0);
+        
+        
     }
     
     /**
@@ -159,16 +173,27 @@ public class Game implements Runnable
      */
     private void doLogic()
     {
-        for(int i=0;i<plattforms.size();i++)
+        collided=false;
+        for(int i=0;i<plattforms.size()&&collided==false;i++)
         {
             Sprite s = plattforms.get(i);
-            copter.collidedWith(s);
+            collided=copter.collidedWith(s);
+            plattformNr = i;
         }
         
         for(ListIterator<Sprite> it=actors.listIterator();it.hasNext();)
         {
             Sprite r = it.next();
             r.doLogic(delta);
+        }
+        
+        if(copter.getHorizontalSpeed()<0)
+        {
+            copter.setImage(spieler);
+        }
+        else if(copter.getHorizontalSpeed()>0)
+        {
+            copter.setImage(spielerR);
         }
     }
     
@@ -239,7 +264,8 @@ public class Game implements Runnable
     {
         last=System.nanoTime();
         
-        BufferedImage[] spieler = loadPics("src/pics/sheeet4.gif",4);
+        spieler = loadPics("src/pics/sheeet4.gif",4);
+        spielerR = loadPics("src/pics/sheeet4_rechts.gif",4);
         BufferedImage[] hintergrund = loadPics("src/pics/gelb3.png",1);
         BufferedImage[] plattForm2 = loadPics("src/pics/plattform2.png",1);
         
@@ -248,6 +274,7 @@ public class Game implements Runnable
         painter = new Vector<Sprite>();
         
         copter = new Spieler(spieler,500,100,100, keyManager);
+        
         hinterGrund = new Hintergrund(hintergrund,0,0,100);
         plattform2 = new Plattform(plattForm2,600,400,100);
         plattform = new Plattform(plattForm2,200,400,100);
