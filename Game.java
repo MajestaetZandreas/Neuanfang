@@ -352,11 +352,11 @@ public class Game implements Runnable
         spielerR = loadPics("src/pics/sheeet4_rechts.gif",4);
         BufferedImage[] hintergrund_image = loadPics("src/pics/gelb3.png",1);
         BufferedImage[] plattform_image = loadPics("src/pics/plattform2.png",1);
-        herz3 = loadPics("src/pics/plattform2.png",1);
-        herz2 = loadPics("src/pics/plattform2.png",1);
-        herz1 = loadPics("src/pics/plattform2.png",1);
-        BufferedImage[] gegnerDrache = loadPics("src/pics/plattform2.png",1);
-        energieKugel = loadPics("src/pics/plattform2.png", 1);
+        herz3 = loadPics("src/pics/herz3voll.png",1);
+        herz2 = loadPics("src/pics/herz2voll.png",1);
+        herz1 = loadPics("src/pics/herz1voll.png",1);
+        BufferedImage[] gegnerDrache = loadPics("src/pics/heli2.gif",4);
+        energieKugel = loadPics("src/pics/Energiekugel.png", 1);
         
         
         actors = new Vector<Sprite>();
