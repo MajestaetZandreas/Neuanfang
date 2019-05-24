@@ -177,9 +177,16 @@ public class Game implements Runnable
     {
         collided=false;
         for(int i=0;i<plattforms.size()&&collided==false;i++)
-        {
+        { 
             Sprite s = plattforms.get(i);
             collided=copter.collidedWith(s);
+            plattformNr = i;
+        }
+        
+        for(int i=0;i<gegner.size()&&collidedWithEnimie==false;i++)
+        { 
+            Sprite s = gener.get(i);
+            collidedWithEnimie=copter.collidedWith(s);
             plattformNr = i;
         }
         
