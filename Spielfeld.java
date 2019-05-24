@@ -17,7 +17,6 @@ import java.lang.String;
 public class Spielfeld extends JPanel
 {
     private JFrame frame;
-    private String fenstertitel;
     private JProgressBar lebenspunkte;
 
     private int breite;
@@ -35,9 +34,8 @@ public class Spielfeld extends JPanel
     * @param width die Breite des Fensters
     * @param height die Höhe des Fensters
     */
-    public Spielfeld(String title, int width, int height, Vector<Sprite> painter, Vector<Sprite> actors)
+    public Spielfeld( int width, int height, Vector<Sprite> painter, Vector<Sprite> actors)
     {
-        fenstertitel = title;
         breite = width;
         hoehe = height;
         this.painter=painter;
@@ -45,7 +43,7 @@ public class Spielfeld extends JPanel
         this.setPreferredSize(new Dimension(breite, hoehe));
         
         //Spielfeld wird erstellt
-        frame = new JFrame(fenstertitel);
+        frame = new JFrame("Hüpfburg-2D");
         getBildschirmmitte();
         frame.setLocation(screenWidthMiddle, screenHeightMiddle);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

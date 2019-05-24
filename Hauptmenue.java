@@ -21,6 +21,7 @@ public class Hauptmenue extends JFrame implements ActionListener
     private int screenHeightMiddle;
     private boolean istSpielGestartet=false;
     private boolean istHauptmenueBeended=false;
+    private boolean istSpielanleitungGeoeffnet=false;
     // private static final int buttonColorR=0;
     // private static final int buttonColorG=0;
     // private static final int buttonColorB=0;
@@ -32,9 +33,9 @@ public class Hauptmenue extends JFrame implements ActionListener
     private static final int buttonX=132;
     private static final int buttonYVerschiebung=10;
     
-    public Hauptmenue(String title)
+    public Hauptmenue()
     {
-        super(title);
+        super("Hauptmenü");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(400,400);
         getBildschirmmitte();
@@ -104,7 +105,7 @@ public class Hauptmenue extends JFrame implements ActionListener
         
         if(e.getSource()==info)
         {
-            //nur für das Design/beinhaltet keine Funktionen
+            istSpielanleitungGeoeffnet=true;
         }
         
         if(e.getSource()==ende)
@@ -129,5 +130,10 @@ public class Hauptmenue extends JFrame implements ActionListener
     public boolean getIstSpielGestartet()
     {
         return istSpielGestartet;
+    }
+    
+    public boolean getIstSpielanleitungGeoeffnet()
+    {
+        return istSpielanleitungGeoeffnet;
     }
 }

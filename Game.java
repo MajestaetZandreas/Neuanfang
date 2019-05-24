@@ -26,6 +26,7 @@ public class Game implements Runnable
 {
     private static Hauptmenue hauptmenue;
     private Spielfeld spielfeld;
+    private Spielanleitung spielanleitung;
     
     private boolean spielStart=true;
     private boolean victory=false;
@@ -89,7 +90,7 @@ public class Game implements Runnable
     
     public Game()
     {
-        hauptmenue = new Hauptmenue("Hauptmenü");
+        hauptmenue = new Hauptmenue();
         keyManager = new KeyManager();
         
         doInitialisierung();
@@ -114,9 +115,14 @@ public class Game implements Runnable
     {
         while(spielStart)
         {
+            if(hauptmenue.getIstSpielanleitungGeoeffnet())
+            {
+                spielanleitung = new Spielanleitung();
+            }
+            
             if(hauptmenue.getIstSpielGestartet())
             {
-                spielfeld = new Spielfeld("Huepfburg-2D", 1280, 960, painter, actors);
+                spielfeld = new Spielfeld(1280, 960, painter, actors);
                 spielfeld.getFrame().addKeyListener(keyManager);
                 while(spielfeld.getFrame().isVisible())//solange das Fenster angezeigt wird
                 {
@@ -159,7 +165,6 @@ public class Game implements Runnable
             {
                 spielStart=false;
             }
-            
         }
     }
     

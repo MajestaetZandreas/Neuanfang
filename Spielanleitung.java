@@ -12,9 +12,9 @@ public class Spielanleitung extends JFrame
     private int screenWidthMiddle;
     private int screenHeightMiddle;
     
-    public Spielanleitung(String titel)
+    public Spielanleitung()
     {
-        super(titel);
+        super("Spielanleitung");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(400,420);
         getBildschirmmitte();
