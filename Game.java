@@ -29,8 +29,12 @@ public class Game implements Runnable
     
     private boolean spielStart=true;
     private boolean victory=false;
+    
     private boolean reload;
     private int reloadTime;
+    
+    private boolean safe;
+    private int safeTime;
     
     private JFrame frame;
     
@@ -125,7 +129,19 @@ public class Game implements Runnable
                     moveObjects();
                     cloneVectors();
                     
+                    reloadTime++;
+                    if(reloadTime >= 100)
+                    {
+                        reload=false;
+                        reloadTime=0;
+                    }
                     
+                    safeTime++;
+                    if(safeTime >= 100)
+                    {
+                        safe=false;
+                        safeTime=0;
+                    }
                     
                     spielfeld.repaint();//Neuzeichnung wird ausgelöst
                     try
@@ -190,7 +206,7 @@ public class Game implements Runnable
         if(keyManager.right||keyManager.rightG) copter.setHorizontalSpeed(speed);
         if((!keyManager.left&&!keyManager.leftG) && (!keyManager.right&&!keyManager.rightG)) copter.setHorizontalSpeed(0);
         
-        if(keyManager.fire)
+        if(keyManager.fire&&reload==false)
         {
             kugel=new Waffe(energieKugel,copter.getX(),copter.getY()+10,100);
             actors.add(kugel);
@@ -229,9 +245,10 @@ public class Game implements Runnable
         for(int i=0;i<gegner.size();i++)
         { 
             Sprite s = gegner.get(i);
-            if(copter.collidedWith(s))
+            if(copter.collidedWith(s)&&!safe)
             {
                 copter.reduceHP();
+                safe=true;
             }
         }
         
