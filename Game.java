@@ -45,12 +45,17 @@ public class Game implements Runnable
     private int prevVertSpeed=201;
     private Vector<Sprite> actors;
     private Vector<Sprite> painter;
-    private Hintergrund hinterGrund;
+    private Hintergrund hintergrund;
     private Plattform plattform;
     private Plattform plattform2;
     private Plattform plattform3;
     private int plattformNr;
     private boolean inJump;
+    
+    private Lebensanzeige lebenspunkt1;
+    private Lebensanzeige lebenspunkt2;
+    private Lebensanzeige lebenspunkt3;
+    private Lebensanzeige lebenspunkt4;
     
     private BufferedImage[] spieler;
     private BufferedImage[] spielerR;
@@ -266,11 +271,10 @@ public class Game implements Runnable
         
         spieler = loadPics("src/pics/sheeet4.gif",4);
         spielerR = loadPics("src/pics/sheeet4_rechts.gif",4);
-        BufferedImage[] hintergrund = loadPics("src/pics/gelb3.png",1);
-        BufferedImage[] plattForm2 = loadPics("src/pics/plattform2.png",1);
-        // BufferedImage[] plattForm2 = loadPics("src/pics/plattform2.png",1);
-        // BufferedImage[] plattForm2 = loadPics("src/pics/plattform2.png",1);
-        // BufferedImage[] plattForm2 = loadPics("src/pics/plattform2.png",1);
+        BufferedImage[] hintergrund_image = loadPics("src/pics/gelb3.png",1);
+        BufferedImage[] plattform_image = loadPics("src/pics/plattform2.png",1);
+        BufferedImage[] lebenspunkt_image = loadPics("src/pics/plattform2.png",1);
+        
         
         actors = new Vector<Sprite>();
         plattforms = new ArrayList<Plattform>();
@@ -278,12 +282,16 @@ public class Game implements Runnable
         
         copter = new Spieler(spieler,500,100,100, keyManager);
         
-        hinterGrund = new Hintergrund(hintergrund,0,0,100);
-        plattform2 = new Plattform(plattForm2,600,400,100);
-        plattform = new Plattform(plattForm2,200,400,100);
-        plattform3 = new Plattform(plattForm2,0,400,100);
+        hintergrund = new Hintergrund(hintergrund_image,0,0,100);
+        plattform2 = new Plattform(plattform_image,600,400,100);
+        plattform = new Plattform(plattform_image,200,400,100);
+        plattform3 = new Plattform(plattform_image,0,400,100);
+        lebenspunkt1=new Lebensanzeige(lebenspunkt_image,0,950,100);
+        lebenspunkt2=new Lebensanzeige(lebenspunkt_image,20,950,100);
+        lebenspunkt3=new Lebensanzeige(lebenspunkt_image,40,950,100);
+        lebenspunkt4=new Lebensanzeige(lebenspunkt_image,60,950,100);
 
-        actors.add(hinterGrund);
+        actors.add(hintergrund);
         actors.add(copter);
         actors.add(plattform3);
         actors.add(plattform);

@@ -8,8 +8,8 @@ import java.awt.image.BufferedImage;
  */
 public class Lebensanzeige extends Sprite
 { 
-    private int lebenspunkte;
-    public Lebensanzeige(BufferedImage[] i, double x, double y, long delay, int Lebenspunkte)
+    
+    public Lebensanzeige(BufferedImage[] i, double x, double y, long delay)
     {
         super(i, x, y, delay);
     }    
