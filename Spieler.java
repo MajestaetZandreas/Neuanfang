@@ -53,7 +53,7 @@ public class Spieler extends Sprite
             setY(960-getHeight());
             setVerticalSpeed(0);
             pvs=0;
-        }
+         }
     }
     
     public boolean collidedWith(Sprite s)

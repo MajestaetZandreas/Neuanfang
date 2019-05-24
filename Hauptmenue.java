@@ -16,10 +16,19 @@ public class Hauptmenue extends JFrame implements ActionListener
     private JButton einstellungen;
     private JButton info;
     private JButton ende;
+    
     private int screenWidthMiddle;
     private int screenHeightMiddle;
     private boolean istSpielGestartet=false;
     private boolean istHauptmenueBeended=false;
+    // private static final int buttonColorR=0;
+    // private static final int buttonColorG=0;
+    // private static final int buttonColorB=0;
+    // private static final int buttonTransperenz=50;
+    // private static final int fontColorR=255;
+    // private static final int fontColorG=255;
+    // private static final int fontColorB=255;
+    // private static final int fontTransperenz=255;
     private static final int buttonX=132;
     private static final int buttonYVerschiebung=10;
     
@@ -31,51 +40,52 @@ public class Hauptmenue extends JFrame implements ActionListener
         getBildschirmmitte();
         setLocation(screenWidthMiddle, screenHeightMiddle);
         setLayout(null);
-        setVisible(true);
         
-        ImageIcon background_image=new ImageIcon("src/pics/menu hintergrund.png");
+        
+        ImageIcon background_image=new ImageIcon("src/pics/menu_hintergrund.png");
         JLabel background = new JLabel("",background_image,JLabel.CENTER);
         background.setBounds(0,0,400,400);
-        add(background);
+        
         
             //Buttons
         //SpielStart-Button
         start = new JButton("Spiel Starten");
         start.setBounds(buttonX, 50 + buttonYVerschiebung, 140, 40);
-        start.setBackground(new Color(0,0,0,255));
         start.setForeground(new Color(255,255,255,255));
-        add(start);
+        start.setBackground(new Color(0,0,0,255));                
         start.addActionListener(this);
         
         //Einstellungen-Button
         einstellungen = new JButton("Einstellungen");
         einstellungen.setBounds(buttonX, 130 + buttonYVerschiebung, 140, 40);
-        einstellungen.setBackground(new Color(0,0,0,255));
         einstellungen.setForeground(new Color(255,255,255,255));
-        add(einstellungen);
+        einstellungen.setBackground(new Color(0,0,0,255));                
         einstellungen.addActionListener(this);
         
         //Spielanleitung-Button
         info = new JButton("Spielanleitung");
         info.setBounds(buttonX, 210 + buttonYVerschiebung, 140, 40);
-        info.setBackground(new Color(0,0,0,255));
-        info.setForeground(new Color(255,255,255,255));
-        add(info);
+        info.setForeground(new Color(255,255,255,255)); 
+        info.setBackground(new Color(0,0,0,255));       
         info.addActionListener(this);
         
         //Beenden-Button
         ende = new JButton("Beenden");
         ende.setPreferredSize(new Dimension(10,20));
         ende.setBounds(buttonX, 290 + buttonYVerschiebung, 140, 40);
-        ende.setBackground(new Color(0,0,0,255));
         ende.setForeground(new Color(255,255,255,255));
-        add(ende);
+        ende.setBackground(new Color(0,0,0,255));
         ende.addActionListener(this);
         
         // ImageIcon icon = new ImageIcon ("src/pics/menu hintergrund.png");
         // JLabel l1 = new JLabel (icon);
         // add(l1);
-        
+        add(background);
+        add(start);
+        add(einstellungen);
+        add(info);
+        add(ende);
+        setVisible(true);
     }
     
     @Override

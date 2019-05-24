@@ -18,6 +18,7 @@ public class Spielfeld extends JPanel
 {
     private JFrame frame;
     private String fenstertitel;
+    private JProgressBar lebenspunkte;
 
     private int breite;
     private int hoehe;
@@ -49,6 +50,12 @@ public class Spielfeld extends JPanel
         frame.setLocation(screenWidthMiddle, screenHeightMiddle);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
+        
+        lebenspunkte = new JProgressBar(0, 100);
+        lebenspunkte.setForeground(new Color(10,20,30,255));
+        lebenspunkte.setBounds(200, 200, 60,6);
+        
+        frame.add(lebenspunkte);
         frame.add(this);
         frame.pack();
         frame.setVisible(true);
