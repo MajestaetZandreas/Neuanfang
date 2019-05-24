@@ -168,6 +168,9 @@ public class Game implements Runnable
                     {
                     }
                 }
+                hauptmenue.setVisible(true);
+                spielfeld.setVisible(false);
+                spielfeld = null;
             }
         
             if(hauptmenue.getIstBeendenGedrueckt())
@@ -264,6 +267,13 @@ public class Game implements Runnable
                 copter.reduceHP();
                 safe=true;
             }
+        }
+        
+        if(copter.getBeruertBoden())//wenn die Spielfigur den Boden beruert, hat man das Spiel verloren und es wird beendet
+        {
+            spielfeld.getFrame().setVisible(false);
+            victory=false;
+            spielStart=false;;
         }
         
         if(copter.getHorizontalSpeed()<0)
