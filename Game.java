@@ -93,7 +93,7 @@ public class Game implements Runnable
         hauptmenue = new Hauptmenue();
         keyManager = new KeyManager();
         
-        doInitialisierung();
+        
         Thread thread = new Thread(this);
         thread.start();
         
@@ -118,13 +118,21 @@ public class Game implements Runnable
             if(hauptmenue.getIstSpielanleitungGedrueckt())
             {
                 spielanleitung = new Spielanleitung();
-                hauptmenue.setIstSpielanleitungGedrueckt(false);
+                while(spielanleitung.getIstZurueckGedrueckt()==false)
+                {
+                    hauptmenue.setVisible(false);
+                    hauptmenue.setIstSpielanleitungGedrueckt(false);
+                }
+                hauptmenue.setVisible(true);
+                spielanleitung = null;
             }
             
-            if(hauptmenue.getIstSpielstartGedrueckt())
+            if(hauptmenue.getIstSpielstartGedrueckt()) 
             {
+                doInitialisierung();
                 spielfeld = new Spielfeld(1280, 960, painter, actors);
                 spielfeld.getFrame().addKeyListener(keyManager);
+                hauptmenue.setVisible(false);
                 while(spielfeld.getFrame().isVisible())//solange das Fenster angezeigt wird
                 {
                     computeDelta();//Errechnung der Zeit für den vorhergehenden Schleifendurchlauf
@@ -158,7 +166,6 @@ public class Game implements Runnable
                     catch(InterruptedException e)//sonst macht er nichts
                     {
                     }
-                    
                 }
             }
         
@@ -388,7 +395,7 @@ public class Game implements Runnable
         plattforms = new ArrayList<Plattform>();
         painter = new Vector<Sprite>();
         gegner = new ArrayList<Kreaturen>();
-        copter = new Spieler(spieler,0,100,100, keyManager);
+        copter = new Spieler(spieler,0,200,100, keyManager);
         
         hintergrund = new Hintergrund(hintergrund_image,0,0,100);
         

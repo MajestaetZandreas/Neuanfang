@@ -22,14 +22,6 @@ public class Hauptmenue extends JFrame implements ActionListener
     private boolean istSpielstartGedrueckt=false;
     private boolean istBeendenGedrueckt=false;
     private boolean istSpielanleitungGedrueckt=false;
-    // private static final int buttonColorR=0;
-    // private static final int buttonColorG=0;
-    // private static final int buttonColorB=0;
-    // private static final int buttonTransperenz=50;
-    // private static final int fontColorR=255;
-    // private static final int fontColorG=255;
-    // private static final int fontColorB=255;
-    // private static final int fontTransperenz=255;
     private static final int buttonX=132;
     private static final int buttonYVerschiebung=10;
     
