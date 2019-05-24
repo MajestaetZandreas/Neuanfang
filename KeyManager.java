@@ -10,7 +10,7 @@ public class KeyManager implements KeyListener
 {
     private boolean canJump;
     private boolean[] keys;
-    public boolean jump,  left, right;
+    public boolean jump,  left, right, jumpG,  leftG, rightG;
     
     
     public KeyManager()
@@ -20,9 +20,12 @@ public class KeyManager implements KeyListener
     
     public void update()
     {
-        jump = keys[KeyEvent.VK_W];    
+        jump = keys[KeyEvent.VK_W];
+        jumpG = keys[KeyEvent.VK_UP];
         left = keys[KeyEvent.VK_A];
+        leftG = keys[KeyEvent.VK_LEFT];
         right = keys[KeyEvent.VK_D];
+        rightG = keys[KeyEvent.VK_RIGHT];
     }
     
     @Override

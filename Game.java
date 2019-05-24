@@ -85,7 +85,7 @@ public class Game implements Runnable
         {
             if(hauptmenue.getIstSpielGestartet())
             {
-                spielfeld = new Spielfeld("Huepfburg-2D", 800, 600, painter, actors);
+                spielfeld = new Spielfeld("Huepfburg-2D", 1280, 960, painter, actors);
                 spielfeld.getFrame().addKeyListener(keyManager);
                 while(spielfeld.getFrame().isVisible())//solange das Fenster angezeigt wird
                 {
@@ -126,7 +126,7 @@ public class Game implements Runnable
     {
         keyManager.update();
         prevVertSpeed=copter.logic(prevVertSpeed, delta);
-        if(keyManager.jump && (canJump==true || prevVertSpeed==0))
+        if((keyManager.jump||keyManager.jumpG) && (canJump==true || prevVertSpeed==0))
         {
             copter.setY(copter.getY()-3);
             inJump=true;
@@ -158,9 +158,9 @@ public class Game implements Runnable
             prevVertSpeed++;
         }
         
-        if(keyManager.left) copter.setHorizontalSpeed(-speed);
-        if(keyManager.right) copter.setHorizontalSpeed(speed);
-        if(!keyManager.left && !keyManager.right) copter.setHorizontalSpeed(0);
+        if(keyManager.left||keyManager.leftG) copter.setHorizontalSpeed(-speed);
+        if(keyManager.right||keyManager.rightG) copter.setHorizontalSpeed(speed);
+        if((!keyManager.left&&!keyManager.leftG) && (!keyManager.right&&!keyManager.rightG)) copter.setHorizontalSpeed(0);
         
         
     }

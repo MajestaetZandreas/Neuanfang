@@ -37,9 +37,9 @@ public class Spieler extends Sprite
             setX(0);
         }
         
-        if(getX()+getWidth()>800)
+        if(getX()+getWidth()>1280)
         {
-            setX(800-getWidth());
+            setX(1280-getWidth());
             setHorizontalSpeed(0);
         }
         
@@ -50,9 +50,9 @@ public class Spieler extends Sprite
             inAir=0;
         }
         
-        if(getY()+getHeight()>600)
+        if(getY()+getHeight()>960)
         {
-            setY(600-getHeight());
+            setY(960-getHeight());
             setVerticalSpeed(0);
             pvs=0;
         }
@@ -64,7 +64,7 @@ public class Spieler extends Sprite
         {
             inAir=0;
             
-            if(keyManager.jump||inAir==1) 
+            if((keyManager.jump||keyManager.jumpG)||inAir==1) 
             {
                 setY(getY()-3);
                 inAir=1;
