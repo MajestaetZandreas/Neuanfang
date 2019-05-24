@@ -40,7 +40,7 @@ public class Hauptmenue extends JFrame implements ActionListener
         getBildschirmmitte();
         setLocation(screenWidthMiddle, screenHeightMiddle);
         setLayout(null);
-        
+        setResizable(false);
         
         ImageIcon background_image=new ImageIcon("src/pics/menu_hintergrund.png");
         JLabel background = new JLabel("",background_image,JLabel.CENTER);
