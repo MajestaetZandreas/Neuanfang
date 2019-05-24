@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 public class Kreaturen extends Sprite
 {
     // Instanzvariablen - ersetzen Sie das folgende Beispiel mit Ihren Variablen
-    private int lebenspunkte;
+    private int lebenspunkte=3;
     
 
     /**
@@ -40,4 +40,13 @@ public class Kreaturen extends Sprite
         }
      }  
     
+    public int getHP()
+    {
+        return lebenspunkte;
+    }
+    
+    public void reduceHP()
+    {
+        lebenspunkte--;
+    }
 }

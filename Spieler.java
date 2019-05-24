@@ -10,7 +10,7 @@ public class Spieler extends Sprite
 {
     private int pvs;
     private KeyManager keyManager;
-    private int lebenspunkte;
+    private int lebenspunkte=3;
     
     public Spieler(BufferedImage[] i, double x, double y, long delay, KeyManager kManager)
     {

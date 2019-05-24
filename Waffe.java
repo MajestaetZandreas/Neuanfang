@@ -33,5 +33,5 @@ public class Waffe extends Sprite
         {
             return false;
         }
-     } 
+    } 
 }

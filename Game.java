@@ -62,12 +62,16 @@ public class Game implements Runnable
     private Kreaturen drache;
     
     private Lebensanzeige lebenspunkte;
+    private Lebensanzeige lebenspunkteG;
+    
+    private Waffe kugel;
     
     private BufferedImage[] spieler;
     private BufferedImage[] spielerR;
     private BufferedImage[] herz1;
     private BufferedImage[] herz2;
     private BufferedImage[] herz3;
+    private BufferedImage[] energieKugel;
     
     private ArrayList<Plattform> plattforms;
     private ArrayList<Kreaturen> gegner;
@@ -87,7 +91,7 @@ public class Game implements Runnable
         thread.start();
         
         Random rand=new Random();
-        rndG=rand.nextInt(5);
+        rndG=rand.nextInt(1);
         rndP=rand.nextInt(3);
     }
     
@@ -182,7 +186,16 @@ public class Game implements Runnable
         if(keyManager.right||keyManager.rightG) copter.setHorizontalSpeed(speed);
         if((!keyManager.left&&!keyManager.leftG) && (!keyManager.right&&!keyManager.rightG)) copter.setHorizontalSpeed(0);
         
-        
+        if(keyManager.fire)
+        {
+            actors.add(kugel);
+            kugel.setHorizontalSpeed(300);
+            if(kugel.getX()>=gegner.get(rndG).getX())
+            {
+                actors.remove(kugel);
+                gegner.get(rndG).reduceHP();
+            }
+        }
     }
     
     /**
@@ -207,11 +220,7 @@ public class Game implements Runnable
             }
         }
         
-        for(ListIterator<Sprite> it=actors.listIterator();it.hasNext();)
-        {
-            Sprite r = it.next();
-            r.doLogic(delta);
-        }
+        
         
         if(copter.getHorizontalSpeed()<0)
         {
@@ -231,6 +240,24 @@ public class Game implements Runnable
             lebenspunkte.setImage(herz2);
         }
         else if(copter.getHP()==1)
+        {
+            lebenspunkte.setImage(herz1);
+        }
+        else
+        {
+            spielStart=false;
+            victory=false;
+        }
+        
+        if(gegner.get(rndG).getHP()==3)
+        {
+            lebenspunkte.setImage(herz3);
+        }
+        else if(gegner.get(rndG).getHP()==2)
+        {
+            lebenspunkte.setImage(herz2);
+        }
+        else if(gegner.get(rndG).getHP()==1)
         {
             lebenspunkte.setImage(herz1);
         }
@@ -316,6 +343,7 @@ public class Game implements Runnable
         herz2 = loadPics("src/pics/plattform2.png",1);
         herz1 = loadPics("src/pics/plattform2.png",1);
         BufferedImage[] gegnerDrache = loadPics("src/pics/plattform2.png",1);
+        energieKugel = loadPics("src/pics/plattform2.png", 1);
         
         
         actors = new Vector<Sprite>();
@@ -330,12 +358,14 @@ public class Game implements Runnable
         plattform2 = new Plattform(plattform_image,200,400,100);
         plattform3 = new Plattform(plattform_image,600,400,100);
         
-        lebenspunkte=new Lebensanzeige(herz3,0,950,100);
-        
         drache=new Kreaturen(gegnerDrache,600,370,100);
         
         gegner.add(drache);
-
+        
+        lebenspunkte=new Lebensanzeige(herz3,0,950,100);
+        lebenspunkteG=new Lebensanzeige(herz3,gegner.get(0).getX(),gegner.get(0).getY()-25,100);
+        
+        
         actors.add(hintergrund);
         actors.add(copter);
         actors.add(plattform3);
