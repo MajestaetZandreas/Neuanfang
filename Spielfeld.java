@@ -52,11 +52,13 @@ public class Spielfeld extends JPanel
         frame.setResizable(false);
         
         lebenspunkte = new JProgressBar(0, 100);
-        lebenspunkte.setForeground(new Color(10,20,30,255));
-        lebenspunkte.setBounds(200, 200, 60,6);
+        lebenspunkte.setBackground(new Color(10,20,30,255));
         
-        frame.add(lebenspunkte);
+        // lebenspunkte.setBounds(200, 200, 60,6);
+        
+        
         frame.add(this);
+        frame.add(lebenspunkte);
         frame.pack();
         frame.setVisible(true);
     }

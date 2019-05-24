@@ -26,15 +26,17 @@ public class Kreaturen extends Sprite
         super.doLogic(delta);
     }
    
-    public void collidedWith(Sprite s)
+    public boolean collidedWith(Sprite s)
     {
         if(this.intersects(s))
         {
-            
+            {
+                return true;
+            }
         }
         else
         {
-            
+            return false;
         }
      }  
     
