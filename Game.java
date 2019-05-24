@@ -29,6 +29,8 @@ public class Game implements Runnable
     
     private boolean spielStart=true;
     private boolean victory=false;
+    private boolean reload;
+    private int reloadTime;
     
     private JFrame frame;
     
@@ -133,6 +135,7 @@ public class Game implements Runnable
                     catch(InterruptedException e)//sonst macht er nichts
                     {
                     }
+                    
                 }
             }
         
@@ -140,6 +143,7 @@ public class Game implements Runnable
             {
                 spielStart=false;
             }
+            
         }
     }
     
@@ -188,13 +192,24 @@ public class Game implements Runnable
         
         if(keyManager.fire)
         {
+            kugel=new Waffe(energieKugel,copter.getX(),copter.getY()+10,100);
             actors.add(kugel);
+            if(copter.getImage()==spielerR)
             kugel.setHorizontalSpeed(300);
-            if(kugel.getX()>=gegner.get(rndG).getX())
+            else
+            kugel.setHorizontalSpeed(-300);
+            if(gegner.get(rndG).collidedWith(kugel))
+            {
+                gegner.get(rndG).reduceHP();
+                actors.remove(kugel);
+            }   
+            
+            
+            if(kugel.getX()<=0 || kugel.getX()>=1280)
             {
                 actors.remove(kugel);
-                gegner.get(rndG).reduceHP();
             }
+            reload=true;
         }
     }
     
@@ -220,8 +235,6 @@ public class Game implements Runnable
             }
         }
         
-        
-        
         if(copter.getHorizontalSpeed()<0)
         {
             copter.setImage(spieler);
@@ -245,7 +258,7 @@ public class Game implements Runnable
         }
         else
         {
-            spielStart=false;
+            spielfeld.getFrame().setVisible(false);
             victory=false;
         }
         
@@ -263,7 +276,7 @@ public class Game implements Runnable
         }
         else
         {
-            spielStart=false;
+            spielfeld.getFrame().setVisible(false);
             victory=true;
         }
     }
@@ -360,10 +373,11 @@ public class Game implements Runnable
         
         drache=new Kreaturen(gegnerDrache,600,370,100);
         
+        
         gegner.add(drache);
         
         lebenspunkte=new Lebensanzeige(herz3,0,950,100);
-        lebenspunkteG=new Lebensanzeige(herz3,gegner.get(0).getX(),gegner.get(0).getY()-25,100);
+        lebenspunkteG=new Lebensanzeige(herz3,gegner.get(rndG).getX(),gegner.get(rndG).getY()-25,100);
         
         
         actors.add(hintergrund);

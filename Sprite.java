@@ -57,6 +57,11 @@ public abstract class Sprite extends Rectangle2D.Double
         pics=i;
     }
     
+    public BufferedImage[] getImage()
+    {
+        return pics;
+    }
+    
     /**
      * Diese Methode ist für die Animation der Spielfigur zuständig
      */
