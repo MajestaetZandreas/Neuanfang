@@ -124,6 +124,7 @@ public class Game implements Runnable
                     hauptmenue.setIstSpielanleitungGedrueckt(false);
                 }
                 hauptmenue.setVisible(true);
+                spielanleitung.setVisible(false);
                 spielanleitung = null;
             }
             
