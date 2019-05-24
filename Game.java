@@ -268,6 +268,9 @@ public class Game implements Runnable
         spielerR = loadPics("src/pics/sheeet4_rechts.gif",4);
         BufferedImage[] hintergrund = loadPics("src/pics/gelb3.png",1);
         BufferedImage[] plattForm2 = loadPics("src/pics/plattform2.png",1);
+        // BufferedImage[] plattForm2 = loadPics("src/pics/plattform2.png",1);
+        // BufferedImage[] plattForm2 = loadPics("src/pics/plattform2.png",1);
+        // BufferedImage[] plattForm2 = loadPics("src/pics/plattform2.png",1);
         
         actors = new Vector<Sprite>();
         plattforms = new ArrayList<Plattform>();
