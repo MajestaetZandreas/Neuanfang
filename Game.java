@@ -282,15 +282,15 @@ public class Game implements Runnable
         
         if(gegner.get(rndG).getHP()==3)
         {
-            lebenspunkte.setImage(herz3);
+            lebenspunkteG.setImage(herz3);
         }
         else if(gegner.get(rndG).getHP()==2)
         {
-            lebenspunkte.setImage(herz2);
+            lebenspunkteG.setImage(herz2);
         }
         else if(gegner.get(rndG).getHP()==1)
         {
-            lebenspunkte.setImage(herz1);
+            lebenspunkteG.setImage(herz1);
         }
         else
         {
