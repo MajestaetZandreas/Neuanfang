@@ -87,7 +87,6 @@ public class Hauptmenue extends JFrame implements ActionListener
         if(e.getSource()==start)
         {
             istSpielstartGedrueckt=true;
-            this.setVisible(false);
         }
         
         if(e.getSource()==einstellungen)
