@@ -253,7 +253,7 @@ public class Game implements Runnable
         if(keyManager.fire&&reload==false)
         {
             kugel=new Waffe(energieKugel,player.getX(),player.getY()+10,100);
-            actors.add(89,kugel);
+            actors.add(kugel);
             
             if(player.getImage()==spielerR)kugel.setHorizontalSpeed(300);
             else kugel.setHorizontalSpeed(-300);  
