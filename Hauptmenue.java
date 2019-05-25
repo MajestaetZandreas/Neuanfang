@@ -44,40 +44,42 @@ public class Hauptmenue extends JFrame implements ActionListener
         //SpielStart-Button
         start = new JButton("Spiel Starten");
         start.setBounds(buttonX, 50 + buttonYVerschiebung, 140, 40);
-        start.setForeground(new Color(255,255,255,255));
-        start.setBackground(new Color(0,0,0,255));                
+        start.setForeground(Color.WHITE);
+        start.setBackground(Color.BLACK);                
         start.addActionListener(this);
         
         //Einstellungen-Button
         einstellungen = new JButton("Einstellungen");
         einstellungen.setBounds(buttonX, 130 + buttonYVerschiebung, 140, 40);
-        einstellungen.setForeground(new Color(255,255,255,255));
-        einstellungen.setBackground(new Color(0,0,0,255));                
+        einstellungen.setForeground(Color.WHITE);
+        einstellungen.setBackground(Color.BLACK);                
         einstellungen.addActionListener(this);
         
         //Spielanleitung-Button
         info = new JButton("Spielanleitung");
         info.setBounds(buttonX, 210 + buttonYVerschiebung, 140, 40);
-        info.setForeground(new Color(255,255,255,255)); 
-        info.setBackground(new Color(0,0,0,255));       
+        info.setForeground(Color.WHITE); 
+        info.setBackground(Color.BLACK);       
         info.addActionListener(this);
         
         //Beenden-Button
         ende = new JButton("Beenden");
         ende.setPreferredSize(new Dimension(10,20));
         ende.setBounds(buttonX, 290 + buttonYVerschiebung, 140, 40);
-        ende.setForeground(new Color(255,255,255,255));
-        ende.setBackground(new Color(0,0,0,255));
+        ende.setForeground(Color.WHITE);
+        ende.setBackground(Color.BLACK);
         ende.addActionListener(this);
         
         // ImageIcon icon = new ImageIcon ("src/pics/menu hintergrund.png");
         // JLabel l1 = new JLabel (icon);
         // add(l1);
-        add(background);
         add(start);
         add(einstellungen);
         add(info);
         add(ende);
+        
+        add(background);
+        
         setVisible(true);
     }
     
