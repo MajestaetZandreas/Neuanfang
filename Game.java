@@ -71,22 +71,23 @@ public class Game implements Runnable
     private Hintergrund hintergrund;
     private int plattformNr;
     
-    private Gegner drache;
+    private Gegner ghost;
     
     private Lebensanzeige lebenspunkte;
     private Lebensanzeige lebenspunkteG;
     
     private Waffe kugel;
     
-    private BufferedImage[] spieler;
-    private BufferedImage[] spielerR;
-    private BufferedImage[] herz1;
-    private BufferedImage[] herz2;
-    private BufferedImage[] herz3;
-    private BufferedImage[] energieKugel;
+    private BufferedImage[] spieler_image;
+    private BufferedImage[] spielerR_image;
+    private BufferedImage[] herz1_image;
+    private BufferedImage[] herz2_image;
+    private BufferedImage[] herz3_image;
+    private BufferedImage[] energieKugel_image;
     
     private ArrayList<Plattform> plattforms;
     private ArrayList<Gegner> gegner;
+    private ArrayList<Spikes> spikes;
     
     public static void main(String[] args)
     {
@@ -197,6 +198,72 @@ public class Game implements Runnable
     }
     
     /**
+     * Diese Methode übernimmt das Laden von Grafiken
+     */
+    private void doInitialisierung()
+    {
+        last=System.nanoTime();
+        
+        spieler_image = loadPics("src/pics/sheeet4.gif",4);
+        spielerR_image = loadPics("src/pics/sheeet4_rechts.gif",4);
+        BufferedImage[] hintergrund_image = loadPics("src/pics/gelb3.png",1);
+        herz3_image = loadPics("src/pics/herz3voll.png",1);
+        herz2_image = loadPics("src/pics/herz2voll.png",1);
+        herz1_image = loadPics("src/pics/herz1voll.png",1);
+        BufferedImage[] gegnerGhost_image = loadPics("src/pics/Enemy_ghost.gif",4);
+        energieKugel_image = loadPics("src/pics/Energiekugel.png",1);
+        BufferedImage[] spikes_image= loadPics("src/pics/Spikes.png",1);
+        
+        
+        plattforms = levels.erstelleLevel();
+        spikes= new ArrayList<Spikes>();
+        
+        actors = new Vector<Sprite>();
+        painter = new Vector<Sprite>();
+
+        gegner = new ArrayList<Gegner>();
+        
+        hintergrund = new Hintergrund(hintergrund_image,0,0,100);
+        Spikes spike1=new Spikes(spikes_image,321,841,100);
+        Spikes spike2=new Spikes(spikes_image,167,381,100);
+        Spikes spike3=new Spikes(spikes_image,474,681,100);
+        Spikes spike4=new Spikes(spikes_image,616,216,100);
+        Spikes spike5=new Spikes(spikes_image,865,577,100);
+        Spikes spike6=new Spikes(spikes_image,943,577,100);
+        
+        player = new Spieler(spieler_image,60,840,60, keyManager);
+        ghost=new Gegner(gegnerGhost_image,560,50,60);
+        
+        kugel=new Waffe(energieKugel_image,player.getX(),player.getY()+10,100);
+        
+        
+        
+        spikes.add(spike1);
+        spikes.add(spike2);
+        spikes.add(spike3);
+        spikes.add(spike4);
+        spikes.add(spike5);
+        spikes.add(spike6);
+        
+        gegner.add(ghost);
+        
+        lebenspunkte=new Lebensanzeige(herz3_image,0,10,100);
+        lebenspunkteG=new Lebensanzeige(herz3_image,gegner.get(rndG).getX(),gegner.get(rndG).getY()-25,100);
+        
+        actors.add(0,hintergrund);
+        actors.add(player);
+        for(int i=0;i<plattforms.size();i++)
+        actors.add(plattforms.get(i));
+        for(int i=0;i<spikes.size();i++)
+        actors.add(spikes.get(i));
+        actors.add(gegner.get(rndG));
+        actors.add(lebenspunkte);
+        actors.add(lebenspunkteG);
+        
+       
+    }
+    
+    /**
      * Diese Methode übernimmt Abfrage von Tastatureingaben und die jeweiligen Änderungen
      */
     private void checkKeys()
@@ -252,10 +319,10 @@ public class Game implements Runnable
         
         if(keyManager.fire&&reload==false)
         {
-            kugel=new Waffe(energieKugel,player.getX(),player.getY()+10,100);
+            kugel=new Waffe(energieKugel_image,player.getX(),player.getY()+10,100);
             actors.add(kugel);
             
-            if(player.getImage()==spielerR)kugel.setHorizontalSpeed(300);
+            if(player.getImage()==spielerR_image)kugel.setHorizontalSpeed(300);
             else kugel.setHorizontalSpeed(-300);  
             
             reload=true;
@@ -271,16 +338,27 @@ public class Game implements Runnable
     private void doLogic()
     {
         collided=false;
-        for(int i=0;i<plattforms.size()&&collided==false;i++)
+        
+        for(int i=0;i<plattforms.size()&&collided==false;i++)//jupp/Gideon
         { 
             Sprite s = plattforms.get(i);
             collided=player.collidedWith(s);
             plattformNr = i;
         }
         
-        for(int i=0;i<gegner.size();i++)
+        for(int i=0;i<gegner.size();i++)//Jupp/Gideon
         { 
             Sprite s = gegner.get(i);
+            if(player.collidedWith(s)&&!safe)
+            {
+                player.reduceHP();
+                safe=true;
+            }
+        }
+        
+        for(int i=0;i<spikes.size();i++)//Shium/Cihan
+        { 
+            Sprite s = spikes.get(i);
             if(player.collidedWith(s)&&!safe)
             {
                 player.reduceHP();
@@ -296,24 +374,24 @@ public class Game implements Runnable
         
         if(player.getHorizontalSpeed()<0)
         {
-            player.setImage(spieler);
+            player.setImage(spieler_image);
         }
         else if(player.getHorizontalSpeed()>0)
         {
-            player.setImage(spielerR);
+            player.setImage(spielerR_image);
         }
         
         if(player.getHP()==3)
         {
-            lebenspunkte.setImage(herz3);
+            lebenspunkte.setImage(herz3_image);
         }
         else if(player.getHP()==2)
         {
-            lebenspunkte.setImage(herz2);
+            lebenspunkte.setImage(herz2_image);
         }
         else if(player.getHP()==1)
         {
-            lebenspunkte.setImage(herz1);
+            lebenspunkte.setImage(herz1_image);
         }
         else
         {
@@ -323,15 +401,15 @@ public class Game implements Runnable
         
         if(gegner.get(rndG).getHP()==3)
         {
-            lebenspunkteG.setImage(herz3);
+            lebenspunkteG.setImage(herz3_image);
         }
         else if(gegner.get(rndG).getHP()==2)
         {
-            lebenspunkteG.setImage(herz2);
+            lebenspunkteG.setImage(herz2_image);
         }
         else if(gegner.get(rndG).getHP()==1)
         {
-            lebenspunkteG.setImage(herz1);
+            lebenspunkteG.setImage(herz1_image);
         }
         else
         {
@@ -412,65 +490,7 @@ public class Game implements Runnable
         }
     }
     
-    /**
-     * Diese Methode übernimmt das Laden von Grafiken
-     */
-    private void doInitialisierung()
-    {
-        last=System.nanoTime();
-        
-        spieler = loadPics("src/pics/sheeet4.gif",4);
-        spielerR = loadPics("src/pics/sheeet4_rechts.gif",4);
-        BufferedImage[] hintergrund_image = loadPics("src/pics/gelb3.png",1);
-        herz3 = loadPics("src/pics/herz3voll.png",1);
-        herz2 = loadPics("src/pics/herz2voll.png",1);
-        herz1 = loadPics("src/pics/herz1voll.png",1);
-        BufferedImage[] gegnerDrache = loadPics("src/pics/Enemy_ghost.gif",4);
-        energieKugel = loadPics("src/pics/Energiekugel.png", 1);
-        
-        plattforms = levels.erstelleLevel();
-        actors = new Vector<Sprite>(/*plattforms*/);
-        painter = new Vector<Sprite>();
-
-        gegner = new ArrayList<Gegner>();
-
-        player = new Spieler(spieler,50,435,60, keyManager);
-
-        kugel=new Waffe(energieKugel,player.getX(),player.getY()+10,100);
-        
-        hintergrund = new Hintergrund(hintergrund_image,0,0,100);
-        
-
-        drache=new Gegner(gegnerDrache,600,370,60);
-        
-        
-        gegner.add(drache);
-        
-        lebenspunkte=new Lebensanzeige(herz3,0,10,100);
-        lebenspunkteG=new Lebensanzeige(herz3,gegner.get(rndG).getX(),gegner.get(rndG).getY()-25,100);
-        
-        
-        actors.add(0,hintergrund);
-        actors.add(player);
-        for(int i=0;i<plattforms.size();i++)
-        actors.add(plattforms.get(i));
-        // actors.add(plattform02);
-        // actors.add(plattform03);
-        // actors.add(plattform04);
-        // actors.add(plattform05);
-        // actors.add(plattform06);
-        // actors.add(plattform07);
-        // actors.add(plattform08);
-        // actors.add(plattform09);
-        // actors.add(plattform10);
-        // actors.add(plattform11);
-        // actors.add(plattform12);
-        actors.add(gegner.get(rndG));
-        actors.add(lebenspunkte);
-        actors.add(lebenspunkteG);
-        
-        
-    }
+    
     
 
 }
