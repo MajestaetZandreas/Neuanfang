@@ -434,7 +434,7 @@ public class Game implements Runnable
 
         gegner = new ArrayList<Gegner>();
 
-        player = new Spieler(spieler,50,50,60, keyManager);
+        player = new Spieler(spieler,50,435,60, keyManager);
 
         kugel=new Waffe(energieKugel,player.getX(),player.getY()+10,100);
         
