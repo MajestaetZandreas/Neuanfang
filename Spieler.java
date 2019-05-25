@@ -35,6 +35,7 @@ public class Spieler extends Sprite
      * @author(Clemens Z., Shium R., Jupp B.)
      * 
      * Diese Methode stellt sicher, dass die Spielfigur sich im Rahmen des Spielfelds bewegt, außerdem ändert sie ggf. Variablen
+     * Zusätzlich wird die Animation des Gifs hier veranlasst
      */
     @Override
     public void doLogic(long delta)

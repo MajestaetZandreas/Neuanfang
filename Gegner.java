@@ -19,12 +19,25 @@ public class Gegner extends Sprite
         super(i, x, y, delay);
     }
 
+    /**
+     * @author(Jupp B., Gideon S.)
+     * 
+     * Diese Methode ruft die doLogic-Methode aus der Klasse Sprite auf, und spielt damit die Animation ab
+     */
     @Override
     public void doLogic(long delta)
     {
         super.doLogic(delta);
     }
-   
+    
+    /**
+     * @author(Cihan K., Gideon S., Jupp B. - Verschidene versionen)
+     * 
+     * Diese Methode überprüft ob sich zwei Objekte überschneiden und gibt das Resultat aus
+     * 
+     * @return true, wenn zwei Objekte sich überschneiden
+     *         false, wenn nicht
+     */
     public boolean collidedWith(Sprite s)
     {
         if(this.intersects(s))

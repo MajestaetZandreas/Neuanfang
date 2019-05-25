@@ -189,7 +189,7 @@ public class Level
         plattforms.add(plattform80);
         plattforms.add(plattform81);
         plattforms.add(plattform82);
-        plattforms.add(plattform83);
+        // plattforms.add(plattform83);
         plattforms.add(plattform84);
             
         
