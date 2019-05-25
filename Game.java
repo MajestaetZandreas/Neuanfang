@@ -61,9 +61,9 @@ public class Game implements Runnable
     private Vector<Sprite> actors;
     private Vector<Sprite> painter;
     private Hintergrund hintergrund;
-    private Plattform plattform;
-    private Plattform plattform2;
-    private Plattform plattform3;
+    // private Plattform plattform;
+    // private Plattform plattform2;
+    // private Plattform plattform3;
     private int plattformNr;
     
     private Kreaturen drache;
@@ -410,9 +410,9 @@ public class Game implements Runnable
         
         hintergrund = new Hintergrund(hintergrund_image,0,0,100);
         
-        plattform = new Plattform(plattform_image,0,400,100);
-        plattform2 = new Plattform(plattform_image,200,400,100);
-        plattform3 = new Plattform(plattform_image,600,400,100);
+        Plattform plattform = new Plattform(plattform_image,0,400,100);
+        Plattform plattform2 = new Plattform(plattform_image,200,400,100);
+        Plattform plattform3 = new Plattform(plattform_image,600,400,100);
         
         drache=new Kreaturen(gegnerDrache,600,370,100);
         
