@@ -1,17 +1,21 @@
-import java.awt.*;
-import java.awt.event.*;
+// import java.awt.*;
+// import java.awt.event.*;
+
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Color;
+
 import java.net.URL;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+
 import java.util.Vector;
 import java.util.ListIterator;
 import java.util.ArrayList;
+
 import java.lang.Math;
 import java.util.Random;
 
@@ -25,8 +29,9 @@ import java.util.Random;
 public class Game implements Runnable
 {
     private static Hauptmenue hauptmenue;
-    private Spielfeld spielfeld;
     private Spielanleitung spielanleitung;
+    private Spielfeld spielfeld;
+    private Level levels;
     
     private boolean spielStart=true;
     private boolean victory=false;
@@ -39,7 +44,7 @@ public class Game implements Runnable
     
     private JFrame frame;
     
-    private Spieler copter;
+    private Spieler player;
     
     private KeyManager keyManager;
     
@@ -61,9 +66,6 @@ public class Game implements Runnable
     private Vector<Sprite> actors;
     private Vector<Sprite> painter;
     private Hintergrund hintergrund;
-    private Plattform plattform;
-    private Plattform plattform2;
-    private Plattform plattform3;
     private int plattformNr;
     
     private Gegner drache;
@@ -92,6 +94,7 @@ public class Game implements Runnable
     {
         hauptmenue = new Hauptmenue();
         keyManager = new KeyManager();
+        levels= new Level();
         
         
         Thread thread = new Thread(this);
@@ -188,12 +191,12 @@ public class Game implements Runnable
     private void checkKeys()
     {
         keyManager.update();
-        prevVertSpeed=copter.logic(prevVertSpeed, delta);
+        prevVertSpeed=player.logic(prevVertSpeed, delta);
         if((keyManager.jump||keyManager.jumpG) && (canJump==true || prevVertSpeed==0))
         {
-            copter.setY(copter.getY()-3);
+            player.setY(player.getY()-3);
             inJump=true;
-            copter.setVerticalSpeed(-speed+fallgeschwindigkeit*prevVertSpeed);
+            player.setVerticalSpeed(-speed+fallgeschwindigkeit*prevVertSpeed);
             prevVertSpeed=prevVertSpeed+5;
             canJump=false;
             collided=false;
@@ -204,35 +207,46 @@ public class Game implements Runnable
             canJump=true;
             inJump=false;
             prevVertSpeed=0;
-            copter.setVerticalSpeed(0);
-            copter.setY(plattforms.get(plattformNr).getY()-30);
+            player.setVerticalSpeed(0);
+            player.setY(plattforms.get(plattformNr).getY()-30);
         }
         
         if(prevVertSpeed>4)
         {
             canJump=false;
-            copter.setVerticalSpeed(-speed+fallgeschwindigkeit*prevVertSpeed);
+            player.setVerticalSpeed(-speed+fallgeschwindigkeit*prevVertSpeed);
             prevVertSpeed++;
         }
         
         if(collided==false&&inJump==false)
         {
-            copter.setVerticalSpeed(fallgeschwindigkeit*prevVertSpeed);
+            player.setVerticalSpeed(fallgeschwindigkeit*prevVertSpeed);
             prevVertSpeed++;
         }
         
-        if(keyManager.left||keyManager.leftG) copter.setHorizontalSpeed(-speed);
-        if(keyManager.right||keyManager.rightG) copter.setHorizontalSpeed(speed);
-        if((!keyManager.left&&!keyManager.leftG) && (!keyManager.right&&!keyManager.rightG)) copter.setHorizontalSpeed(0);
+        if(keyManager.left||keyManager.leftG) 
+        {
+            player.setHorizontalSpeed(-speed);
+        }
+        
+        if(keyManager.right||keyManager.rightG) 
+        {
+           player.setHorizontalSpeed(speed);
+        }  
+    
+        if((!keyManager.left&&!keyManager.leftG) && (!keyManager.right&&!keyManager.rightG)) 
+        {
+            player.setHorizontalSpeed(0);
+        }
         
         if(keyManager.fire&&reload==false)
         {
-            kugel=new Waffe(energieKugel,copter.getX(),copter.getY()+10,100);
+            kugel=new Waffe(energieKugel,player.getX(),player.getY()+10,100);
             actors.add(kugel);
-            if(copter.getImage()==spielerR)
-            kugel.setHorizontalSpeed(300);
+            if(player.getImage()==spielerR)
+                kugel.setHorizontalSpeed(300);
             else
-            kugel.setHorizontalSpeed(-300);
+                kugel.setHorizontalSpeed(-300);
             if(gegner.get(rndG).collidedWith(kugel))
             {
                 gegner.get(rndG).reduceHP();
@@ -246,7 +260,8 @@ public class Game implements Runnable
             }
             reload=true;
         }
-    }
+      }
+    
     
     /**
      * Diese Methode übernimmt die Ausführung von Logik-Operationen
@@ -257,44 +272,44 @@ public class Game implements Runnable
         for(int i=0;i<plattforms.size()&&collided==false;i++)
         { 
             Sprite s = plattforms.get(i);
-            collided=copter.collidedWith(s);
+            collided=player.collidedWith(s);
             plattformNr = i;
         }
         
         for(int i=0;i<gegner.size();i++)
         { 
             Sprite s = gegner.get(i);
-            if(copter.collidedWith(s)&&!safe)
+            if(player.collidedWith(s)&&!safe)
             {
-                copter.reduceHP();
+                player.reduceHP();
                 safe=true;
             }
         }
         
-        if(copter.getBeruertBoden())//wenn die Spielfigur den Boden beruert, hat man das Spiel verloren und es wird beendet
+        if(player.getBeruertBoden())//wenn die Spielfigur den Boden beruert, hat man das Spiel verloren und es wird beendet
         {
             spielfeld.getFrame().setVisible(false);
             victory=false;
         }
         
-        if(copter.getHorizontalSpeed()<0)
+        if(player.getHorizontalSpeed()<0)
         {
-            copter.setImage(spieler);
+            player.setImage(spieler);
         }
-        else if(copter.getHorizontalSpeed()>0)
+        else if(player.getHorizontalSpeed()>0)
         {
-            copter.setImage(spielerR);
+            player.setImage(spielerR);
         }
         
-        if(copter.getHP()==3)
+        if(player.getHP()==3)
         {
             lebenspunkte.setImage(herz3);
         }
-        else if(copter.getHP()==2)
+        else if(player.getHP()==2)
         {
             lebenspunkte.setImage(herz2);
         }
-        else if(copter.getHP()==1)
+        else if(player.getHP()==1)
         {
             lebenspunkte.setImage(herz1);
         }
@@ -343,7 +358,7 @@ public class Game implements Runnable
      *        pics - die Anzahl Bilder im Ordner
      */
     private BufferedImage[] loadPics(String path, int pics)
-    {
+    {  
         BufferedImage[] anim = new BufferedImage[pics];
         BufferedImage source=null;
         
@@ -363,7 +378,7 @@ public class Game implements Runnable
         }
         
         return anim;
-    }
+    } 
     
     /**
      * Errechnung der Zeit für einen Schleifendurchlauf
@@ -394,26 +409,24 @@ public class Game implements Runnable
         spieler = loadPics("src/pics/sheeet4.gif",4);
         spielerR = loadPics("src/pics/sheeet4_rechts.gif",4);
         BufferedImage[] hintergrund_image = loadPics("src/pics/gelb3.png",1);
-        BufferedImage[] plattform_image = loadPics("src/pics/plattform2.png",1);
         herz3 = loadPics("src/pics/herz3voll.png",1);
         herz2 = loadPics("src/pics/herz2voll.png",1);
         herz1 = loadPics("src/pics/herz1voll.png",1);
         BufferedImage[] gegnerDrache = loadPics("src/pics/Enemy_ghost.gif",4);
         energieKugel = loadPics("src/pics/Energiekugel.png", 1);
         
-        
-        actors = new Vector<Sprite>();
-        plattforms = new ArrayList<Plattform>();
+        plattforms = levels.erstelleLevel();
+        actors = new Vector<Sprite>(plattforms);
         painter = new Vector<Sprite>();
+
         gegner = new ArrayList<Gegner>();
-        copter = new Spieler(spieler,0,200,100, keyManager);
+
+        player = new Spieler(spieler,0,920,100, keyManager);
+
         
         hintergrund = new Hintergrund(hintergrund_image,0,0,100);
         
-        plattform = new Plattform(plattform_image,0,400,100);
-        plattform2 = new Plattform(plattform_image,200,400,100);
-        plattform3 = new Plattform(plattform_image,600,400,100);
-        
+
         drache=new Gegner(gegnerDrache,600,370,100);
         
         
@@ -423,18 +436,26 @@ public class Game implements Runnable
         lebenspunkteG=new Lebensanzeige(herz3,gegner.get(rndG).getX(),gegner.get(rndG).getY()-25,100);
         
         
-        actors.add(hintergrund);
-        actors.add(copter);
-        actors.add(plattform3);
-        actors.add(plattform);
-        actors.add(plattform2);
+        actors.add(0,hintergrund);
+        actors.add(player);
+        // actors.add(plattforms);
+        // actors.add(plattform02);
+        // actors.add(plattform03);
+        // actors.add(plattform04);
+        // actors.add(plattform05);
+        // actors.add(plattform06);
+        // actors.add(plattform07);
+        // actors.add(plattform08);
+        // actors.add(plattform09);
+        // actors.add(plattform10);
+        // actors.add(plattform11);
+        // actors.add(plattform12);
         actors.add(gegner.get(rndG));
         actors.add(lebenspunkte);
         actors.add(lebenspunkteG);
         
-        plattforms.add(plattform);
-        plattforms.add(plattform2);
-        plattforms.add(plattform3);
+        
     }
     
+
 }

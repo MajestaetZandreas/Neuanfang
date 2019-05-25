@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
  */
 public class Plattform extends Sprite
 {
-    private final int SPEED = 20;
+    
     
     public Plattform(BufferedImage[] i, double x, double y, long delay)
     {
