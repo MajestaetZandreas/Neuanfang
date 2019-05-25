@@ -415,7 +415,7 @@ public class Game implements Runnable
         BufferedImage[] gegnerDrache = loadPics("src/pics/Enemy_ghost.gif",4);
         energieKugel = loadPics("src/pics/Energiekugel.png", 1);
         
-        plattforms = levels.erstelleLevel(1);
+        plattforms = levels.erstelleLevel();
         actors = new Vector<Sprite>(plattforms);
         painter = new Vector<Sprite>();
         gegner = new ArrayList<Kreaturen>();
