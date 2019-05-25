@@ -114,20 +114,7 @@ public class Game implements Runnable
     public void run()
     {
         while(spielStart)
-        {
-            if(hauptmenue.getIstSpielanleitungGedrueckt())
-            {
-                spielanleitung = new Spielanleitung();
-                while(spielanleitung.getIstZurueckGedrueckt()==false)
-                {
-                    hauptmenue.setVisible(false);
-                }
-                hauptmenue.setVisible(true);
-                hauptmenue.setIstSpielanleitungGedrueckt(false);
-                spielanleitung.setVisible(false);
-                spielanleitung = null;
-            }
-            
+        {   
             if(hauptmenue.getIstSpielstartGedrueckt()) 
             {
                 doInitialisierung();
@@ -173,10 +160,24 @@ public class Game implements Runnable
                 spielfeld.setVisible(false);
                 spielfeld = null;
             }
+            
+            if(hauptmenue.getIstSpielanleitungGedrueckt())
+            {
+                spielanleitung = new Spielanleitung();
+                while(spielanleitung.getIstZurueckGedrueckt()==false)
+                {
+                    hauptmenue.setVisible(false);
+                }
+                hauptmenue.setVisible(true);
+                hauptmenue.setIstSpielanleitungGedrueckt(false);
+                spielanleitung.setVisible(false);
+                spielanleitung = null;
+            }
         
             if(hauptmenue.getIstBeendenGedrueckt())
             {
                 spielStart=false;
+                System.exit(0);
             }
         }
     }
@@ -436,9 +437,4 @@ public class Game implements Runnable
         plattforms.add(plattform3);
     }
     
-    // private void setKamera()
-    // {
-        // int positionX = copter.getX();
-        // int positionY = copter.getY();
-    // }
 }
