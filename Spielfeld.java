@@ -45,7 +45,7 @@ public class Spielfeld extends JPanel
         //Spielfeld wird erstellt
         frame = new JFrame("Hüpfburg-2D");
         getBildschirmmitte();
-        frame.setLocation(screenWidthMiddle, screenHeightMiddle);
+        frame.setLocation(screenWidthMiddle, screenHeightMiddle-40);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         
