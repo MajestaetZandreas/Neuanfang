@@ -121,9 +121,9 @@ public class Game implements Runnable
                 while(spielanleitung.getIstZurueckGedrueckt()==false)
                 {
                     hauptmenue.setVisible(false);
-                    hauptmenue.setIstSpielanleitungGedrueckt(false);
                 }
                 hauptmenue.setVisible(true);
+                hauptmenue.setIstSpielanleitungGedrueckt(false);
                 spielanleitung.setVisible(false);
                 spielanleitung = null;
             }
@@ -169,6 +169,7 @@ public class Game implements Runnable
                     }
                 }
                 hauptmenue.setVisible(true);
+                hauptmenue.setIstSpielstartGedrueckt(false);
                 spielfeld.setVisible(false);
                 spielfeld = null;
             }
@@ -273,7 +274,6 @@ public class Game implements Runnable
         {
             spielfeld.getFrame().setVisible(false);
             victory=false;
-            spielStart=false;;
         }
         
         if(copter.getHorizontalSpeed()<0)
@@ -301,7 +301,6 @@ public class Game implements Runnable
         {
             spielfeld.getFrame().setVisible(false);
             victory=false;
-            spielStart=false;
         }
         
         if(gegner.get(rndG).getHP()==3)
