@@ -3,19 +3,18 @@ import java.awt.image.BufferedImage;
 /**
  * Beschreiben Sie hier die Klasse Kreaturen.
  * 
- * @author (Ihr Name) 
- * @version (eine Versionsnummer oder ein Datum)
+ * @author (Shium R.) 
+ * @version (25.05.2019)
  */
-public class Kreaturen extends Sprite
+public class Gegner extends Sprite
 {
-    // Instanzvariablen - ersetzen Sie das folgende Beispiel mit Ihren Variablen
-    private int lebenspunkte=3;
+    private int lebenspunkte=3; //Jeder Gegner startet mit 3 Lebenspunkten
     
 
     /**
      * Konstruktor für Objekte der Klasse Kreaturen
      */
-    public Kreaturen(BufferedImage[] i, double x, double y, long delay)
+    public Gegner(BufferedImage[] i, double x, double y, long delay)
     {
         super(i, x, y, delay);
     }
@@ -30,9 +29,7 @@ public class Kreaturen extends Sprite
     {
         if(this.intersects(s))
         {
-            {
-                return true;
-            }
+            return true;
         }
         else
         {

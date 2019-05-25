@@ -66,7 +66,7 @@ public class Game implements Runnable
     private Plattform plattform3;
     private int plattformNr;
     
-    private Kreaturen drache;
+    private Gegner drache;
     
     private Lebensanzeige lebenspunkte;
     private Lebensanzeige lebenspunkteG;
@@ -81,7 +81,7 @@ public class Game implements Runnable
     private BufferedImage[] energieKugel;
     
     private ArrayList<Plattform> plattforms;
-    private ArrayList<Kreaturen> gegner;
+    private ArrayList<Gegner> gegner;
     
     public static void main(String[] args)
     {
@@ -405,7 +405,7 @@ public class Game implements Runnable
         actors = new Vector<Sprite>();
         plattforms = new ArrayList<Plattform>();
         painter = new Vector<Sprite>();
-        gegner = new ArrayList<Kreaturen>();
+        gegner = new ArrayList<Gegner>();
         copter = new Spieler(spieler,0,200,100, keyManager);
         
         hintergrund = new Hintergrund(hintergrund_image,0,0,100);
@@ -414,7 +414,7 @@ public class Game implements Runnable
         plattform2 = new Plattform(plattform_image,200,400,100);
         plattform3 = new Plattform(plattform_image,600,400,100);
         
-        drache=new Kreaturen(gegnerDrache,600,370,100);
+        drache=new Gegner(gegnerDrache,600,370,100);
         
         
         gegner.add(drache);
