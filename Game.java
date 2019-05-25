@@ -42,6 +42,9 @@ public class Game implements Runnable
     private boolean safe;
     private int safeTime;
     
+    private boolean getroffen;
+    private int getroffenTime;
+    
     private JFrame frame;
     
     private Spieler player;
@@ -131,6 +134,7 @@ public class Game implements Runnable
                     
                     checkKeys();
                     doLogic();
+                    gegner.get(rndG).doLogic(delta);
                     
                     moveObjects();
                     cloneVectors();
@@ -147,6 +151,13 @@ public class Game implements Runnable
                     {
                         safe=false;
                         safeTime=0;
+                    }
+                    
+                    getroffenTime++;
+                    if(getroffenTime >= 100)
+                    {
+                        getroffen=false;
+                        getroffenTime=0;
                     }
                     
                     spielfeld.repaint();//Neuzeichnung wird ausgelöst
@@ -190,8 +201,8 @@ public class Game implements Runnable
      */
     private void checkKeys()
     {
-        keyManager.update();
         prevVertSpeed=player.logic(prevVertSpeed, delta);
+        keyManager.update();
         if((keyManager.jump||keyManager.jumpG) && (canJump==true || prevVertSpeed==0))
         {
             player.setY(player.getY()-3);
@@ -242,25 +253,16 @@ public class Game implements Runnable
         if(keyManager.fire&&reload==false)
         {
             kugel=new Waffe(energieKugel,player.getX(),player.getY()+10,100);
-            actors.add(kugel);
-            if(player.getImage()==spielerR)
-                kugel.setHorizontalSpeed(300);
-            else
-                kugel.setHorizontalSpeed(-300);
-            if(gegner.get(rndG).collidedWith(kugel))
-            {
-                gegner.get(rndG).reduceHP();
-                actors.remove(kugel);
-            }   
+            actors.add(89,kugel);
             
+            if(player.getImage()==spielerR)kugel.setHorizontalSpeed(300);
+            else kugel.setHorizontalSpeed(-300);  
             
-            if(kugel.getX()<=0 || kugel.getX()>=1280)
-            {
-                actors.remove(kugel);
-            }
             reload=true;
         }
-      }
+        
+        
+    }
     
     
     /**
@@ -286,7 +288,7 @@ public class Game implements Runnable
             }
         }
         
-        if(player.getBeruertBoden())//wenn die Spielfigur den Boden beruert, hat man das Spiel verloren und es wird beendet
+        if(player.getBeruehrtBoden())//wenn die Spielfigur den Boden beruehrt, hat man das Spiel verloren und es wird beendet
         {
             spielfeld.getFrame().setVisible(false);
             victory=false;
@@ -337,6 +339,17 @@ public class Game implements Runnable
             victory=true;
             spielStart=false;
         }
+        
+        if(kugel.getX()<=0 || kugel.getX()>=1280)
+        {
+            actors.remove(kugel);
+        }
+        
+        if(gegner.get(rndG).collidedWith(kugel)&&getroffen==false)
+        {
+            gegner.get(rndG).reduceHP();
+            getroffen=true;
+        } 
     }
     
     /**
@@ -416,18 +429,19 @@ public class Game implements Runnable
         energieKugel = loadPics("src/pics/Energiekugel.png", 1);
         
         plattforms = levels.erstelleLevel();
-        actors = new Vector<Sprite>(plattforms);
+        actors = new Vector<Sprite>(/*plattforms*/);
         painter = new Vector<Sprite>();
 
         gegner = new ArrayList<Gegner>();
 
-        player = new Spieler(spieler,0,920,100, keyManager);
+        player = new Spieler(spieler,50,50,60, keyManager);
 
+        kugel=new Waffe(energieKugel,player.getX(),player.getY()+10,100);
         
         hintergrund = new Hintergrund(hintergrund_image,0,0,100);
         
 
-        drache=new Gegner(gegnerDrache,600,370,100);
+        drache=new Gegner(gegnerDrache,600,370,60);
         
         
         gegner.add(drache);
@@ -438,7 +452,8 @@ public class Game implements Runnable
         
         actors.add(0,hintergrund);
         actors.add(player);
-        // actors.add(plattforms);
+        for(int i=0;i<plattforms.size();i++)
+        actors.add(plattforms.get(i));
         // actors.add(plattform02);
         // actors.add(plattform03);
         // actors.add(plattform04);

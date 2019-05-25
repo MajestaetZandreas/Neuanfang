@@ -3,7 +3,7 @@ import java.awt.image.BufferedImage;
 /**
  * Beschreiben Sie hier die Klasse Kreaturen.
  * 
- * @author (Shium R.) 
+ * @author (Shium R., Jupp B.) 
  * @version (25.05.2019)
  */
 public class Gegner extends Sprite

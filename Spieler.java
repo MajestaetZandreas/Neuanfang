@@ -11,7 +11,7 @@ public class Spieler extends Sprite
     private int pvs; //Ein Attribut, um die Falldauer zu speichern und zurückzugeben, obwohl sie in der Klasse game ist
     private KeyManager keyManager;
     private int lebenspunkte=3; //Der Spieler startet mit 3 Lebenspunkten
-    private boolean beruertBoden=false; //Der Spieler ist am Anfang des Spiels nicht auf dem Boden
+    private boolean beruehrtBoden=false; //Der Spieler ist am Anfang des Spiels nicht auf dem Boden
     
     public Spieler(BufferedImage[] i, double x, double y, long delay, KeyManager kManager)
     {
@@ -22,7 +22,7 @@ public class Spieler extends Sprite
     /**
      * @author (Jupp B., Gideon S.)
      * 
-     *  Diese Methode verändert die Vertikale Geschwindigkeit, sowie die dauer des Falls, ist aber mittlerweile nicht mehr notwendig, sie war in der Entwicklungsphase essenziell
+     *  Diese Methode verändert die Vertikale Geschwindigkeit, sowie die Dauer des Falls
      */
     public int logic(int prevVertSpeed, long delta)
     {
@@ -64,7 +64,7 @@ public class Spieler extends Sprite
             setY(960-getHeight());
             setVerticalSpeed(0);
             pvs=0;
-            beruertBoden=true;//die Spielfigur beruert den "Boden"
+            beruehrtBoden=true;//die Spielfigur beruehrt den "Boden"
         }
     }
     
@@ -98,13 +98,13 @@ public class Spieler extends Sprite
         return lebenspunkte;
     }
     
-    public boolean getBeruertBoden()
+    public boolean getBeruehrtBoden()
     {
-        return beruertBoden;
+        return beruehrtBoden;
     }
     
-    public void setBeruertBoden(boolean zustand)
+    public void setBeruehrtBoden(boolean zustand)
     {
-        beruertBoden=zustand;
+        beruehrtBoden=zustand;
     }
 }
