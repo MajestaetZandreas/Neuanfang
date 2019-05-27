@@ -23,28 +23,28 @@ import java.util.Random;
 /**
 * Die Hauptklasse des Spiels, von der alles "gesteuert" wird.
 *  
-* @author (Clemens Zander, Shium Rahman) 
-* @version (22.05.2019)
+* @author (Jupp Bruns, Clemens Zander, Shium Rahman) 
+* @version (27.05.2019)
 */
 public class Game implements Runnable
 {
-    private static Hauptmenue hauptmenue;
-    private Spielanleitung spielanleitung;
-    private Endscreen endscreen;
-    private Spielfeld spielfeld;
-    private Level levels;
+    private static Hauptmenue hauptmenue; //Das Hauptmenü, welches vor dem Spielen geöffnet wird
+    private Spielanleitung spielanleitung; //Die Spielanleitung
+    private Endscreen endscreen; //Das Fenster, welches am Ende des Spiels erscheint
+    private Spielfeld spielfeld; //Das Fenster in welchem gespielt wird
+    private Level levels; //Das Level beschreibt die Anordnung der Plattformen
     
-    private boolean spielStart=true;
-    private boolean victory=false;
+    private boolean spielStart=true; //Dieses Attribut ist solange true, wie das Spiel läuft
+    private boolean victory=false; //Dieses Attribut git an, ob der Spieler gewonnen oder verloren hat
     
-    private boolean reload;
-    private int reloadTime;
+    private boolean reload; //Dieses Attribut ist true, nachdem der Spieler geschossen hat und verhindert Dauerfeuer
+    private int reloadTime; //Dieses Attribut wird zur Berechnung der Dauer des Nachladens benötigt
     
-    private boolean safe;
-    private int safeTime;
+    private boolean safe; //Dieses Attribut ist true, nachdem der Spieler Schaden genommen hat und verhindert den sofortigen Tod
+    private int safeTime; //Dieses Attribut wird zur Berechnung der Dauer der sicheren Zeit des Spielers benötigt
     
-    private boolean getroffen;
-    private int getroffenTime;
+    private boolean getroffen; //Dieses Attribut ist true, nachdem der Gegner Schaden genommen hat und verhindert den sofortigen Sied
+    private int getroffenTime; //Dieses Attribut wird zur Berechnung der Dauer der sicheren Zeit des Gegners benötigt
     
     private JFrame frame;
     
@@ -52,18 +52,20 @@ public class Game implements Runnable
     
     private KeyManager keyManager;
     
-    private boolean collided;
+    private boolean collided; //Dieses Attribut ist true, wenn zwei Sprites (normalerweise Spieler und Plattform) sich überschneiden oder berühren
     
-    private int rndG;
-    private int rndP;
-    private long delta;//Dauer eines Durchlaufs
-    private long last;//Die Zeit vom Anfang eines Durchlaufs
-    private long fps;//Anzahl Bilder pro Sekunde
+    private int rndG; //Int-Wert zur Bestimmung, welche Gegner-Grafik benutzt werden soll
+    private int rndP; ////Int-Wert zur Bestimmung, auf welche Plattform der Gegner nach erlittenem Schaden teleportiert werded soll
+    //^noch nicht in Benutzung
+    private long delta; //Dauer eines Durchlaufs
+    private long last; //Die Zeit vom Anfang eines Durchlaufs
+    private long fps; //Anzahl Bilder pro Sekunde
     
     private boolean canJump;
     private boolean jump;
-    private int speed = 200;
-    private double fallgeschwindigkeit=1;
+    private int vSpeed = 75;
+    private int hSpeed = 100;
+    private double fallgeschwindigkeit=0.75;
     private boolean inJump;
     private int prevVertSpeed=201;
     
@@ -107,7 +109,7 @@ public class Game implements Runnable
         
         Random rand=new Random();
         rndG=rand.nextInt(1);
-        rndP=rand.nextInt(3);
+        rndP=rand.nextInt(35);
     }
     
     public void setPrevVertSpeed(int newSpeed)
@@ -290,7 +292,7 @@ public class Game implements Runnable
         {
             player.setY(player.getY()-3);
             inJump=true;
-            player.setVerticalSpeed(-speed+fallgeschwindigkeit*prevVertSpeed);
+            player.setVerticalSpeed(-vSpeed+fallgeschwindigkeit*prevVertSpeed);
             prevVertSpeed=prevVertSpeed+5;
             canJump=false;
             collided=false;
@@ -308,7 +310,7 @@ public class Game implements Runnable
         if(prevVertSpeed>4)
         {
             canJump=false;
-            player.setVerticalSpeed(-speed+fallgeschwindigkeit*prevVertSpeed);
+            player.setVerticalSpeed(-vSpeed+fallgeschwindigkeit*prevVertSpeed);
             prevVertSpeed++;
         }
         
@@ -320,12 +322,12 @@ public class Game implements Runnable
         
         if(keyManager.left||keyManager.leftG) 
         {
-            player.setHorizontalSpeed(-speed);
+            player.setHorizontalSpeed(-hSpeed);
         }
         
         if(keyManager.right||keyManager.rightG) 
         {
-           player.setHorizontalSpeed(speed);
+           player.setHorizontalSpeed(hSpeed);
         }  
     
         if((!keyManager.left&&!keyManager.leftG) && (!keyManager.right&&!keyManager.rightG)) 
