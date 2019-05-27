@@ -294,51 +294,51 @@ public class Game implements Runnable
      */
     private void checkKeys()
     {
-        prevVertSpeed=player.logic(prevVertSpeed, delta);
-        keyManager.update();
-        if((keyManager.jump||keyManager.jumpG) && (canJump==true || prevVertSpeed==0))
+        player.doLogic(delta); //die doLogic Methode aus der Klasse Spieler wird aufgerufen, was die Randkollision und Animation veranlasst
+        keyManager.update(); //die Tastatureingaben werden abgefragt
+        if((keyManager.jump||keyManager.jumpG) && (canJump==true || prevVertSpeed==0)) //wenn der Sprungbefehl ausgelöst wird und der Spieler springen kann
         {
-            player.setY(player.getY()-3);
-            inJump=true;
-            player.setVerticalSpeed(-vSpeed+fallgeschwindigkeit*prevVertSpeed);
-            prevVertSpeed=prevVertSpeed+5;
-            canJump=false;
-            collided=false;
+            player.setY(player.getY()-3); //wird der Spieler etwas nach oben gesetzt, um die Kollision zu deaktivieren, die den Sprung bzw. Fall verhindern würde
+            inJump=true; //der Spieler ist im Sprungprozess
+            player.setVerticalSpeed(-vSpeed+fallgeschwindigkeit*prevVertSpeed); //der Spieler bewegt sich mit einer bestimmten Geschwindigkeit nach oben, wird aber von der Gravitation gebremst
+            prevVertSpeed=prevVertSpeed+5; //der Wert der Loops in denen gefallen wird, wird um 5 erhöht, um potetiellen Bugs vorzubeugen
+            canJump=false; //der Spieler kann nicht mehr springen
+            collided=false; //und kollidiert nicht mehr
         }
         
-        if(collided==true)
+        if(collided==true) //wenn der Spieler mit einer Plattform kollidiert
         {
-            canJump=true;
-            inJump=false;
-            prevVertSpeed=0;
-            player.setVerticalSpeed(0);
-            player.setY(plattforms.get(plattformNr).getY()-30);
+            canJump=true; //kann er wieder springen
+            inJump=false; //und ist nicht mehr im Sprung
+            prevVertSpeed=0; //die Anzahl an Loops in denen der Spieler fällt, wird wieder auf 0 gesetzt
+            player.setVerticalSpeed(0); //der Spieler bewegt sich nicht mehr vertikal
+            player.setY(plattforms.get(plattformNr).getY()-30); //Der Spieler wird über die Plattform gesetzt, um weiteren Bugs vorzubeugen, allerdings egal von wo er kollidiert, er wird nach oben gesetzt, auch von den Seiten oder unten
         }
         
-        if(prevVertSpeed>4)
+        if(prevVertSpeed>4) //wenn der Spieler bereits 4 Loops fällt (Fehlerfänger)
         {
-            canJump=false;
-            player.setVerticalSpeed(-vSpeed+fallgeschwindigkeit*prevVertSpeed);
-            prevVertSpeed++;
+            canJump=false; //kann er nicht mehr springen
+            player.setVerticalSpeed(-vSpeed+fallgeschwindigkeit*prevVertSpeed); //und bewegt sich mit fester, von der Gravitation verringerter Geschwingkeit auf- bzw. abwärts
+            prevVertSpeed++; //den Loops in denen er fällt wird einer hinzugefügt
         }
         
-        if(collided==false&&inJump==false)
+        if(collided==false&&inJump==false) //wenn der Spieler nicht kollidiert oder im Sprung ist 
         {
-            player.setVerticalSpeed(fallgeschwindigkeit*prevVertSpeed);
-            prevVertSpeed++;
+            player.setVerticalSpeed(fallgeschwindigkeit*prevVertSpeed); //fällt er abhängig von der Gravitation (ohne feste Sprunggeschwindigkeit)
+            prevVertSpeed++; //den Loops in denen er fällt wird einer hinzugefügt
         }
         
-        if(keyManager.left||keyManager.leftG) 
+        if(keyManager.left||keyManager.leftG) //wenn der Tastatur befehl zum Laufen nach links ausgelöst wird
         {
-            player.setHorizontalSpeed(-hSpeed);
+            player.setHorizontalSpeed(-hSpeed); //bewget sich der Spieler mit fester Geschwindigkeit nach links
         }
         
-        if(keyManager.right||keyManager.rightG) 
+        if(keyManager.right||keyManager.rightG) //wenn der Tastatur befehl zum Laufen nach rechts ausgelöst wird
         {
-           player.setHorizontalSpeed(hSpeed);
+           player.setHorizontalSpeed(hSpeed); //bewget sich der Spieler mit fester Geschwindigkeit nach rechts
         }  
     
-        if((!keyManager.left&&!keyManager.leftG) && (!keyManager.right&&!keyManager.rightG)) 
+        if((!keyManager.left&&!keyManager.leftG) && (!keyManager.right&&!keyManager.rightG))  //wenn weder ein
         {
             player.setHorizontalSpeed(0);
         }
