@@ -11,19 +11,21 @@ import java.awt.event.ActionEvent;
  * 
  * Wir empfehlen die README Datei zu lesen, bevor Sie in diesen Code eintauchen
  */
-public class Endscreen extends Menue implements ActionListener
+public class Endscreen extends JFrame implements ActionListener
 {
+    private int screenWidthMiddle;
+    private int screenHeightMiddle;
+    
     private JButton zurueck;
     private boolean istZurueckGedrueckt=false;
-    
-    
+     
     public Endscreen(boolean istGewonnen)
     {
-        JFrame frame = new JFrame("Endscreen");
+        super("Endscreen");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(300,129);
         getBildschirmmitte();
-        setLocation(getScreenWidthMiddle(), getScreenHeightMiddle());
+        setLocation(screenWidthMiddle, screenHeightMiddle-20);
         setLayout(null);
         setResizable(false);
         JLabel background = new JLabel("",erstelleScreen(istGewonnen),0);
@@ -41,6 +43,13 @@ public class Endscreen extends Menue implements ActionListener
         add(background);
         add(zurueck);
         setVisible(true);
+    }
+    
+    public void getBildschirmmitte()
+    {
+        Dimension d = this.getToolkit().getScreenSize();//
+        screenWidthMiddle = ((int) ((d.getWidth() / 2 - 150)));
+        screenHeightMiddle = ((int) ((d.getHeight() / 2 - 65)));
     }
     
     @Override
