@@ -61,9 +61,9 @@ public class Game implements Runnable
     private long fps; //Anzahl Bilder pro Sekunde
     
     private boolean canJump; //Dieses Attribut ist false, nachdem gesprungen wurde und verhindert, dass in der Luft gesprungen werden kann
-    private int vSpeed = 75; //Die Geschwindigkeit, mit welcher sich der Spieler im Sprung nach oben bewegt
+    private int vSpeed = 120 /* 75*/; //Die Geschwindigkeit, mit welcher sich der Spieler im Sprung nach oben bewegt
     private int hSpeed = 100; //Die Geschwindigkeit, mit welcher sich der Spieler seitlich bewegt
-    private double fallgeschwindigkeit=0.75; //Die Beschleunigung, welche den Fall jeden Loop beschleunigt
+    private double fallgeschwindigkeit=1.1; /*0.75 */ //Die Beschleunigung, welche den Fall jeden Loop beschleunigt
     private boolean inJump; //Dieses Attribut ist true, nachdem der Spieler gesprungen ist, und beeinflusst den Fall in der Luft
     private int prevVertSpeed=201; //Die Anzahl an Loops, in denen der Spieler bereits fällt
     
@@ -153,7 +153,7 @@ public class Game implements Runnable
                     if(reloadTime <= 0) //wenn sie bei 0 ist
                     {
                         reload=false; //kann man wieder schießen
-                        reloadTime=0; //die Nachladezeit wird wieder auf 100 gesetzt
+                        reloadTime=100; //die Nachladezeit wird wieder auf 100 gesetzt
                     }
                     
                     if(safe) //wenn der Spieler schon getroffen wurde
@@ -165,7 +165,7 @@ public class Game implements Runnable
                     }
                     
                     if(getroffen) //wenn der Gegner schon getroffen wurde
-                    getroffenTime++; //wird die Zeit in welcher er keinen Schaden erleiden kann verringert
+                    getroffenTime--; //wird die Zeit in welcher er keinen Schaden erleiden kann verringert
                     if(getroffenTime <= 0) //wenn sie bei 0 ist
                     {
                         getroffen=false; //kann der Gegner wieder Schaden erleiden
@@ -263,7 +263,7 @@ public class Game implements Runnable
         Spikes spike5=new Spikes(spikes_image,865,577,100);
         Spikes spike6=new Spikes(spikes_image,943,577,100);
         
-        player = new Spieler(spieler_image,60,840,60, keyManager);
+        player = new Spieler(spieler_image,60,770,60, keyManager);
         ghost=new Gegner(gegnerGhost_image,560,50,60);
         
         kugel=new Waffe(energieKugel_image,player.getX(),player.getY()+10,100);
