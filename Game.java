@@ -28,7 +28,9 @@ import java.util.Random;
 public class Game implements Runnable
 {
     private static Hauptmenue hauptmenue; //Das Hauptmenü, welches vor dem Spielen geöffnet wird
-    private Spielanleitung spielanleitung; //Die Spielanleitung
+    private SpielanleitungZiel spielanleitungZiel;//Die Spielanleitung
+    private SpielanleitungZiel2 spielanleitungZiel2;//Die Spielanleitung
+    private SpielanleitungTasten spielanleitungTasten;//Die Spielanleitung
     private Endscreen endscreen; //Das Fenster, welches am Ende des Spiels erscheint
     private Spielfeld spielfeld; //Das Fenster in welchem gespielt wird
     private Level levels; //Das Level beschreibt die Anordnung der Plattformen
@@ -61,7 +63,7 @@ public class Game implements Runnable
     private long fps; //Anzahl Bilder pro Sekunde
     
     private boolean canJump; //Dieses Attribut ist false, nachdem gesprungen wurde und verhindert, dass in der Luft gesprungen werden kann
-    private int vSpeed = 75; //Die Geschwindigkeit, mit welcher sich der Spieler im Sprung nach oben bewegt
+    private int vSpeed = 100; //Die Geschwindigkeit, mit welcher sich der Spieler im Sprung nach oben bewegt
     private int hSpeed = 100; //Die Geschwindigkeit, mit welcher sich der Spieler seitlich bewegt
     private double fallgeschwindigkeit=0.75; //Die Beschleunigung, welche den Fall jeden Loop beschleunigt
     private boolean inJump; //Dieses Attribut ist true, nachdem der Spieler gesprungen ist, und beeinflusst den Fall in der Luft
@@ -198,19 +200,41 @@ public class Game implements Runnable
             
             if(hauptmenue.getIstSpielanleitungGedrueckt()) //wenn man auf den Knopf "Spielanleitung" drückt
             {
-                spielanleitung = new Spielanleitung(); //wird ein neues Spielanleitungsobjekt erzeugt
-                while(spielanleitung.getIstZurueckGedrueckt()==false) //solange nicht zurück gedrückt wurde
+                spielanleitungZiel = new SpielanleitungZiel(); //wird ein neues Spielanleitungsobjekt erzeugt
+                while(spielanleitungZiel.getIstZurueckGedrueckt()==false) //solange nicht zurück gedrückt wurde
                 {
                     hauptmenue.setVisible(false); //bleibt das Hauptmenü ausgeblendet
+                    if(spielanleitungZiel.getIstWeiterGedrueckt())
+                    {
+                        spielanleitungZiel2 = new SpielanleitungZiel2();
+                        while(spielanleitungZiel2.getIstZurueckGedrueckt()==false)
+                        {
+                            spielanleitungZiel.setVisible(false);
+                            if(spielanleitungZiel2.getIstWeiterGedrueckt())
+                            {
+                                spielanleitungTasten = new SpielanleitungTasten();
+                                while(spielanleitungTasten.getIstZurueckGedrueckt()==false)
+                                {
+                                    spielanleitungZiel2.setVisible(false);
+                                }
+                                spielanleitungZiel2.setVisible(true);
+                                spielanleitungZiel2.setIstWeiterGedrueckt(false);
+                                spielanleitungTasten.setVisible(false);
+                                spielanleitungTasten = null;
+                            }
+                        }
+                        spielanleitungZiel.setVisible(true);
+                        spielanleitungZiel.setIstWeiterGedrueckt(false);
+                        spielanleitungZiel2.setVisible(false);
+                        spielanleitungZiel2 = null;
+                    }
                 }
                 hauptmenue.setVisible(true); //danach wird das Hauptmenü wieder eingeblendet
                 hauptmenue.setIstSpielanleitungGedrueckt(false); //es wird keine neue Spielanleitung erzeugt oder eingeblendet
-                spielanleitung.setVisible(false); //die Spielanleitung wird ausgeblendet
-                spielanleitung = null; //und gelöscht
+                spielanleitungZiel.setVisible(false); //die Spielanleitung wird ausgeblendet
+                spielanleitungZiel = null; //und gelöscht
             }
             
-            
-        
             if(hauptmenue.getIstBeendenGedrueckt()) //wenn man beenden dückt
             {
                 spielStart=false; //wird die run-Methode abgebrochen

@@ -12,17 +12,13 @@ import java.awt.event.ActionEvent;
  * 
  * Wir empfehlen die README Datei zu lesen, bevor Sie in diesen Code eintauchen
  */
-public class Hauptmenue extends JFrame implements ActionListener
+public class Hauptmenue extends Menue implements ActionListener
 {
     //Attribute für die vier Buttons, welche auf dem Fenster zu sehen sein sollen
     private JButton start;
     private JButton einstellungen;
     private JButton info;
     private JButton ende;
-    
-    //Attribute für die Koordinaten, an welchen das Fenster erzeugt werden muss (obere linke Ecke), damit dieses in der Mitte erscheint
-    private int screenWidthMiddle;
-    private int screenHeightMiddle;
     
     //Attribute für die Zustände der Buttons
     private boolean istSpielstartGedrueckt=false;
@@ -34,11 +30,11 @@ public class Hauptmenue extends JFrame implements ActionListener
      */
     public Hauptmenue()
     {
-        super("Hauptmenü");
+        JFrame frame = new JFrame("Hauptmenü");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(400,400);
+        setSize(406,429);
         getBildschirmmitte();
-        setLocation(screenWidthMiddle, screenHeightMiddle);
+        setLocation(getScreenWidthMiddle(), getScreenHeightMiddle()-20);
         setLayout(null);
         setResizable(false);
         
@@ -50,28 +46,28 @@ public class Hauptmenue extends JFrame implements ActionListener
         //Buttons:
         //SpielStart-Button
         start = new JButton("Spiel Starten");//neuer Button mit Titel
-        start.setBounds(132, 60, 140, 40);//Position und Größe gesetzt
+        start.setBounds(132, 80, 140, 40);//Position und Größe gesetzt
         start.setForeground(Color.WHITE);//Schriftfarbe gesetzt
         start.setBackground(Color.BLACK);//Hintergrundfarbe gesetzt                
         start.addActionListener(this);//neuer Actionlistener für den Button erstellt
         
         //Einstellungen-Button
         einstellungen = new JButton("Einstellungen");
-        einstellungen.setBounds(132, 140, 140, 40);
+        einstellungen.setBounds(132, 160, 140, 40);
         einstellungen.setForeground(Color.WHITE);
         einstellungen.setBackground(Color.BLACK);                
         einstellungen.addActionListener(this);
         
         //Spielanleitung-Button
         info = new JButton("Spielanleitung");
-        info.setBounds(132, 220, 140, 40);
+        info.setBounds(132, 240, 140, 40);
         info.setForeground(Color.WHITE); 
         info.setBackground(Color.BLACK);       
         info.addActionListener(this);
         
         //Beenden-Button
         ende = new JButton("Beenden");
-        ende.setBounds(132, 300, 140, 40);
+        ende.setBounds(132, 320, 140, 40);
         ende.setForeground(Color.WHITE);
         ende.setBackground(Color.BLACK);
         ende.addActionListener(this);
@@ -112,17 +108,6 @@ public class Hauptmenue extends JFrame implements ActionListener
         {
             istBeendenGedrueckt=true;//Attribut auf true geaendert, da der Button gedrueckt wurde
         }
-    }
-    
-    /**
-     * Diese Methode berechnet die Koordinaten für den Punkt, an welchem ein Fenster erstellt werden muss, damit es sich in der Mitte des Bildschirms befindet.
-     * Größe des Fensters und des Bildschirms sind dabei berücksichtigt, wodurch das Fenster auf jedem Bildschirm mittig angezeigt wird
-     */
-    public void getBildschirmmitte()
-    {
-        Dimension d = this.getToolkit().getScreenSize();//Einlesung der Größe des Bildschirms, auf welchem das Programm aktuell läuft
-        screenWidthMiddle = ((int) ((d.getWidth() - this.getWidth()) / 2));//x-Koordinate berechnet
-        screenHeightMiddle = ((int) ((d.getHeight() - this.getHeight()) / 2));//y-Koordinate berechnet
     }
     
     /*#-----------------------get- und set-Methoden für die Attribute, welche die Zustände der Buttons speichern----------------------*/

@@ -12,37 +12,45 @@ import java.awt.event.ActionEvent;
  * 
  * Wir empfehlen die README Datei zu lesen, bevor Sie in diesen Code eintauchen
  */
-public class Spielanleitung extends JFrame implements ActionListener
+public class SpielanleitungZiel extends Menue implements ActionListener
 {
-    private int screenWidthMiddle;
-    private int screenHeightMiddle;
     private JButton zurueck;
+    private JButton weiter;
     private boolean istZurueckGedrueckt=false;
+    private boolean istWeiterGedrueckt=false;
     
     
-    public Spielanleitung()
+    public SpielanleitungZiel()
     {
-        super("Spielanleitung");
+        JFrame frame = new JFrame("Spielanleitung");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(400,400);
+        setSize(406,429);
         getBildschirmmitte();
-        setLocation(screenWidthMiddle, screenHeightMiddle);
+        setLocation(getScreenWidthMiddle(), getScreenHeightMiddle()-20);
         setLayout(null);
         setResizable(false);
         
-        ImageIcon background_image=new ImageIcon("src/pics/spielanleitung.png");
+        ImageIcon background_image=new ImageIcon("src/pics/SpielanleitungZiel.png");
         JLabel background = new JLabel("",background_image,JLabel.CENTER);
         background.setBounds(0,0,400,400);
         
-        zurueck = new JButton("Back");
+        zurueck = new JButton("Zurück");
         zurueck.setPreferredSize(new Dimension(10,20));
-        zurueck.setBounds(290,325, 80, 20);
+        zurueck.setBounds(30,350, 80, 20);
         zurueck.setForeground(new Color(0,0,0,255));
         zurueck.setBackground(new Color(255,255,255,255));
         zurueck.addActionListener(this);
         
-        add(background);
+        weiter = new JButton("Weiter");
+        weiter.setPreferredSize(new Dimension(10,20));
+        weiter.setBounds(290,350, 80, 20);
+        weiter.setForeground(new Color(0,0,0,255));
+        weiter.setBackground(new Color(255,255,255,255));
+        weiter.addActionListener(this);
+        
+        add(weiter);
         add(zurueck);
+        add(background);        
         setVisible(true);
     }
     
@@ -53,22 +61,30 @@ public class Spielanleitung extends JFrame implements ActionListener
         {
             istZurueckGedrueckt=true;
         }
-    }
-    
-    public void getBildschirmmitte()
-    {
-        Dimension d = this.getToolkit().getScreenSize();//
-        screenWidthMiddle = ((int) ((d.getWidth() - this.getWidth()) / 2));
-        screenHeightMiddle = ((int) ((d.getHeight() - this.getHeight()) / 2));
-    }
+        
+        if(e.getSource()==weiter)
+        {
+            istWeiterGedrueckt=true;
+        }
+    }   
     
     public boolean getIstZurueckGedrueckt()
     {
         return istZurueckGedrueckt;
     }
     
+    public boolean getIstWeiterGedrueckt()
+    {
+        return istWeiterGedrueckt;
+    }
+    
     public void setIstZurueckGedrueckt(boolean zustand)
     {
         istZurueckGedrueckt=zustand;
+    }
+    
+    public void setIstWeiterGedrueckt(boolean zustand)
+    {
+        istWeiterGedrueckt=zustand;
     }
 }

@@ -18,17 +18,15 @@ import java.lang.String;
  */
 public class Spielfeld extends JPanel
 {
+    private int screenWidthMiddle;
+    private int screenHeightMiddle;
+    
     private JFrame frame;
-    private JProgressBar lebenspunkte;
 
     private int breite;
     private int hoehe;
     private Vector<Sprite> painter;
-    private Vector<Sprite> actors;
-    
-    private int screenWidthMiddle;
-    private int screenHeightMiddle;
-    
+    private Vector<Sprite> actors;       
     
     /**
     * Konstruktor der Klasse Spielfeld
@@ -47,7 +45,7 @@ public class Spielfeld extends JPanel
         //Spielfeld wird erstellt
         frame = new JFrame("Hüpfburg-2D");
         getBildschirmmitte();
-        frame.setLocation(screenWidthMiddle, screenHeightMiddle-40);
+        frame.setLocation(screenWidthMiddle,screenHeightMiddle-20);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         
@@ -55,13 +53,13 @@ public class Spielfeld extends JPanel
         frame.add(this);
         frame.pack();
         frame.setVisible(true);
-    }
+    }    
     
     public void getBildschirmmitte()
     {
-        Dimension d = this.getToolkit().getScreenSize();
-        screenWidthMiddle = ((int) ((d.getWidth() / 2 - breite / 2)));
-        screenHeightMiddle = ((int) ((d.getHeight() / 2 - hoehe / 2)));
+        Dimension d = this.getToolkit().getScreenSize();//
+        screenWidthMiddle = ((int) ((d.getWidth() / 2 - 640)));
+        screenHeightMiddle = ((int) ((d.getHeight() / 2 - 480)));
     }
     
     public JFrame getFrame()
@@ -86,11 +84,6 @@ public class Spielfeld extends JPanel
                 r.drawObjects(graphics);
             }
         }
-    }
-    
-    public void schliessen()
-    {
-        frame.setVisible(false);
     }
 }
 
