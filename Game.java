@@ -29,7 +29,7 @@ public class Game implements Runnable
 {
     private static Hauptmenue hauptmenue; //Das Hauptmenü, welches vor dem Spielen geöffnet wird
     private SpielanleitungZiel spielanleitungZiel;//Die Spielanleitung
-    private SpielanleitungZiel2 spielanleitungZiel2;//Die Spielanleitung
+    private SpielanleitungZiel spielanleitungZiel2;//Die Spielanleitung
     private SpielanleitungTasten spielanleitungTasten;//Die Spielanleitung
     private Endscreen endscreen; //Das Fenster, welches am Ende des Spiels erscheint
     private Spielfeld spielfeld; //Das Fenster in welchem gespielt wird
@@ -203,13 +203,13 @@ public class Game implements Runnable
             
             if(hauptmenue.getIstSpielanleitungGedrueckt()) //wenn man auf den Knopf "Spielanleitung" drückt
             {
-                spielanleitungZiel = new SpielanleitungZiel(); //wird ein neues Spielanleitungsobjekt erzeugt
+                spielanleitungZiel = new SpielanleitungZiel(1); //wird ein neues Spielanleitungsobjekt erzeugt
                 while(spielanleitungZiel.getIstZurueckGedrueckt()==false) //solange nicht zurück gedrückt wurde
                 {
                     hauptmenue.setVisible(false); //bleibt das Hauptmenü ausgeblendet
                     if(spielanleitungZiel.getIstWeiterGedrueckt())
                     {
-                        spielanleitungZiel2 = new SpielanleitungZiel2();
+                        spielanleitungZiel2 = new SpielanleitungZiel(2);
                         while(spielanleitungZiel2.getIstZurueckGedrueckt()==false)
                         {
                             spielanleitungZiel.setVisible(false);

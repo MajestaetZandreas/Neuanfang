@@ -18,9 +18,10 @@ public class SpielanleitungZiel extends Menue implements ActionListener
     private JButton weiter;
     private boolean istZurueckGedrueckt=false;
     private boolean istWeiterGedrueckt=false;
+    private String pfad;
     
     
-    public SpielanleitungZiel()
+    public SpielanleitungZiel(int spielanleitung)
     {
         JFrame frame = new JFrame("Spielanleitung");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -30,7 +31,8 @@ public class SpielanleitungZiel extends Menue implements ActionListener
         setLayout(null);
         setResizable(false);
         
-        ImageIcon background_image=new ImageIcon("src/pics/SpielanleitungZiel.png");
+        spielanleitungGrafik(spielanleitung);
+        ImageIcon background_image=new ImageIcon(pfad);
         JLabel background = new JLabel("",background_image,JLabel.CENTER);
         background.setBounds(0,0,400,400);
         
@@ -52,6 +54,19 @@ public class SpielanleitungZiel extends Menue implements ActionListener
         add(zurueck);
         add(background);        
         setVisible(true);
+    }
+    
+    public String spielanleitungGrafik(int spielanleitung)
+    {
+        if(spielanleitung==1)
+        {
+            pfad="src/pics/SpielanleitungZiel.png";
+        }
+        if(spielanleitung==2)
+        {
+            pfad="src/pics/SpielanleitungZiel2.png";          
+        }
+        return pfad;
     }
     
     @Override
