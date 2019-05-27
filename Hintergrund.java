@@ -3,8 +3,10 @@ import java.awt.image.BufferedImage;
 /**
  * Beschreiben Sie hier die Klasse Hintergrund.
  * 
- * @author (Ihr Name) 
- * @version (eine Versionsnummer oder ein Datum)
+ * @author (Clemens Zander, Shium Rahman) 
+ * @version (22.05.19)
+ * 
+ * Wir empfehlen die README Datei zu lesen, bevor sie in diesen Code eintauchen
  */
 public class Hintergrund extends Sprite
 {

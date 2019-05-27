@@ -9,6 +9,8 @@ import java.awt.image.BufferedImage;
  * 
  * @author (Jupp Bruns, Gideon Schafroth, Clemens Zander) 
  * @version (15.05.2019)
+ * 
+ * Wir empfehlen die README Datei zu lesen, bevor sie in diesen Code eintauchen
  */
 public abstract class Sprite extends Rectangle2D.Double
 {

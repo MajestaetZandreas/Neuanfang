@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
  *
  * @author (Shium Rahman, Clemens Zander)
  * @version (15.05.2019)
+ * 
+ * Wir empfehlen die README Datei zu lesen, bevor sie in diesen Code eintauchen
  */
 public class Plattform extends Sprite
 {

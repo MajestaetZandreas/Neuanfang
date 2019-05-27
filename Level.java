@@ -9,6 +9,8 @@ import java.util.ArrayList;
  * 
  * @author (Shium M.Rahman und Clemens. Z) 
  * @version (2..0)
+ * 
+ * Wir empfehlen die README Datei zu lesen, bevor sie in diesen Code eintauchen
  */
 public class Level
 {

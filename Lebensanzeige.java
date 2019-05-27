@@ -3,8 +3,10 @@ import java.awt.image.BufferedImage;
 /**
  * Beschreiben Sie hier die Klasse Lebenspunkte.
  * 
- * @author (Ihr Name) 
- * @version (eine Versionsnummer oder ein Datum)
+ * @author (Shium Rahman) 
+ * @version (24.05.19)
+ * 
+ * Wir empfehlen die README Datei zu lesen, bevor sie in diesen Code eintauchen
  */
 public class Lebensanzeige extends Sprite
 { 

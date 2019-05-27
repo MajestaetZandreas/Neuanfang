@@ -22,6 +22,8 @@ import java.util.Random;
 *  
 * @author (Jupp Bruns, Clemens Zander, Shium Rahman) 
 * @version (27.05.2019)
+* 
+* Wir empfehlen die README Datei zu lesen, bevor sie in diesen Code eintauchen
 */
 public class Game implements Runnable
 {
@@ -209,21 +211,24 @@ public class Game implements Runnable
             
             
         
-            if(hauptmenue.getIstBeendenGedrueckt())
+            if(hauptmenue.getIstBeendenGedrueckt()) //wenn man beenden dückt
             {
-                spielStart=false;
-                System.exit(0);
+                spielStart=false; //wird die run-Methode abgebrochen
+                System.exit(0); //und das Spiel geschlossen
             }
         }
     }
     
     /**
-     * Diese Methode übernimmt das Laden von Grafiken
+     * @author(Shium R., Jupp B., Stark an das Tutorial angelehnt, allerdings stark erweitert)
+     * 
+     * Diese Methode übernimmt das erstellen von Grafiken
      */
     private void doInitialisierung()
     {
-        last=System.nanoTime();
+        last=System.nanoTime(); //die letzte Systemzeit wird in Nanosekunden zwischengespeichert
         
+        //Alle Bilder werden zugewiesen
         spieler_image = loadPics("src/pics/sheeet4.gif",4);
         spielerR_image = loadPics("src/pics/sheeet4_rechts.gif",4);
         BufferedImage[] hintergrund_image = loadPics("src/pics/gelb3.png",1);
@@ -234,7 +239,7 @@ public class Game implements Runnable
         energieKugel_image = loadPics("src/pics/Energiekugel.png",1);
         BufferedImage[] spikes_image= loadPics("src/pics/Spikes.png",1);
         
-        
+        //Die Bilder werden ihren jeweiligen Sprites zugewiesen ggf. zusätzlich ArrayLists
         plattforms = levels.erstelleLevel();
         spikes= new ArrayList<Spikes>();
         
@@ -270,6 +275,7 @@ public class Game implements Runnable
         lebenspunkte=new Lebensanzeige(herz3_image,0,10,100);
         lebenspunkteG=new Lebensanzeige(herz3_image,gegner.get(rndG).getX(),gegner.get(rndG).getY()-25,100);
         
+        //alle Sprites werden der actors ArrayList hinzugefügt
         actors.add(0,hintergrund);
         actors.add(player);
         for(int i=0;i<plattforms.size();i++)

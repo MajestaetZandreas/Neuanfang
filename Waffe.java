@@ -3,8 +3,8 @@ import java.awt.image.BufferedImage;
 /**
  * Beschreiben Sie hier die Klasse Waffe.
  * 
- * @author (Ihr Name) 
- * @version (eine Versionsnummer oder ein Datum)
+ * @author (Shium Rahman, Jupp Bruns) 
+ * @version (24.05.19)
  */
 public class Waffe extends Sprite
 {

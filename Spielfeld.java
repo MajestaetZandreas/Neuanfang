@@ -11,8 +11,10 @@ import java.lang.String;
 //...
 /**
  * Die Klasse Spielfeld erstellt das Fenster, in welchem das Spiel angezeigt wird
- * Author(Clemens Zander, Jupp Bruns, Gideon Schafroth, Cihan Karahan)
- * Version(10.5.19)
+ * @author(Clemens Zander, Jupp Bruns, Gideon Schafroth, Cihan Karahan)
+ * @version(10.5.19)
+ * 
+ * Wir empfehlen die README Datei zu lesen, bevor sie in diesen Code eintauchen
  */
 public class Spielfeld extends JPanel
 {

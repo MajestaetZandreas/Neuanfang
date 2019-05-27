@@ -5,7 +5,9 @@ import java.awt.image.BufferedImage;
  * Beschreiben Sie hier die Klasse Spikes.
  * 
  * @author (Shium R. und Cihan K.) 
- * @version (eine Versionsnummer oder ein Datum)
+ * @version (25.05.19)
+ * 
+ * Wir empfehlen die README Datei zu lesen, bevor sie in diesen Code eintauchen
  */
 public class Spikes extends Sprite
 {

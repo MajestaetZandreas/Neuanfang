@@ -5,6 +5,8 @@ import java.awt.event.*;
  * 
  * @author (Clemens Zander, Shium Rahman) 
  * @version (22.02.2019)
+ * 
+ * Wir empfehlen die README Datei zu lesen, bevor sie in diesen Code eintauchen
  */
 public class KeyManager implements KeyListener
 {

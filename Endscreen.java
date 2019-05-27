@@ -7,7 +7,9 @@ import java.awt.event.ActionEvent;
  * Beschreiben Sie hier die Klasse Endscreen.
  * 
  * @author (Cihan Karahan und Shium Rahman) 
- * @version (eine Versionsnummer oder ein Datum)
+ * @version (27.05.19)
+ * 
+ * Wir empfehlen die README Datei zu lesen, bevor sie in diesen Code eintauchen
  */
 public class Endscreen extends JFrame implements ActionListener
 {
