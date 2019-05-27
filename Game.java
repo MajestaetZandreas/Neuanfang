@@ -30,6 +30,7 @@ public class Game implements Runnable
 {
     private static Hauptmenue hauptmenue;
     private Spielanleitung spielanleitung;
+    private Endscreen endscreen;
     private Spielfeld spielfeld;
     private Level levels;
     
@@ -174,6 +175,7 @@ public class Game implements Runnable
                 hauptmenue.setIstSpielstartGedrueckt(false);
                 spielfeld.setVisible(false);
                 spielfeld = null;
+                endscreen=new Endscreen(victory);
             }
             
             if(hauptmenue.getIstSpielanleitungGedrueckt())
