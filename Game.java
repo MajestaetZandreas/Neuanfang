@@ -86,6 +86,9 @@ public class Game implements Runnable
     private BufferedImage[] herz1_image;
     private BufferedImage[] herz2_image;
     private BufferedImage[] herz3_image;
+    private BufferedImage[] herz1_imageSpieler;
+    private BufferedImage[] herz2_imageSpieler;
+    private BufferedImage[] herz3_imageSpieler;
     private BufferedImage[] energieKugel_image;
     
     private ArrayList<Plattform> plattforms;
@@ -235,6 +238,10 @@ public class Game implements Runnable
         herz3_image = loadPics("src/pics/herz3voll.png",1);
         herz2_image = loadPics("src/pics/herz2voll.png",1);
         herz1_image = loadPics("src/pics/herz1voll.png",1);
+        herz3_imageSpieler = loadPics("src/pics/Herz3.png",1);
+        herz2_imageSpieler = loadPics("src/pics/Herz2.png",1);
+        herz1_imageSpieler = loadPics("src/pics/Herz1.png",1);
+        
         BufferedImage[] gegnerGhost_image = loadPics("src/pics/Enemy_ghost.gif",4);
         energieKugel_image = loadPics("src/pics/Energiekugel.png",1);
         BufferedImage[] spikes_image= loadPics("src/pics/Spikes.png",1);
@@ -272,7 +279,8 @@ public class Game implements Runnable
         
         gegner.add(ghost);
         
-        lebenspunkte=new Lebensanzeige(herz3_image,0,10,100);
+        // lebenspunkte=new Lebensanzeige(herz3_image,0,10,100); //Muss vom Char geändert werden
+        lebenspunkte=new Lebensanzeige(herz3_imageSpieler,0,10,100);
         lebenspunkteG=new Lebensanzeige(herz3_image,gegner.get(rndG).getX(),gegner.get(rndG).getY()-25,100);
         
         //alle Sprites werden der actors ArrayList hinzugefügt
@@ -413,15 +421,15 @@ public class Game implements Runnable
         
         if(player.getHP()==3) //wenn der Spieler 3 Lebenspunkte hat
         {
-            lebenspunkte.setImage(herz3_image); //wird das Bild für 3 Lebenspunkte benutzt
+            lebenspunkte.setImage(herz3_imageSpieler); //wird das Bild für 3 Lebenspunkte benutzt / Änderung
         }
         else if(player.getHP()==2) //wenn der Spieler 2 Lebenspunkte hat
         {
-            lebenspunkte.setImage(herz2_image); //wird das Bild für 2 Lebenspunkte benutzt
+            lebenspunkte.setImage(herz2_imageSpieler); //wird das Bild für 2 Lebenspunkte benutzt
         }
         else if(player.getHP()==1) //wenn der Spieler 1 Lebenspunkt hat
         {
-            lebenspunkte.setImage(herz1_image); //wird das Bild für 1 Lebenspunkt benutzt
+            lebenspunkte.setImage(herz1_imageSpieler); //wird das Bild für 1 Lebenspunkt benutzt
         }
         else //wenn der Spieler keine Lebenspunkte mehr hat
         {
