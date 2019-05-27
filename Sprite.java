@@ -10,16 +10,18 @@ import java.awt.image.BufferedImage;
  * @author (Jupp Bruns, Gideon Schafroth, Clemens Zander) 
  * @version (15.05.2019)
  * 
- * Wir empfehlen die README Datei zu lesen, bevor sie in diesen Code eintauchen
+ * Diese Klasse ist so gut wie komplett aus dem Tutorial übernommen
+ * 
+ * Wir empfehlen die README Datei zu lesen, bevor Sie in diesen Code eintauchen
  */
 public abstract class Sprite extends Rectangle2D.Double
 {
-    private long delay;
-    private long animation=0;
-    private BufferedImage[] pics;
-    private int currentpic = 0;
-    private double x;
-    private double y;
+    private long delay; //dieses Attribut wird zur Regulation der Animationsdauer verwendet
+    private long animation=0; //dieses Attribut wird zur Berechnung der Animationsdauer verwendet
+    private BufferedImage[] pics; //Das BufferedImage, welches die Grafik für das Sprite darstellt
+    private int currentpic = 0; //das Bild, welches in der Animation gerade benutzt wird
+    private double x; //die x-Position des Sprites
+    private double y; //die y-Position des Sprites
     
     
     private double dx; //Delta x
@@ -39,16 +41,17 @@ public abstract class Sprite extends Rectangle2D.Double
         this.height=pics[0].getHeight();
     }
     
-    /*#---------------------------------------------------------------------Public-Methoden----------------------------------------------------*/
-    
     /**
-     * Diese Methode zeichnet ein BufferedImage auf dem Spielfeld
+     * Diese Methode zeichnet einen Teil eines BufferedImages auf dem Spielfeld
      */
     public void drawObjects(Graphics graphics)
     {
         graphics.drawImage(pics[currentpic], (int) x, (int) y, null); //double wird zu int, da es keine halben Pixel gibt
     }
     
+    /**
+     * Diese Methode zeichnet einen String in ein Bild ein
+     */
     public void drawString(Graphics graphics, String string, int x, int y)
     {
         graphics.drawString(string,x,y);
@@ -88,7 +91,6 @@ public abstract class Sprite extends Rectangle2D.Double
     
     public abstract boolean collidedWith(Sprite s);
     
-    /*#---------------------------------------------------------------Get-und Set-Methoden-------------------------------------------------*/
     public double getX()
     {
         return x;
@@ -129,17 +131,16 @@ public abstract class Sprite extends Rectangle2D.Double
         dy=newDy;
     }
     
-    /*#---------------------------------------------------------------Private-Methoden-----------------------------------------------------*/
     /**
-     * 
+     * Hier werden Gifs abgespielt
      */
     private void computeAnimation()
     {
-        currentpic++;
+        currentpic++; //das Bild das gerade angezeigt wird, wird um eins erhöht
         
-        if(currentpic>=pics.length)
+        if(currentpic>=pics.length) //wenn das letzte erreicht wird
         {
-            currentpic=0;
+            currentpic=0; //ist das nächste Bild wieder das Erste
         }
     }
     

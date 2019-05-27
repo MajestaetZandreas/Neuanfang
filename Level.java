@@ -10,13 +10,14 @@ import java.util.ArrayList;
  * @author (Shium M.Rahman und Clemens. Z) 
  * @version (2..0)
  * 
- * Wir empfehlen die README Datei zu lesen, bevor sie in diesen Code eintauchen
+ * Wir empfehlen die README Datei zu lesen, bevor Sie in diesen Code eintauchen
  */
 public class Level
 {
     public Level(){
         
     }
+    
     /**
      * hier werden die Anordnung der Plattformen festgelegt und somit ein Level aufgebaut
      * 

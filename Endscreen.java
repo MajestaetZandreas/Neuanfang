@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
  * @author (Cihan Karahan und Shium Rahman) 
  * @version (27.05.19)
  * 
- * Wir empfehlen die README Datei zu lesen, bevor sie in diesen Code eintauchen
+ * Wir empfehlen die README Datei zu lesen, bevor Sie in diesen Code eintauchen
  */
 public class Endscreen extends JFrame implements ActionListener
 {

@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
  * @author (Clemens Zander, Shium Rahman)
  * @version (15.05.2019)
  * 
- * Wir empfehlen die README Datei zu lesen, bevor sie in diesen Code eintauchen
+ * Wir empfehlen die README Datei zu lesen, bevor Sie in diesen Code eintauchen
  */
 public class Hauptmenue extends JFrame implements ActionListener
 {

@@ -14,7 +14,7 @@ import java.lang.String;
  * @author(Clemens Zander, Jupp Bruns, Gideon Schafroth, Cihan Karahan)
  * @version(10.5.19)
  * 
- * Wir empfehlen die README Datei zu lesen, bevor sie in diesen Code eintauchen
+ * Wir empfehlen die README Datei zu lesen, bevor Sie in diesen Code eintauchen
  */
 public class Spielfeld extends JPanel
 {

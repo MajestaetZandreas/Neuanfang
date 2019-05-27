@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
  * @author (Shium R. und Cihan K.) 
  * @version (25.05.19)
  * 
- * Wir empfehlen die README Datei zu lesen, bevor sie in diesen Code eintauchen
+ * Wir empfehlen die README Datei zu lesen, bevor Sie in diesen Code eintauchen
  */
 public class Spikes extends Sprite
 {

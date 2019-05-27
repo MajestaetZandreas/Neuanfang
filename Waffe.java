@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
  * 
  * @author (Shium Rahman, Jupp Bruns) 
  * @version (24.05.19)
+ * 
+ * Wir empfehlen die README Datei zu lesen, bevor Sie in diesen Code eintauchen
  */
 public class Waffe extends Sprite
 {

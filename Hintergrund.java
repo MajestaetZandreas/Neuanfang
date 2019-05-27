@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
  * @author (Clemens Zander, Shium Rahman) 
  * @version (22.05.19)
  * 
- * Wir empfehlen die README Datei zu lesen, bevor sie in diesen Code eintauchen
+ * Wir empfehlen die README Datei zu lesen, bevor Sie in diesen Code eintauchen
  */
 public class Hintergrund extends Sprite
 {

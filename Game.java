@@ -23,7 +23,7 @@ import java.util.Random;
 * @author (Jupp Bruns, Clemens Zander, Shium Rahman) 
 * @version (27.05.2019)
 * 
-* Wir empfehlen die README Datei zu lesen, bevor sie in diesen Code eintauchen
+* Wir empfehlen die README Datei zu lesen, bevor Sie in diesen Code eintauchen
 */
 public class Game implements Runnable
 {
@@ -516,10 +516,13 @@ public class Game implements Runnable
         fps = ((long) 1e9)/delta; //10^9 dividiert durch die Dauer des Durchlaufs um nicht so viele Nachkommastellen zu haben
     }
     
+    @SuppressWarnings("unchecked") //Alle Warnungen des Compilers bezüglich un überprüfter Aktionen werden unterdrückt
     /**
      * @author(Jupp B., Gideon S., 1zu1 aus dem Tutorial übernommen)
+     *
+     * Diese Methode klont einen Vektoren in einen anderen
+     * hier: actors in painter
      */
-    @SuppressWarnings("unchecked") //Alle Warnungen des Compilers bezüglich un überprüfter Aktionen werden unterdrückt
     private void cloneVectors()
     {
         for(int i=0; i<actors.size();i++) //der ganze actors Vector wird durchgegangen
