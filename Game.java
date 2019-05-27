@@ -290,6 +290,8 @@ public class Game implements Runnable
     }
     
     /**
+     * @author(Jupp B., Cihan K., Gideon S., kleinste Anteile Tutorial)
+     * 
      * Diese Methode übernimmt Abfrage von Tastatureingaben und die jeweiligen Änderungen
      */
     private void checkKeys()
@@ -330,28 +332,28 @@ public class Game implements Runnable
         
         if(keyManager.left||keyManager.leftG) //wenn der Tastatur befehl zum Laufen nach links ausgelöst wird
         {
-            player.setHorizontalSpeed(-hSpeed); //bewget sich der Spieler mit fester Geschwindigkeit nach links
+            player.setHorizontalSpeed(-hSpeed); //bewegt sich der Spieler mit fester Geschwindigkeit nach links
         }
         
         if(keyManager.right||keyManager.rightG) //wenn der Tastatur befehl zum Laufen nach rechts ausgelöst wird
         {
-           player.setHorizontalSpeed(hSpeed); //bewget sich der Spieler mit fester Geschwindigkeit nach rechts
+           player.setHorizontalSpeed(hSpeed); //bewegt sich der Spieler mit fester Geschwindigkeit nach rechts
         }  
     
-        if((!keyManager.left&&!keyManager.leftG) && (!keyManager.right&&!keyManager.rightG))  //wenn weder ein
+        if((!keyManager.left&&!keyManager.leftG) && (!keyManager.right&&!keyManager.rightG))  //wenn weder ein Tastaturbefehl zum Laufen nach rechts  noch nach links ausgelöst wird
         {
-            player.setHorizontalSpeed(0);
+            player.setHorizontalSpeed(0); //gibt es keine horizontale Bewegung
         }
         
-        if(keyManager.fire&&reload==false)
+        if(keyManager.fire&&reload==false) //wenn der Tastaturbefehl zum Schuss gegeben wird und nicht bereits geschossen wurde
         {
-            kugel=new Waffe(energieKugel_image,player.getX(),player.getY()+10,100);
-            actors.add(kugel);
+            kugel=new Waffe(energieKugel_image,player.getX(),player.getY()+10,100); //wird eine neue Kugel an der Stelle des Spielers (seine Brust) erzeugt
+            actors.add(kugel); //den actors hinzugefügt
             
-            if(player.getImage()==spielerR_image)kugel.setHorizontalSpeed(300);
-            else kugel.setHorizontalSpeed(-300);  
+            if(player.getImage()==spielerR_image)kugel.setHorizontalSpeed(300); //und mit einer festen Geschwindigkeit abgefeuert
+            else kugel.setHorizontalSpeed(-300);  //je nach Bild nach rechts oder links, also immer in Blickrichtung
             
-            reload=true;
+            reload=true; //der Spieler kann nicht mehr schießen, muss also nachladen
         }
         
         
@@ -359,115 +361,121 @@ public class Game implements Runnable
     
     
     /**
-     * Diese Methode übernimmt die Ausführung von Logik-Operationen
+     * @author(Jupp B., Gideon S., Shium R., Cihan K., zu kleinsten Teilen noch vom Tutorial kopiert)
+     * 
+     * Diese Methode übernimmt die Ausführung von Logik-Operationen, wie Kollision oder Lebenspunkt anderungen --> Tod bzw. Sieg
      */
     private void doLogic()
     {
-        collided=false;
+        collided=false; //der Spieler kollidiert zu Beginn nicht, um die Schleife zu aktivieren
         
-        for(int i=0;i<plattforms.size()&&collided==false;i++)//jupp/Gideon
+        for(int i=0;i<plattforms.size()&&collided==false;i++) //solange es noch un geprüfte Plattformen gibt und der Spieler noch mit keiner kollidiert ist
         { 
-            Sprite s = plattforms.get(i);
-            collided=player.collidedWith(s);
-            plattformNr = i;
+            Sprite s = plattforms.get(i); //Plattform and der Stelle i wird zwischengespeichert
+            collided=player.collidedWith(s); //Kollision wird zwischen Spieler und aktueller Plattform geprüft
+            plattformNr = i; //die Nummer der aktuellen Plattform wird zwischen gespeichert
         }
         
-        for(int i=0;i<gegner.size();i++)//Jupp/Gideon
+        for(int i=0;i<gegner.size();i++)//Die ArrayList aus Gegnern wird durchgegangen, damit der richtige auch geprüft wird, außerdem könnte es in zukunft meherere Gegner geben
         { 
-            Sprite s = gegner.get(i);
-            if(player.collidedWith(s)&&!safe)
+            Sprite s = gegner.get(i); //der aktuelle Gegner wird zwischengespeichert
+            if(player.collidedWith(s)&&!safe) //wenn der Spieler mit einem Gegner kollidiert und gerade Schaden erleiden kann
             {
-                player.reduceHP();
-                safe=true;
+                player.reduceHP(); //verliert er einen Lebenspunkt
+                safe=true; //und kann keinen Schaden mehr nehmen
             }
         }
         
-        for(int i=0;i<spikes.size();i++)//Shium/Cihan
+        for(int i=0;i<spikes.size();i++)//Die ArrayList aus Spikes wird durchgegangen
         { 
-            Sprite s = spikes.get(i);
-            if(player.collidedWith(s)&&!safe)
+            Sprite s = spikes.get(i); //der aktuelle Spike wird zwischengespeichert
+            if(player.collidedWith(s)&&!safe) //wenn der Spieler mit einem Spike kollidiert und gerade Schaden erleiden kann
             {
-                player.reduceHP();
-                safe=true;
+                player.reduceHP(); //verliert er einen Lebenspunkt
+                safe=true; //und kann keinen Schaden mehr nehmen
             }
         }
         
-        if(player.getBeruehrtBoden())//wenn die Spielfigur den Boden beruehrt, hat man das Spiel verloren und es wird beendet
+        if(player.getBeruehrtBoden()) //wenn der Spieler den Boden beruehrt 
         {
-            spielfeld.getFrame().setVisible(false);
-            victory=false;
+            victory=false; //hat man das Spiel verloren
+            spielfeld.getFrame().setVisible(false); //und es wird ausgeblendet
         }
         
-        if(player.getHorizontalSpeed()<0)
+        if(player.getHorizontalSpeed()<0) //wenn der Spieler sich nach links bewegt
         {
-            player.setImage(spieler_image);
+            player.setImage(spieler_image); //wird das Bild des Spielers, wie er nach links schaut benutzt
         }
-        else if(player.getHorizontalSpeed()>0)
+        else if(player.getHorizontalSpeed()>0) //wenn der Spieler sich nach rechts bewegt
         {
-            player.setImage(spielerR_image);
-        }
-        
-        if(player.getHP()==3)
-        {
-            lebenspunkte.setImage(herz3_image);
-        }
-        else if(player.getHP()==2)
-        {
-            lebenspunkte.setImage(herz2_image);
-        }
-        else if(player.getHP()==1)
-        {
-            lebenspunkte.setImage(herz1_image);
-        }
-        else
-        {
-            spielfeld.getFrame().setVisible(false);
-            victory=false;
+            player.setImage(spielerR_image); //wird das Bild des Spielers, wie er nach rechts schaut benutzt
         }
         
-        if(gegner.get(rndG).getHP()==3)
+        if(player.getHP()==3) //wenn der Spieler 3 Lebenspunkte hat
+        {
+            lebenspunkte.setImage(herz3_image); //wird das Bild für 3 Lebenspunkte benutzt
+        }
+        else if(player.getHP()==2) //wenn der Spieler 2 Lebenspunkte hat
+        {
+            lebenspunkte.setImage(herz2_image); //wird das Bild für 2 Lebenspunkte benutzt
+        }
+        else if(player.getHP()==1) //wenn der Spieler 1 Lebenspunkt hat
+        {
+            lebenspunkte.setImage(herz1_image); //wird das Bild für 1 Lebenspunkt benutzt
+        }
+        else //wenn der Spieler keine Lebenspunkte mehr hat
+        {
+            victory=false; //hat man das Spiel verloren
+            spielfeld.getFrame().setVisible(false); //und es wird ausgeblendet
+        }
+        
+        if(gegner.get(rndG).getHP()==3) //wenn der Gegner 3 Lebenspunkte hat
         {
             lebenspunkteG.setImage(herz3_image);
-        }
-        else if(gegner.get(rndG).getHP()==2)
+        } 
+        else if(gegner.get(rndG).getHP()==2) //wenn der Gegner 2 Lebenspunkte hat
         {
-            lebenspunkteG.setImage(herz2_image);
+            lebenspunkteG.setImage(herz2_image); //wird das Bild für 2 Lebenspunkte benutzt
         }
-        else if(gegner.get(rndG).getHP()==1)
+        else if(gegner.get(rndG).getHP()==1) //wenn der Gegner 1 Lebenspunkt hat
         {
-            lebenspunkteG.setImage(herz1_image);
+            lebenspunkteG.setImage(herz1_image); //wird das Bild für 1 Lebenspunkt benutzt
         }
-        else
+        else //wenn der Gegner keine Lebenspunkte mehr hat
         {
-            spielfeld.getFrame().setVisible(false);
-            victory=true;
-        }
-        
-        if(kugel.getX()<=0 || kugel.getX()>=1280)
-        {
-            actors.remove(kugel);
+            victory=true; //hat man das Spiel gewonnen
+            spielfeld.getFrame().setVisible(false); //und es wird ausgeblendet
         }
         
-        if(gegner.get(rndG).collidedWith(kugel)&&getroffen==false)
+        if(kugel.getX()<=0 || kugel.getX()>=1280) //wenn die Kugel aus dem Bild fliegt
         {
-            gegner.get(rndG).reduceHP();
-            getroffen=true;
+            actors.remove(kugel); //wird sie aus der actors ArrayList entfernt
+        }
+        
+        if(gegner.get(rndG).collidedWith(kugel)&&getroffen==false) //wenn der Gegner mit einer Kugel kollidiert und Schaden erleiden kann
+        {
+            gegner.get(rndG).reduceHP(); //erleidet er Schaden
+            getroffen=true; //und kann keinen Schaden mehr erleiden
         } 
     }
     
     /**
+     * @author(Clemens Z., Shium R., 1zu1 aus dem Tutorial übernommen)
+     * 
      * Diese Methode übernimmt das bewegen von Objekten
      */
     private void moveObjects()
     {
-        for(ListIterator<Sprite> it=actors.listIterator();it.hasNext();)
+        for(ListIterator<Sprite> it=actors.listIterator();it.hasNext();) //der Vector actors, wird mittels eine ListIterators durchgegangen, welcher sich immer exakt zwischen 2 Objekten befindet
         {
-            Sprite r = it.next();
-            r.move(delta);
+            Sprite r = it.next(); //das nächste Objekt wird zwischengespeichert
+            r.move(delta); //und bewegt
         }
     }
     
     /**
+     * @author(Jupp B., Gideon S., 1zu1 aus dem Tutorial übernommen)
+     * 
      * Diese Methode lädt die Bilder aus dem pics-Ordner
      * 
      * @param path - der Speicherort der Bilder
@@ -478,9 +486,9 @@ public class Game implements Runnable
         BufferedImage[] anim = new BufferedImage[pics];
         BufferedImage source=null;
         
-        URL pic_url=getClass().getClassLoader().getResource(path);
+        URL pic_url=getClass().getClassLoader().getResource(path); //der Ort des Bildes wird gespeichert
         
-        try
+        try //das Bild soll ausgelesen werden, wenn möglich
         {
             source=ImageIO.read(pic_url);
         }
@@ -488,7 +496,7 @@ public class Game implements Runnable
         {
         }
         
-        for(int i=0;i<pics;i++)
+        for(int i=0;i<pics;i++) //eine .png bzw. .gif Datei wird in ein BufferedImage Array umgewandelt
         {
             anim[i]=source.getSubimage(i*source.getWidth()/pics, 0, source.getWidth()/pics, source.getHeight());
         }
@@ -497,21 +505,26 @@ public class Game implements Runnable
     } 
     
     /**
+     * @author(Jupp B., Gideon S., 1zu1 aus dem Tutorial übernommen)
+     * 
      * Errechnung der Zeit für einen Schleifendurchlauf
      */
     private void computeDelta()
     {
-        delta = System.nanoTime() - last;
-        last = System.nanoTime();
-        fps = ((long) 1e9)/delta;//10^9 dividiert durch die Dauer des Durchlaufs um nicht so viele Nachkommastellen zu haben
+        delta = System.nanoTime() - last; //die Differenz der Letzten und der aktuellen Systemzeit wird gespeichert
+        last = System.nanoTime(); //die aktuelle Systemzeit wird als nächste letzte gespeichert
+        fps = ((long) 1e9)/delta; //10^9 dividiert durch die Dauer des Durchlaufs um nicht so viele Nachkommastellen zu haben
     }
     
-    @SuppressWarnings("unchecked")
+    /**
+     * @author(Jupp B., Gideon S., 1zu1 aus dem Tutorial übernommen)
+     */
+    @SuppressWarnings("unchecked") //Alle Warnungen des Compilers bezüglich un überprüfter Aktionen werden unterdrückt
     private void cloneVectors()
     {
-        for(int i=0; i<actors.size();i++)
+        for(int i=0; i<actors.size();i++) //der ganze actors Vector wird durchgegangen
         {
-            painter.add(actors.elementAt(i));
+            painter.add(actors.elementAt(i)); //und die Objekte werden in den painter vector gespeichert, um sie zu zeichnen
         }
     }
     
