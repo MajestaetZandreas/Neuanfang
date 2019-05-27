@@ -415,7 +415,6 @@ public class Game implements Runnable
         {
             spielfeld.getFrame().setVisible(false);
             victory=true;
-            spielStart=false;
         }
         
         if(kugel.getX()<=0 || kugel.getX()>=1280)
