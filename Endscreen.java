@@ -21,20 +21,22 @@ public class Endscreen extends JFrame implements ActionListener
     {
         super("Endscreen");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(400,400);
+        setSize(300,130);
         getBildschirmmitte();
         setLocation(screenWidthMiddle, screenHeightMiddle);
         setLayout(null);
         setResizable(false);
-        JLabel background = new JLabel("",erstelleScreen(istGewonnen),JLabel.CENTER);
-        background.setBounds(0,0,400,400);
+        JLabel background = new JLabel("",erstelleScreen(istGewonnen),0);
+        background.setBounds(0,0,300,100);
         
-        zurueck = new JButton("Zurück zum Hauptmenü");
+        zurueck = new JButton("Hauptmenü");
         zurueck.setPreferredSize(new Dimension(10,20));
-        zurueck.setBounds(290,325, 160, 50);
-        zurueck.setForeground(new Color(0,0,0,255));
-        zurueck.setBackground(new Color(255,255,255,255));
+        zurueck.setBackground(new Color(0,0,0,0));
+        zurueck.setForeground(new Color(255,255,255,255));
+        zurueck.setBorderPainted(false);
+        zurueck.setBounds(-20,80, 130, 20);
         zurueck.addActionListener(this);
+        zurueck.setVisible(true);
         
         add(background);
         add(zurueck);
