@@ -178,6 +178,18 @@ public class Game implements Runnable
                 endscreen=new Endscreen(victory);
             }
             
+            if(endscreen!=null)
+            {
+                while(endscreen.getIstZurueckGedrueckt()==false)
+                {
+                    hauptmenue.setVisible(false);
+                }
+                hauptmenue.setVisible(true);
+                hauptmenue.setIstSpielanleitungGedrueckt(false);
+                endscreen.setVisible(false);
+                endscreen = null;
+            }
+            
             if(hauptmenue.getIstSpielanleitungGedrueckt())
             {
                 spielanleitung = new Spielanleitung();
@@ -190,6 +202,8 @@ public class Game implements Runnable
                 spielanleitung.setVisible(false);
                 spielanleitung = null;
             }
+            
+            
         
             if(hauptmenue.getIstBeendenGedrueckt())
             {

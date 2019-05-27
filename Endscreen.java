@@ -31,7 +31,7 @@ public class Endscreen extends JFrame implements ActionListener
         
         zurueck = new JButton("Zurück zum Hauptmenü");
         zurueck.setPreferredSize(new Dimension(10,20));
-        zurueck.setBounds(290,325, 80, 20);
+        zurueck.setBounds(290,325, 160, 50);
         zurueck.setForeground(new Color(0,0,0,255));
         zurueck.setBackground(new Color(255,255,255,255));
         zurueck.addActionListener(this);
