@@ -1,6 +1,3 @@
-// import java.awt.*;
-// import java.awt.event.*;
-
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -38,13 +35,13 @@ public class Game implements Runnable
     private boolean victory=false; //Dieses Attribut git an, ob der Spieler gewonnen oder verloren hat
     
     private boolean reload; //Dieses Attribut ist true, nachdem der Spieler geschossen hat und verhindert Dauerfeuer
-    private int reloadTime; //Dieses Attribut wird zur Berechnung der Dauer des Nachladens benötigt
+    private int reloadTime=100; //Dieses Attribut wird zur Berechnung der Dauer des Nachladens benötigt
     
     private boolean safe; //Dieses Attribut ist true, nachdem der Spieler Schaden genommen hat und verhindert den sofortigen Tod
-    private int safeTime; //Dieses Attribut wird zur Berechnung der Dauer der sicheren Zeit des Spielers benötigt
+    private int safeTime=100; //Dieses Attribut wird zur Berechnung der Dauer der sicheren Zeit des Spielers benötigt
     
     private boolean getroffen; //Dieses Attribut ist true, nachdem der Gegner Schaden genommen hat und verhindert den sofortigen Sied
-    private int getroffenTime; //Dieses Attribut wird zur Berechnung der Dauer der sicheren Zeit des Gegners benötigt
+    private int getroffenTime=100; //Dieses Attribut wird zur Berechnung der Dauer der sicheren Zeit des Gegners benötigt
     
     private JFrame frame;
     
@@ -61,26 +58,27 @@ public class Game implements Runnable
     private long last; //Die Zeit vom Anfang eines Durchlaufs
     private long fps; //Anzahl Bilder pro Sekunde
     
-    private boolean canJump;
-    private boolean jump;
-    private int vSpeed = 75;
-    private int hSpeed = 100;
-    private double fallgeschwindigkeit=0.75;
-    private boolean inJump;
-    private int prevVertSpeed=201;
+    private boolean canJump; //Dieses Attribut ist false, nachdem gesprungen wurde und verhindert, dass in der Luft gesprungen werden kann
+    private int vSpeed = 75; //Die Geschwindigkeit, mit welcher sich der Spieler im Sprung nach oben bewegt
+    private int hSpeed = 100; //Die Geschwindigkeit, mit welcher sich der Spieler seitlich bewegt
+    private double fallgeschwindigkeit=0.75; //Die Beschleunigung, welche den Fall jeden Loop beschleunigt
+    private boolean inJump; //Dieses Attribut ist true, nachdem der Spieler gesprungen ist, und beeinflusst den Fall in der Luft
+    private int prevVertSpeed=201; //Die Anzahl an Loops, in denen der Spieler bereits fällt
     
-    private Vector<Sprite> actors;
+    private Vector<Sprite> actors; 
     private Vector<Sprite> painter;
     private Hintergrund hintergrund;
-    private int plattformNr;
+    
+    private int plattformNr; //Dieses Attribut speichert die Nummer der Plattform im Array, mit welcher der Spieler kollidiert
     
     private Gegner ghost;
     
-    private Lebensanzeige lebenspunkte;
-    private Lebensanzeige lebenspunkteG;
+    private Lebensanzeige lebenspunkte; //Die Lebenspunkte des Spielers
+    private Lebensanzeige lebenspunkteG; //Die Lenspunkte des Gegners
     
     private Waffe kugel;
     
+    //Diese Bilder müssen hier angelegt werden, da sie im Laufe des Spiels geändert werden müssen
     private BufferedImage[] spieler_image;
     private BufferedImage[] spielerR_image;
     private BufferedImage[] herz1_image;
@@ -118,50 +116,55 @@ public class Game implements Runnable
     }
     
     /**
+     * @author(Clemens Z., Shium R., Jupp B., Teilweise stark ans Tutorial angelehnt)
+     * 
      * Überschreibung der Methode run() aus der Klasse Runnable
+     * Diese Methode läuft in Dauerschleife und ruft die Grundfunktionen des Spiels ab
      */
     @Override
     public void run()
     {
-        while(spielStart)
+        while(spielStart) //eigentlich immer, nur in dieser Schleife abbbrechbar
         {   
             if(hauptmenue.getIstSpielstartGedrueckt()) 
             {
-                doInitialisierung();
-                spielfeld = new Spielfeld(1280, 960, painter, actors);
+                doInitialisierung(); //Alle Grafiken werden erstellt und intialisiert
+                spielfeld = new Spielfeld(1280, 960, painter, actors); //Das Spielfeld wird erstellt
                 spielfeld.getFrame().addKeyListener(keyManager);
-                hauptmenue.setVisible(false);
+                hauptmenue.setVisible(false); //Das Hauptmenü wird ausgeblendet
                 while(spielfeld.getFrame().isVisible())//solange das Fenster angezeigt wird
                 {
-                    computeDelta();//Errechnung der Zeit für den vorhergehenden Schleifendurchlauf
+                    computeDelta(); //Errechnung der Zeit für den vorhergehenden Schleifendurchlauf
                     
                     
-                    checkKeys();
-                    doLogic();
-                    gegner.get(rndG).doLogic(delta);
+                    checkKeys(); //Die Kommandos des ActionListeners werden ausgeführt(Movement + Angriff)
+                    doLogic(); //Kollision aller kolliderenden Sprites wird abgefragt
+                    gegner.get(rndG).doLogic(delta); //Die Animation des Gegners wird aufgerufen
                     
-                    moveObjects();
-                    cloneVectors();
-                    
-                    reloadTime++;
-                    if(reloadTime >= 100)
+                    moveObjects(); //Die Objekte werden bewegt und neu gezeichnet
+                    cloneVectors(); //Der actors Vector wird erneut in den painter Vektor geklont
+                    if(reload) //wenn an schon geschossen hat
+                    reloadTime--; //wird die Zeit in welcher nicht gefeuert werden kann  verringert
+                    if(reloadTime <= 0) //wenn sie bei 0 ist
                     {
-                        reload=false;
-                        reloadTime=0;
+                        reload=false; //kann man wieder schießen
+                        reloadTime=0; //die Nachladezeit wird wieder auf 100 gesetzt
                     }
                     
-                    safeTime++;
-                    if(safeTime >= 100)
+                    if(safe) //wenn der Spieler schon getroffen wurde
+                    safeTime--; //wird die Zeit in der er keinen Schaden mehr erleiden kann verringert
+                    if(safeTime <= 0) //wenn sie bei 0 ist
                     {
-                        safe=false;
-                        safeTime=0;
+                        safe=false; //kann man wieder Schaden erleiden
+                        safeTime=100; //die sichere Zeit wird wieder auf 100 gesetzt
                     }
                     
-                    getroffenTime++;
-                    if(getroffenTime >= 100)
+                    if(getroffen) //wenn der Gegner schon getroffen wurde
+                    getroffenTime++; //wird die Zeit in welcher er keinen Schaden erleiden kann verringert
+                    if(getroffenTime <= 0) //wenn sie bei 0 ist
                     {
-                        getroffen=false;
-                        getroffenTime=0;
+                        getroffen=false; //kann der Gegner wieder Schaden erleiden
+                        getroffenTime=100; //die Zeit in der der gegner sicher ist wird wieder auf 100 gesetzt
                     }
                     
                     spielfeld.repaint();//Neuzeichnung wird ausgelöst
@@ -173,36 +176,35 @@ public class Game implements Runnable
                     {
                     }
                 }
-                hauptmenue.setVisible(true);
-                hauptmenue.setIstSpielstartGedrueckt(false);
-                spielfeld.setVisible(false);
-                spielfeld = null;
-                endscreen=new Endscreen(victory);
+                hauptmenue.setVisible(true); //das Hauptmenü wird wieder eingeblendet
+                hauptmenue.setIstSpielstartGedrueckt(false); //das Spielfeld wird nicht wieder erzeugt
+                spielfeld.setVisible(false); //das Spielfeld wird wieder ausgeblendet
+                spielfeld = null; //das Spielfeld wird gelöscht
+                endscreen=new Endscreen(victory); //ein Ende abhängig vom Ausgang des Spiels wird geöffnet
             }
             
-            if(endscreen!=null)
+            if(endscreen!=null) //wenn ein Endfenster existiert
             {
-                while(endscreen.getIstZurueckGedrueckt()==false)
+                while(endscreen.getIstZurueckGedrueckt()==false) //solange nicht zurück gedrückt wurde
                 {
-                    hauptmenue.setVisible(false);
+                    hauptmenue.setVisible(false); //bleibt das Hauptmenü ausgeblendet
                 }
-                hauptmenue.setVisible(true);
-                hauptmenue.setIstSpielanleitungGedrueckt(false);
-                endscreen.setVisible(false);
-                endscreen = null;
+                hauptmenue.setVisible(true); //danach wird das Hauptmenü wieder eingeblendet
+                endscreen.setVisible(false); //das Endfenster wird ausgeblendet
+                endscreen = null; //und gelöscht
             }
             
-            if(hauptmenue.getIstSpielanleitungGedrueckt())
+            if(hauptmenue.getIstSpielanleitungGedrueckt()) //wenn man auf den Knopf "Spielanleitung" drückt
             {
-                spielanleitung = new Spielanleitung();
-                while(spielanleitung.getIstZurueckGedrueckt()==false)
+                spielanleitung = new Spielanleitung(); //wird ein neues Spielanleitungsobjekt erzeugt
+                while(spielanleitung.getIstZurueckGedrueckt()==false) //solange nicht zurück gedrückt wurde
                 {
-                    hauptmenue.setVisible(false);
+                    hauptmenue.setVisible(false); //bleibt das Hauptmenü ausgeblendet
                 }
-                hauptmenue.setVisible(true);
-                hauptmenue.setIstSpielanleitungGedrueckt(false);
-                spielanleitung.setVisible(false);
-                spielanleitung = null;
+                hauptmenue.setVisible(true); //danach wird das Hauptmenü wieder eingeblendet
+                hauptmenue.setIstSpielanleitungGedrueckt(false); //es wird keine neue Spielanleitung erzeugt oder eingeblendet
+                spielanleitung.setVisible(false); //die Spielanleitung wird ausgeblendet
+                spielanleitung = null; //und gelöscht
             }
             
             
