@@ -9,14 +9,12 @@ import java.awt.image.BufferedImage;
 public class Spieler extends Sprite
 {
     private int pvs; //Ein Attribut, um die Falldauer zu speichern und zurückzugeben, obwohl sie in der Klasse game ist
-    private KeyManager keyManager;
     private int lebenspunkte=3; //Der Spieler startet mit 3 Lebenspunkten
     private boolean beruehrtBoden=false; //Der Spieler ist am Anfang des Spiels nicht auf dem Boden
     
     public Spieler(BufferedImage[] i, double x, double y, long delay, KeyManager kManager)
     {
         super(i, x, y, delay);
-        keyManager=kManager;
     }
     
     /**
