@@ -33,7 +33,6 @@ public class Spielfeld extends JPanel
     * Konstruktor der Klasse Spielfeld
     * Erstellt ein JFrame mit den übergebenden Werten in der Mitte (leicht nach oben verschoben => Begründung in der README-Datei) des Bildschirms
     * 
-    * @param title Titel der über dem Fenster angezeigt wird
     * @param width die Breite des Fensters
     * @param height die Höhe des Fensters
     * @param painter Objekte die auf dem Spielfeld gezeichnet werden sollen in einem Vektor
