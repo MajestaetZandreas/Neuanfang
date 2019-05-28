@@ -23,7 +23,11 @@ public class Plattform extends Sprite
     {
         super.doLogic(delta);
     }
-   
+    /**
+     * Diese Methode überschreibt collidedWith aus Sprite
+     * 
+     * @return false, da Plattformen nicht kollidieren dürfen
+     */
     public boolean collidedWith(Sprite s)
     {
         return false;

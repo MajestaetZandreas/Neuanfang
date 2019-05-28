@@ -21,7 +21,11 @@ public class Lebensanzeige extends Sprite
     {
         super.doLogic(delta);
     }
-   
+    /**
+     * Diese Methode überschreibt collidedWith aus Sprite
+     * 
+     * @return false, da die Lebenspunkte nicht kollidieren dürfen
+     */
     public boolean collidedWith(Sprite s)
     {
         return false;
