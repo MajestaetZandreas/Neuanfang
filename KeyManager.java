@@ -10,17 +10,24 @@ import java.awt.event.*;
  */
 public class KeyManager implements KeyListener
 {
-    private boolean[] keys;
-    public boolean jump,  left, right, jumpG,  leftG, rightG, fire; 
+    private boolean[] keys;//boolean Array, welche Taste gedrueckt wurde und welche nicht
+    public boolean jump,  left, right, jumpG,  leftG, rightG, fire; //Attribute für die Tasten
     
-    
+    /**
+     * Konstruktor der Klasse KeyManager
+     */
     public KeyManager()
     {
-      keys = new boolean[256];
+      keys = new boolean[256];//neues Array, mit genuegen Platz fuer alle Tasten
     }
     
+    /**
+     * Methode speichert in jedes Attribut den Aktuellen Zustand einer Taste
+     * (gedrueckt, nicht gedrueckt)
+     */
     public void update()
     {
+        //Tasten gedrueckt/nicht gedrueckt
         jump = keys[KeyEvent.VK_W];
         jumpG = keys[KeyEvent.VK_UP];
         left = keys[KeyEvent.VK_A];

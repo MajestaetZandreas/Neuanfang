@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 
 /**
- * Die Grafik-Klasse oder so
+ * Diese Klasse beschäftigt sich mit den Grafiken der Objekte auf dem Spielfeld
  * 
  * @author (Jupp Bruns, Gideon Schafroth, Clemens Zander) 
  * @version (15.05.2019)

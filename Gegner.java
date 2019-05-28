@@ -3,7 +3,7 @@ import java.awt.image.BufferedImage;
 /**
  * Die Gegenerklasse beschreibt das zeichenbare Objekt Gegener    
  * 
- * @author (Shium R., Jupp B.) 
+ * @author (Shium R., Jupp B., Cihan K.) 
  * @version (25.05.2019)
  * 
  * Wir empfehlen die README Datei zu lesen, bevor Sie in diesen Code eintauchen

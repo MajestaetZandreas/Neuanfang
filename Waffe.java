@@ -3,7 +3,7 @@ import java.awt.image.BufferedImage;
 /** * Die Waffenklasse beschreibt das zeichenbare Objekt Waffe, welche eine Kugel ist,
  * die vom Spieler geschosssen wird.
  * 
- * @author (Shium Rahman, Jupp Bruns) 
+ * @author (Shium Rahman, Jupp Bruns, Cihan K., Gideon S.) 
  * @version (24.05.19)
  * 
  * Wir empfehlen die README Datei zu lesen, bevor Sie in diesen Code eintauchen

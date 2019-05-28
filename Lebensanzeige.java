@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
  * Die Lebensanzeigeklasse beschreibt das zeichenbare Objekt Lebensanzeige, welche die Anzahl
  * der Leben bzw. die Lebenzenergie anzeigt.
  * 
- * @author (Shium Rahman) 
+ * @author (Shium Rahman, Clemens Zander) 
  * @version (24.05.19)
  * 
  * Wir empfehlen die README Datei zu lesen, bevor Sie in diesen Code eintauchen
