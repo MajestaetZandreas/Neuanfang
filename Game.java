@@ -36,7 +36,7 @@ public class Game implements Runnable
     private Level levels; //Das Level beschreibt die Anordnung der Plattformen
     
     private boolean spielStart=true; //Dieses Attribut ist solange true, wie das Spiel läuft
-    private boolean victory=false; //Dieses Attribut git an, ob der Spieler gewonnen oder verloren hat
+    private boolean victory=false; //Dieses Attribut gibt an, ob der Spieler gewonnen oder verloren hat
     
     private boolean reload; //Dieses Attribut ist true, nachdem der Spieler geschossen hat und verhindert Dauerfeuer
     private int reloadTime=100; //Dieses Attribut wird zur Berechnung der Dauer des Nachladens benötigt
@@ -44,7 +44,7 @@ public class Game implements Runnable
     private boolean safe; //Dieses Attribut ist true, nachdem der Spieler Schaden genommen hat und verhindert den sofortigen Tod
     private int safeTime=100; //Dieses Attribut wird zur Berechnung der Dauer der sicheren Zeit des Spielers benötigt
     
-    private boolean getroffen; //Dieses Attribut ist true, nachdem der Gegner Schaden genommen hat und verhindert den sofortigen Sied
+    private boolean getroffen; //Dieses Attribut ist true, nachdem der Gegner Schaden genommen hat und verhindert den sofortigen Sieg
     private int getroffenTime=100; //Dieses Attribut wird zur Berechnung der Dauer der sicheren Zeit des Gegners benötigt
     
     private JFrame frame;
@@ -56,7 +56,7 @@ public class Game implements Runnable
     private boolean collided; //Dieses Attribut ist true, wenn zwei Sprites (normalerweise Spieler und Plattform) sich überschneiden oder berühren
     
     private int rndG; //Int-Wert zur Bestimmung, welche Gegner-Grafik benutzt werden soll
-    private int rndP; ////Int-Wert zur Bestimmung, auf welche Plattform der Gegner nach erlittenem Schaden teleportiert werded soll
+    private int rndP; ////Int-Wert zur Bestimmung, auf welche Plattform der Gegner nach erlittenem Schaden teleportiert werden soll
     //^noch nicht in Benutzung
     private long delta; //Dauer eines Durchlaufs
     private long last; //Die Zeit vom Anfang eines Durchlaufs
