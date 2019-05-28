@@ -16,7 +16,7 @@ public class SpielanleitungTasten extends Menue implements ActionListener
 {
     private int screenWidthMiddle;
     private int screenHeightMiddle;
-    private JButton zurueck;
+    private JButton zurueck; //ermöglicht das Zurückgehen ins Hauptmenue
     private boolean istZurueckGedrueckt=false;
     
     
