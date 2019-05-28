@@ -10,9 +10,8 @@ import java.awt.event.*;
  */
 public class KeyManager implements KeyListener
 {
-    private boolean canJump;
     private boolean[] keys;
-    public boolean jump,  left, right, jumpG,  leftG, rightG, fire;
+    public boolean jump,  left, right, jumpG,  leftG, rightG, fire; 
     
     
     public KeyManager()

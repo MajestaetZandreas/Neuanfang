@@ -2,7 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 
 /**
- * Diese Klasse erzeugt 
+ * Diese Klasse ist abstract und bietet allen Menues Methoden und Attribute  
  * 
  * @author (Clemens Zander, Shium  Rahman) 
  * @version (24.05.2019)

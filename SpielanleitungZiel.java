@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 
 
 /**
- * Diese Klasse erzeugt 
+ * Diese Klasse erzeugt ein Fenster, indem das Ziel des Spiels erklärt wird. 
  * 
  * @author (Clemens Zander, Shium  Rahman) 
  * @version (24.05.2019)
