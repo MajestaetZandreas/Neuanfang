@@ -2,7 +2,7 @@
 import java.awt.image.BufferedImage;
 
 /**
- * Beschreiben Sie hier die Klasse Spikes.
+ * Die Spikeklasse beschreibt das zeichenbare Objekt Spike, welche dem Spieler schaden zufügen. 
  * 
  * @author (Shium R. und Cihan K.) 
  * @version (25.05.19)

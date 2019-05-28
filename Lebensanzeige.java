@@ -1,7 +1,8 @@
 import java.awt.image.BufferedImage;
 
 /**
- * Beschreiben Sie hier die Klasse Lebenspunkte.
+ * Die Lebensanzeigeklasse beschreibt das zeichenbare Objekt Lebensanzeige, welche die Anzahl
+ * der Leben bzw. die Lebenzenergie anzeigt.
  * 
  * @author (Shium Rahman) 
  * @version (24.05.19)

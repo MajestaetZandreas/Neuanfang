@@ -1,7 +1,7 @@
 import java.awt.image.BufferedImage;
 
 /**
- * Beschreiben Sie hier die Klasse Kreaturen.
+ * Die Gegenerklasse beschreibt das zeichenbare Objekt Gegener    
  * 
  * @author (Shium R., Jupp B.) 
  * @version (25.05.2019)

@@ -1,7 +1,7 @@
 import java.awt.image.BufferedImage;
 
 /**
- * Beschreiben Sie hier die Klasse Hintergrund.
+ * Die Hintergrundklasse beschreibt das zeichenbare Objekt Hintergrund.
  * 
  * @author (Clemens Zander, Shium Rahman) 
  * @version (22.05.19)
