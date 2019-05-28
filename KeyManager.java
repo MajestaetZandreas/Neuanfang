@@ -14,6 +14,7 @@ public class KeyManager implements KeyListener
     public boolean jump,  left, right, jumpG,  leftG, rightG, fire; //Attribute für die Tasten
     
     /**
+     * @author (Clemens Zander, Shium Rahman) 
      * Konstruktor der Klasse KeyManager
      */
     public KeyManager()
@@ -22,6 +23,7 @@ public class KeyManager implements KeyListener
     }
     
     /**
+     * @author (Clemens Zander, Shium Rahman) 
      * Methode speichert in jedes Attribut den Aktuellen Zustand einer Taste
      * (gedrueckt, nicht gedrueckt)
      */
