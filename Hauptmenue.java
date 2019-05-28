@@ -3,7 +3,6 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-
 /**
  * Hauptmenüfenster des Hüpfburg-2D Spiels
  *
@@ -26,17 +25,21 @@ public class Hauptmenue extends Menue implements ActionListener
     private boolean istBeendenGedrueckt=false;
     
     /**
+     * @author(Clemens Zander und Shium Rahman)
      * Konstruktor der Klasse Hauptmenue
+     * Erzeugt ein neues Fenster für das Hauptmenue in der Mitte (leicht verschoben => Begruendung dafuer: siehe README-Datei) des Bildschirms,
+     * welches vier Buttons mit ActionListeners besitzt, durch welche Aktionen hervorgerufen werden koennen
      */
     public Hauptmenue()
     {
-        JFrame frame = new JFrame("Hauptmenü");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(406,429);
-        getBildschirmmitte();
-        setLocation(getScreenWidthMiddle(), getScreenHeightMiddle()-20);
-        setLayout(null);
-        setResizable(false);
+        JFrame frame = new JFrame("Hauptmenü");//neues Fenster mit Titel
+        setDefaultCloseOperation(EXIT_ON_CLOSE);//klicken des Schliessen-Knopfs (obere rechte Ecke) führt zum beenden der Applikation
+        setSize(406,429);//Groesse des Fensters gesetzt
+        getBildschirmmitte();//Bildschirmmitte bestimmt
+        setLocation(getScreenWidthMiddle(), getScreenHeightMiddle()-20);//Ausrichtung des JFrame mit den ermittelten x- und y-Werten, damit das Fenster Mittig erscheint
+                                                                        //Die begruendete Veränderung des y-Wetes (screenHeightMiddle-20) bitte in der README-Datei nachlesen
+        setLayout(null);//kein Layout soll auf dem JFrame vorherrschen
+        setResizable(false);//Die Größe des Fensters kann nicht während der Laufzeit, am Fenster selbst, vorgenommen werden
         
         //Hintergrundbild
         ImageIcon background_image=new ImageIcon("src/pics/menu_hintergrund.png");//PNG-Datei aus src-Folder gespeichert
@@ -83,8 +86,12 @@ public class Hauptmenue extends Menue implements ActionListener
     }
     
     /**
+     * @author(Clemens Zander Shium Rahman)
+     * 
      * Überschreibung der Methode actionPerformed aus der Klasse ActionListener
      * Diese Methode führt eine bestimmte Funktion/Zuweisung aus, je nachdem, welcher Button gedrueckt wurde
+     * 
+     * @param e ActionEvent, welches stattgefunden hat (z.B.: "auslösen" eines Knopfes)
      */
     @Override
     public void actionPerformed(ActionEvent e)
@@ -110,32 +117,58 @@ public class Hauptmenue extends Menue implements ActionListener
         }
     }
     
-    /*#-----------------------get- und set-Methoden für die Attribute, welche die Zustände der Buttons speichern----------------------*/
+    /**
+     * @author(Clemens Zander und Shium Rahman)
+     * get-Methode fuer den Zustand des Beenden-Buttons
+     */
     public boolean getIstBeendenGedrueckt()
     {
         return istBeendenGedrueckt;
     }
     
+    /**
+     * @author(Clemens Zander und Shium Rahman)
+     * get-Methode fuer den Zustand des Spielstart-Buttons
+     */
     public boolean getIstSpielstartGedrueckt()
     {
         return istSpielstartGedrueckt;
     }
     
+    /**
+     * @author(Clemens Zander und Shium Rahman)
+     * get-Methode fuer den Zustand des Spielanleitung-Buttons
+     */
     public boolean getIstSpielanleitungGedrueckt()
     {
         return istSpielanleitungGedrueckt;
     }
     
+    /**
+     * @author(Clemens Zander und Shium Rahman)
+     * set-Methode fuer den Zustand des Beenden-Buttons
+     * @param zustand boolean Wert fuer den Zustand des Buttons
+     */
     public void setIstBeendenGedrueckt(boolean zustand)
     {
         istBeendenGedrueckt=zustand;
     }
     
+    /**
+     * @author(Clemens Zander und Shium Rahman)
+     * set-Methode fuer den Zustand des Spielstart-Buttons
+     * @param zustand boolean Wert fuer den Zustand des Buttons
+     */
     public void setIstSpielstartGedrueckt(boolean zustand)
     {
         istSpielstartGedrueckt=zustand;
     }
     
+    /**
+     * @author(Clemens Zander und Shium Rahman)
+     * set-Methode fuer den Zustand des Spielanleitung-Buttons
+     * @param zustand boolean Wert fuer den Zustand des Buttons
+     */
     public void setIstSpielanleitungGedrueckt(boolean zustand)
     {
         istSpielanleitungGedrueckt=zustand;

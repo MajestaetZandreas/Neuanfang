@@ -28,9 +28,9 @@ import java.util.Random;
 public class Game implements Runnable
 {
     private static Hauptmenue hauptmenue; //Das Hauptmenü, welches vor dem Spielen geöffnet wird
-    private SpielanleitungZiel spielanleitungZiel;//Die Spielanleitung
-    private SpielanleitungZiel spielanleitungZiel2;//Die Spielanleitung
-    private SpielanleitungTasten spielanleitungTasten;//Die Spielanleitung
+    private Spielanleitung spielanleitungZiel;//Die Spielanleitung
+    private Spielanleitung spielanleitungZiel2;//Die Spielanleitung
+    private Spielanleitung spielanleitungTasten;//Die Spielanleitung
     private Endscreen endscreen; //Das Fenster, welches am Ende des Spiels erscheint
     private Spielfeld spielfeld; //Das Fenster in welchem gespielt wird
     private Level levels; //Das Level beschreibt die Anordnung der Plattformen
@@ -203,19 +203,19 @@ public class Game implements Runnable
             
             if(hauptmenue.getIstSpielanleitungGedrueckt()) //wenn man auf den Knopf "Spielanleitung" drückt
             {
-                spielanleitungZiel = new SpielanleitungZiel(1); //wird ein neues Spielanleitungsobjekt erzeugt
+                spielanleitungZiel = new Spielanleitung(1); //wird ein neues Spielanleitungsobjekt erzeugt
                 while(spielanleitungZiel.getIstZurueckGedrueckt()==false) //solange nicht zurück gedrückt wurde
                 {
                     hauptmenue.setVisible(false); //bleibt das Hauptmenü ausgeblendet
                     if(spielanleitungZiel.getIstWeiterGedrueckt())
                     {
-                        spielanleitungZiel2 = new SpielanleitungZiel(2);
+                        spielanleitungZiel2 = new Spielanleitung(2);
                         while(spielanleitungZiel2.getIstZurueckGedrueckt()==false)
                         {
                             spielanleitungZiel.setVisible(false);
                             if(spielanleitungZiel2.getIstWeiterGedrueckt())
                             {
-                                spielanleitungTasten = new SpielanleitungTasten();
+                                spielanleitungTasten = new Spielanleitung(0);
                                 while(spielanleitungTasten.getIstZurueckGedrueckt()==false)
                                 {
                                     spielanleitungZiel2.setVisible(false);
