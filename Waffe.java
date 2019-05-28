@@ -17,13 +17,7 @@ public class Waffe extends Sprite
     {
         super(i, x, y, delay);
     }
-    
-    @Override
-    public void doLogic(long delta)
-    {
-        super.doLogic(delta);
-    }
-    
+
     /**
      * @author(Cihan K., Gideon S., Jupp B. - Verschidene versionen)
      * 

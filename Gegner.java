@@ -21,16 +21,6 @@ public class Gegner extends Sprite
         super(i, x, y, delay);
     }
 
-    /**
-     * @author(Jupp B., Gideon S.)
-     * 
-     * Diese Methode ruft die doLogic-Methode aus der Klasse Sprite auf, und spielt damit die Animation ab
-     */
-    @Override
-    public void doLogic(long delta)
-    {
-        super.doLogic(delta);
-    }
     
     /**
      * @author(Cihan K., Gideon S., Jupp B. - Verschidene versionen)

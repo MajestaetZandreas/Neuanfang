@@ -15,12 +15,7 @@ public class Lebensanzeige extends Sprite
     {
         super(i, x, y, delay);
     }    
-        
-    @Override
-    public void doLogic(long delta)
-    {
-        super.doLogic(delta);
-    }
+  
     /**
      * Diese Methode überschreibt collidedWith aus Sprite
      * 

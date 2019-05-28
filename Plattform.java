@@ -11,18 +11,13 @@ import java.awt.image.BufferedImage;
  */
 public class Plattform extends Sprite
 {
-    
-    
+
     public Plattform(BufferedImage[] i, double x, double y, long delay)
     {
         super(i, x, y, delay);
     }    
         
-    @Override
-    public void doLogic(long delta)
-    {
-        super.doLogic(delta);
-    }
+
     /**
      * Diese Methode überschreibt collidedWith aus Sprite
      * 

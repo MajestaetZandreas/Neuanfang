@@ -63,9 +63,9 @@ public class Game implements Runnable
     private long fps; //Anzahl Bilder pro Sekunde
     
     private boolean canJump; //Dieses Attribut ist false, nachdem gesprungen wurde und verhindert, dass in der Luft gesprungen werden kann
-    private int vSpeed = 160 /* 75*/; //Die Geschwindigkeit, mit welcher sich der Spieler im Sprung nach oben bewegt
-    private int hSpeed = 100; //Die Geschwindigkeit, mit welcher sich der Spieler seitlich bewegt
-    private double fallgeschwindigkeit=1.75; /*0.75 */ //Die Beschleunigung, welche den Fall jeden Loop beschleunigt
+    private int vSpeed = 100 ; //Die Geschwindigkeit, mit welcher sich der Spieler im Sprung nach oben bewegt
+    private int hSpeed = 125; //Die Geschwindigkeit, mit welcher sich der Spieler seitlich bewegt
+    private double fallgeschwindigkeit=1;  //Die Beschleunigung, welche den Fall jeden Loop beschleunigt
     private boolean inJump; //Dieses Attribut ist true, nachdem der Spieler gesprungen ist, und beeinflusst den Fall in der Luft
     private int prevVertSpeed=201; //Die Anzahl an Loops, in denen der Spieler bereits fällt
     

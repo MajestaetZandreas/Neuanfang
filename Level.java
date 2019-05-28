@@ -65,6 +65,8 @@ public class Level
         Plattform plattform34 = new Plattform(plattform_image,500,80,100);
         Plattform plattform35 = new Plattform(plattform_image,865,606,100);
         
+        
+        
         //Plattfotmen werden der Arraylist plattforms hinzugefügt
         plattforms.add(plattform01);plattforms.add(plattform02);plattforms.add(plattform03);
         plattforms.add(plattform04);plattforms.add(plattform05);plattforms.add(plattform06);
