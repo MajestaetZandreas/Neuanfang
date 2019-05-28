@@ -2,11 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 
 /**
-<<<<<<< HEAD
  * Die Menue Klasse ist abstrakt und vererbt an alle Unterklassen, welche sich mit dem Hauptmenue des Spiels beschäftigen, um dort Code-Duplizierung zu vermeiden
-=======
- * Diese Klasse ist abstract und bietet allen Menues Methoden und Attribute  
->>>>>>> 3f35c0f633c28ac72702131204629ed46a90d20a
  * 
  * @author (Clemens Zander und Gideon Schafroth) 
  * @version (24.05.2019)
