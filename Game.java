@@ -203,27 +203,27 @@ public class Game implements Runnable
             
             if(hauptmenue.getIstSpielanleitungGedrueckt()) //wenn man auf den Knopf "Spielanleitung" drückt
             {
-                spielanleitungZiel = new Spielanleitung(1); //wird ein neues Spielanleitungsobjekt erzeugt
+                spielanleitungZiel = new Spielanleitung(1); //wird ein neues Spielanleitungsobjekt (1.Teil) erzeugt
                 while(spielanleitungZiel.getIstZurueckGedrueckt()==false) //solange nicht zurück gedrückt wurde
                 {
                     hauptmenue.setVisible(false); //bleibt das Hauptmenü ausgeblendet
-                    if(spielanleitungZiel.getIstWeiterGedrueckt())
+                    if(spielanleitungZiel.getIstWeiterGedrueckt()) //wenn weiter gedrueckt wird
                     {
-                        spielanleitungZiel2 = new Spielanleitung(2);
-                        while(spielanleitungZiel2.getIstZurueckGedrueckt()==false)
+                        spielanleitungZiel2 = new Spielanleitung(2); //2.Teil der Spielanleitung geoeffnet
+                        while(spielanleitungZiel2.getIstZurueckGedrueckt()==false) //solange nicht wieder zurueck gedrueckt wird
                         {
-                            spielanleitungZiel.setVisible(false);
-                            if(spielanleitungZiel2.getIstWeiterGedrueckt())
+                            spielanleitungZiel.setVisible(false); //1.Teil der Spielanleitung wird unsichtbar gemacht
+                            if(spielanleitungZiel2.getIstWeiterGedrueckt()) //wenn weiter gedrueckt
                             {
-                                spielanleitungTasten = new Spielanleitung(0);
-                                while(spielanleitungTasten.getIstZurueckGedrueckt()==false)
+                                spielanleitungTasten = new Spielanleitung(0); //3.Teil der Spielanleitung geoffnet
+                                while(spielanleitungTasten.getIstZurueckGedrueckt()==false) //solange nicht wieder zurueck gedrueckt wird
                                 {
-                                    spielanleitungZiel2.setVisible(false);
+                                    spielanleitungZiel2.setVisible(false); //2.Teil der Spielanleitung wird unsichtbar gemacht
                                 }
-                                spielanleitungZiel2.setVisible(true);
-                                spielanleitungZiel2.setIstWeiterGedrueckt(false);
-                                spielanleitungTasten.setVisible(false);
-                                spielanleitungTasten = null;
+                                spielanleitungZiel2.setVisible(true); //2.Teil wieder eingeblendet
+                                spielanleitungZiel2.setIstWeiterGedrueckt(false); //Weiter-nopf wird nicht gedrueckt
+                                spielanleitungTasten.setVisible(false); //3.Teil wird nicht mehr angezeigt
+                                spielanleitungTasten = null; //und geloescht
                             }
                         }
                         spielanleitungZiel.setVisible(true);
