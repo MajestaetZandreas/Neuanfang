@@ -50,8 +50,8 @@ public class Hauptmenue extends Menue
         //SpielStart-Button
         start = new JButton("Spiel Starten");//neuer Button mit Titel
         start.setBounds(132, 80, 140, 40);//Position und Größe gesetzt
-        start.setForeground(Color.WHITE);//Schriftfarbe gesetzt
-        start.setBackground(Color.BLACK);//Hintergrundfarbe gesetzt                
+        // start.setForeground(Color.WHITE);//Schriftfarbe gesetzt
+        // start.setBackground(Color.BLACK);//Hintergrundfarbe gesetzt                
         start.addActionListener(new java.awt.event.ActionListener() {
                         // Beim Drücken des start-Buttons wird actionPerformed aufgerufen
                         public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -68,8 +68,8 @@ public class Hauptmenue extends Menue
         //Einstellungen-Button
         einstellungen = new JButton("Einstellungen");
         einstellungen.setBounds(132, 160, 140, 40);
-        einstellungen.setForeground(Color.WHITE);
-        einstellungen.setBackground(Color.BLACK);                
+        // einstellungen.setForeground(Color.WHITE);
+        // einstellungen.setBackground(Color.BLACK);                
         einstellungen.addActionListener(new java.awt.event.ActionListener() {
                         // Beim Drücken des einstellungen-Button wird actionPerformed aufgerufen
                         public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -84,8 +84,8 @@ public class Hauptmenue extends Menue
         //Spielanleitung-Button
         info = new JButton("Spielanleitung");
         info.setBounds(132, 240, 140, 40);
-        info.setForeground(Color.WHITE); 
-        info.setBackground(Color.BLACK);       
+        // info.setForeground(Color.WHITE); 
+        // info.setBackground(Color.BLACK);       
         info.addActionListener(new java.awt.event.ActionListener() {
                         // Beim Drücken des info-Buttons wird actionPerformed aufgerufen
                         public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -101,8 +101,8 @@ public class Hauptmenue extends Menue
         //Beenden-Button
         ende = new JButton("Beenden");
         ende.setBounds(132, 320, 140, 40);
-        ende.setForeground(Color.WHITE);
-        ende.setBackground(Color.BLACK);
+        // ende.setForeground(Color.WHITE);
+        // ende.setBackground(Color.BLACK);
         ende.addActionListener(new java.awt.event.ActionListener() {
                     // Beim Drücken des ende-Buutons wird actionPerformed aufgerufen
                         public void actionPerformed(java.awt.event.ActionEvent e) {
