@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
  * 
  * Wir empfehlen die README Datei zu lesen, bevor Sie in diesen Code eintauchen
  */
-public class Hauptmenue extends Menue implements ActionListener
+public class Hauptmenue extends Menue 
 {
     //Attribute für die vier Buttons, welche auf dem Fenster zu sehen sein sollen
     private JButton start;
@@ -52,28 +52,68 @@ public class Hauptmenue extends Menue implements ActionListener
         start.setBounds(132, 80, 140, 40);//Position und Größe gesetzt
         start.setForeground(Color.WHITE);//Schriftfarbe gesetzt
         start.setBackground(Color.BLACK);//Hintergrundfarbe gesetzt                
-        start.addActionListener(this);//neuer Actionlistener für den Button erstellt
-        
+        start.addActionListener(new java.awt.event.ActionListener() {
+                        // Beim Drücken des start-Buttons wird actionPerformed aufgerufen
+                        public void actionPerformed(java.awt.event.ActionEvent e) {
+                            if(e.getSource()==start)
+                            //wenn start Button gedrueckt
+                            {
+                                istSpielstartGedrueckt=true;
+                                //Attribut auf true geaendert, da der Button gedrueckt wurde
+                            }
+   
+                        }
+                    });//neuer Actionlistener für den Button erstellt
+    
         //Einstellungen-Button
         einstellungen = new JButton("Einstellungen");
         einstellungen.setBounds(132, 160, 140, 40);
         einstellungen.setForeground(Color.WHITE);
         einstellungen.setBackground(Color.BLACK);                
-        einstellungen.addActionListener(this);
+        einstellungen.addActionListener(new java.awt.event.ActionListener() {
+                        // Beim Drücken des einstellungen-Button wird actionPerformed aufgerufen
+                        public void actionPerformed(java.awt.event.ActionEvent e) {
+                            if(e.getSource()==einstellungen)
+                            //wenn einstellungen Button gedrueckt
+                            {
+                                //nur für das Design/beinhaltet keine Funktionen
+                            }
+                        }
+                    });
         
         //Spielanleitung-Button
         info = new JButton("Spielanleitung");
         info.setBounds(132, 240, 140, 40);
         info.setForeground(Color.WHITE); 
         info.setBackground(Color.BLACK);       
-        info.addActionListener(this);
+        info.addActionListener(new java.awt.event.ActionListener() {
+                        // Beim Drücken des info-Buttons wird actionPerformed aufgerufen
+                        public void actionPerformed(java.awt.event.ActionEvent e) {
+                            if(e.getSource()==info)
+                            //wenn info Button gedrueckt
+                            {
+                                istSpielanleitungGedrueckt=true;
+                                //Attribut auf true geaendert, da der Button gedrueckt wurde
+                            }
+                        }
+                    });
         
         //Beenden-Button
         ende = new JButton("Beenden");
         ende.setBounds(132, 320, 140, 40);
         ende.setForeground(Color.WHITE);
         ende.setBackground(Color.BLACK);
-        ende.addActionListener(this);
+        ende.addActionListener(new java.awt.event.ActionListener() {
+                    // Beim Drücken des ende-Buutons wird actionPerformed aufgerufen
+                        public void actionPerformed(java.awt.event.ActionEvent e) {
+                        if(e.getSource()==ende)
+                        //wenn ende Button gedrueckt
+                            {
+                                istBeendenGedrueckt=true;
+                                //Attribut auf true geaendert, da der Button gedrueckt wurde
+                            }
+                        }
+                    });
         
         //Buttons und Hintergrund auf Frame geadded
         add(start);
@@ -85,37 +125,37 @@ public class Hauptmenue extends Menue implements ActionListener
         setVisible(true);//Frame wird angezeigt
     }
     
-    /**
-     * @author(Clemens Zander Shium Rahman)
-     * 
-     * Überschreibung der Methode actionPerformed aus der Klasse ActionListener
-     * Diese Methode führt eine bestimmte Funktion/Zuweisung aus, je nachdem, welcher Button gedrueckt wurde
-     * 
-     * @param e ActionEvent, welches stattgefunden hat (z.B.: "auslösen" eines Knopfes)
-     */
-    @Override
-    public void actionPerformed(ActionEvent e)
-    {
-        if(e.getSource()==start)//wenn start Button gedrueckt
-        {
-            istSpielstartGedrueckt=true;//Attribut auf true geaendert, da der Button gedrueckt wurde
-        }
+    // /**
+     // * @author(Clemens Zander Shium Rahman)
+     // * 
+     // * Überschreibung der Methode actionPerformed aus der Klasse ActionListener
+     // * Diese Methode führt eine bestimmte Funktion/Zuweisung aus, je nachdem, welcher Button gedrueckt wurde
+     // * 
+     // * @param e ActionEvent, welches stattgefunden hat (z.B.: "auslösen" eines Knopfes)
+     // */
+    // @Override
+    // public void actionPerformed(ActionEvent e)
+    // {
+        // if(e.getSource()==start)//wenn start Button gedrueckt
+        // {
+            // istSpielstartGedrueckt=true;//Attribut auf true geaendert, da der Button gedrueckt wurde
+        // }
         
-        if(e.getSource()==einstellungen)//wenn einstellungen Button gedrueckt
-        {
-            //nur für das Design/beinhaltet keine Funktionen
-        }
+        // if(e.getSource()==einstellungen)//wenn einstellungen Button gedrueckt
+        // {
+            // nur für das Design/beinhaltet keine Funktionen
+        // }
         
-        if(e.getSource()==info)//wenn info Button gedrueckt
-        {
-            istSpielanleitungGedrueckt=true;//Attribut auf true geaendert, da der Button gedrueckt wurde
-        }
+        // if(e.getSource()==info)//wenn info Button gedrueckt
+        // {
+            // istSpielanleitungGedrueckt=true;//Attribut auf true geaendert, da der Button gedrueckt wurde
+        // }
         
-        if(e.getSource()==ende)//wenn ende Button gedrueckt
-        {
-            istBeendenGedrueckt=true;//Attribut auf true geaendert, da der Button gedrueckt wurde
-        }
-    }
+        // if(e.getSource()==ende)//wenn ende Button gedrueckt
+        // {
+            // istBeendenGedrueckt=true;//Attribut auf true geaendert, da der Button gedrueckt wurde
+        // }
+    // }
     
     /**
      * @author(Clemens Zander und Shium Rahman)
