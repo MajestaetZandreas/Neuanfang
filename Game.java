@@ -97,7 +97,7 @@ public class Game implements Runnable
     private ArrayList<Gegner> gegner;
     private ArrayList<Spikes> spikes;
     
-    public static void main(String[] args)
+    public static void main()
     {
         Game game = new Game();
     }
