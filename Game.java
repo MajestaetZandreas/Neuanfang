@@ -138,7 +138,6 @@ public class Game implements Runnable
                 doInitialisierung(); //Alle Grafiken werden erstellt und intialisiert
                 spielfeld = new Spielfeld(1280, 960, painter, actors); //Das Spielfeld wird erstellt
                 spielfeld.getFrame().addKeyListener(keyManager);
-                spielfeld.getFrame().setVisible(true);
                 hauptmenue.setVisible(false); //Das Hauptmenü wird ausgeblendet
                 while(spielfeld.getFrame().isVisible())//solange das Fenster angezeigt wird
                 {
