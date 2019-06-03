@@ -19,7 +19,7 @@ public class KeyManager implements KeyListener
      */
     public KeyManager()
     {
-      keys = new boolean[6];//neues Array, mit genuegen Platz fuer alle Tasten
+      keys = new boolean[256];//neues Array, mit genuegen Platz fuer alle Tasten
     }
     
     /**
