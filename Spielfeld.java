@@ -85,6 +85,7 @@ public class Spielfeld extends JPanel
          
         if(painter!=null)
         {
+            Vector<Sprite> removeIds=new Vector<Sprite>();
             for(ListIterator<Sprite> it=actors.listIterator();it.hasNext();)
             {
                 Sprite r = it.next();

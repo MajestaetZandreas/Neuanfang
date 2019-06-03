@@ -149,8 +149,9 @@ public class Game implements Runnable
                     computeDelta(); //Errechnung der Zeit für den vorhergehenden Schleifendurchlauf
                     
                     
-                    checkKeys(); //Die Kommandos des ActionListeners werden ausgeführt(Movement + Angriff)
+                    
                     doLogic(); //Kollision aller kolliderenden Sprites wird abgefragt
+                    checkKeys(); //Die Kommandos des ActionListeners werden ausgeführt(Movement + Angriff)
                     gegner.get(rndG).doLogic(delta); //Die Animation des Gegners wird aufgerufen
                     
                     moveObjects(); //Die Objekte werden bewegt und neu gezeichnet
@@ -192,6 +193,7 @@ public class Game implements Runnable
                 hauptmenue.setIstSpielstartGedrueckt(false); //das Spielfeld wird nicht wieder erzeugt
                 spielfeld.setVisible(false); //das Spielfeld wird wieder ausgeblendet
                 spielfeld = null; //das Spielfeld wird gelöscht
+                
                 endscreen=new Endscreen(victory); //ein Ende abhängig vom Ausgang des Spiels wird geöffnet
             }
             
@@ -506,7 +508,7 @@ public class Game implements Runnable
         for(ListIterator<Sprite> it=actors.listIterator();it.hasNext();) //der Vector actors, wird mittels eine ListIterators durchgegangen, welcher sich immer exakt zwischen 2 Objekten befindet
         {
             Sprite r = it.next(); //das nächste Objekt wird zwischengespeichert
-            r.move(delta); //und bewegt
+            if(delta!=0)r.move(delta); //und bewegt
         }
     }
     
@@ -550,7 +552,7 @@ public class Game implements Runnable
     {
         delta = System.nanoTime() - last; //die Differenz der Letzten und der aktuellen Systemzeit wird gespeichert
         last = System.nanoTime(); //die aktuelle Systemzeit wird als nächste letzte gespeichert
-        fps = ((long) 1e9)/delta; //10^9 dividiert durch die Dauer des Durchlaufs um nicht so viele Nachkommastellen zu haben
+        if(delta!=0)fps = ((long) 1e9)/delta; //10^9 dividiert durch die Dauer des Durchlaufs um nicht so viele Nachkommastellen zu haben
     }
     
     @SuppressWarnings("unchecked") //Alle Warnungen des Compilers bezüglich un überprüfter Aktionen werden unterdrückt
