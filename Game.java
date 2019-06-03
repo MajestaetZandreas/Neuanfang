@@ -97,24 +97,29 @@ public class Game implements Runnable
     private ArrayList<Gegner> gegner;
     private ArrayList<Spikes> spikes;
     
-    public static void main()
+    public static void main(String[] arg)
     {
         Game game = new Game();
+        
+        new Thread(game).start();
     }
     
     public Game()
     {
         hauptmenue = new Hauptmenue();
+        hauptmenue.setVisible(true);
         keyManager = new KeyManager();
         levels= new Level();
         
         
-        Thread thread = new Thread(this);
-        thread.start();
+        
         
         Random rand=new Random();
         rndG=rand.nextInt(1);
         rndP=rand.nextInt(35);
+        
+        // Thread thread = new Thread(this);
+        // thread.start();
     }
     
     public void setPrevVertSpeed(int newSpeed)
@@ -238,11 +243,11 @@ public class Game implements Runnable
                 spielanleitungZiel = null; //und gelöscht
             }
             
-            if(hauptmenue.getIstBeendenGedrueckt()) //wenn man beenden dückt
-            {
-                spielStart=false; //wird die run-Methode abgebrochen
-                System.exit(0); //und das Spiel geschlossen
-            }
+            // if(hauptmenue.getIstBeendenGedrueckt()) //wenn man beenden dückt
+            // {
+                // spielStart=false; //wird die run-Methode abgebrochen
+                //System.exit(0); //und das Spiel geschlossen
+            // }
         }
     }
     

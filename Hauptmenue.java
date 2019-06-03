@@ -93,7 +93,6 @@ public class Hauptmenue extends Menue
                             //wenn info Button gedrueckt
                             {
                                 istSpielanleitungGedrueckt=true;
-                                //Attribut auf true geaendert, da der Button gedrueckt wurde
                             }
                         }
                     });
@@ -110,6 +109,7 @@ public class Hauptmenue extends Menue
                         //wenn ende Button gedrueckt
                             {
                                 istBeendenGedrueckt=true;
+                                System.exit(0); //und das Spiel geschlossen
                                 //Attribut auf true geaendert, da der Button gedrueckt wurde
                             }
                         }
