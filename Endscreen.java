@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
  * 
  * Wir empfehlen die README Datei zu lesen, bevor Sie in diesen Code eintauchen
  */
-public class Endscreen extends JFrame implements ActionListener
+public class Endscreen extends JFrame //implements ActionListener
 {
     private int screenWidthMiddle;//x-Koordinate für den Punkt, an welchem das Endscreen-Fenster erzeugt werden muss, damit sich dieses mittig auf dem Bildschirm befindet
     private int screenHeightMiddle;//y-Koordinate für den Punkt, an welchem das Endscreen-Fenster erzeugt werden muss, damit sich dieses mittig auf dem Bildschirm befindet
@@ -47,7 +47,7 @@ public class Endscreen extends JFrame implements ActionListener
         zurueck.setForeground(new Color(255,255,255,255));//Schriftfarbe auf weiss gesetzt
         zurueck.setBorderPainted(false);//der Rand des Buttons soll nicht gezeichnet werden
         zurueck.setBounds(-20,80, 130, 20);//Position und Größe des Buttons gesetzt
-        zurueck.addActionListener(this);//ActionListener für diesen Button hinzugefuegt
+        //zurueck.addActionListener(this);//ActionListener für diesen Button hinzugefuegt
         zurueck.setVisible(true);//Button wird angezeigt
         
         add(zurueck);//Button auf Frame geadded
@@ -67,22 +67,22 @@ public class Endscreen extends JFrame implements ActionListener
         screenHeightMiddle = ((int) ((d.getHeight() / 2 - 65)));//y-Koordinate, für den Punkt, an welchem das Endscreen-Fenster erzeugt werden muss, berechnet   (129/2 = 65 gerundet)
     }
     
-    /**
-     * @author(Cihan Karahan und Shium Rahman)
-     * 
-     * Diese Methode ueberschreibt die Methode actionPerformed() in Klasse ActionListener
-     * Methode prueft ob zurueck-Button gedrueckt wurde und fuehrt, falls gedrueckt, eine entsprechende Funktion aus
-     * 
-     * @param e ActionEvent, welches stattgefunden hat (z.B.: "auslösen" eines Knopfes)
-     */
-    @Override
-    public void actionPerformed(ActionEvent e)
-    {
-        if(e.getSource()==zurueck)//wenn ActionEvent e hat die Quelle: zurueck-Button
-        {
-            istZurueckGedrueckt=true;//Zustand des Buttons auf true, da dieser gedrueckt wurde
-        }
-    }
+    // /**
+     // * @author(Cihan Karahan und Shium Rahman)
+     // * 
+     // * Diese Methode ueberschreibt die Methode actionPerformed() in Klasse ActionListener
+     // * Methode prueft ob zurueck-Button gedrueckt wurde und fuehrt, falls gedrueckt, eine entsprechende Funktion aus
+     // * 
+     // * @param e ActionEvent, welches stattgefunden hat (z.B.: "auslösen" eines Knopfes)
+     // */
+    // @Override
+    // public void actionPerformed(ActionEvent e)
+    // {
+        // if(e.getSource()==zurueck)//wenn ActionEvent e hat die Quelle: zurueck-Button
+        // {
+            // istZurueckGedrueckt=true;//Zustand des Buttons auf true, da dieser gedrueckt wurde
+        // }
+    // }
 
     /**
      * @author(Cihan Karahan und Shium Rahman)

@@ -27,7 +27,7 @@ import java.util.Random;
 */
 public class Game implements Runnable
 {
-    private static Hauptmenue hauptmenue; //Das Hauptmenü, welches vor dem Spielen geöffnet wird
+    
     private Spielanleitung spielanleitungZiel;//Die Spielanleitung
     private Spielanleitung spielanleitungZiel2;//Die Spielanleitung
     private Spielanleitung spielanleitungTasten;//Die Spielanleitung
@@ -37,6 +37,7 @@ public class Game implements Runnable
     
     private boolean spielStart=true; //Dieses Attribut ist solange true, wie das Spiel läuft
     private boolean victory=false; //Dieses Attribut gibt an, ob der Spieler gewonnen oder verloren hat
+    private boolean spielLauf;
     
     private boolean reload; //Dieses Attribut ist true, nachdem der Spieler geschossen hat und verhindert Dauerfeuer
     private int reloadTime=100; //Dieses Attribut wird zur Berechnung der Dauer des Nachladens benötigt
@@ -97,17 +98,9 @@ public class Game implements Runnable
     private ArrayList<Gegner> gegner;
     private ArrayList<Spikes> spikes;
     
-    public static void main(String[] arg)
+    public Game(/*Hauptmenue hauptmenue*/)
     {
-        Game game = new Game();
-        
-        new Thread(game).start();
-    }
-    
-    public Game()
-    {
-        hauptmenue = new Hauptmenue();
-        hauptmenue.setVisible(true);
+        // this.hauptmenue=hauptmenue;
         keyManager = new KeyManager();
         levels= new Level();
         
@@ -117,7 +110,7 @@ public class Game implements Runnable
         Random rand=new Random();
         rndG=rand.nextInt(1);
         rndP=rand.nextInt(35);
-        
+        new Thread(this).start();
         // Thread thread = new Thread(this);
         // thread.start();
     }
@@ -136,14 +129,15 @@ public class Game implements Runnable
     @Override
     public void run()
     {
+        spielLauf=true;
         while(spielStart) //eigentlich immer, nur in dieser Schleife abbbrechbar
         {   
-            if(hauptmenue.getIstSpielstartGedrueckt()) 
+            if(/*hauptmenue.getIstSpielstartGedrueckt()*/spielLauf==true) 
             {
                 doInitialisierung(); //Alle Grafiken werden erstellt und intialisiert
                 spielfeld = new Spielfeld(1280, 960, painter, actors); //Das Spielfeld wird erstellt
                 spielfeld.getFrame().addKeyListener(keyManager);
-                hauptmenue.setVisible(false); //Das Hauptmenü wird ausgeblendet
+                //hauptmenue.setVisible(false); //Das Hauptmenü wird ausgeblendet
                 while(spielfeld.getFrame().isVisible())//solange das Fenster angezeigt wird
                 {
                     computeDelta(); //Errechnung der Zeit für den vorhergehenden Schleifendurchlauf
@@ -189,8 +183,8 @@ public class Game implements Runnable
                     {
                     }
                 }
-                hauptmenue.setVisible(true); //das Hauptmenü wird wieder eingeblendet
-                hauptmenue.setIstSpielstartGedrueckt(false); //das Spielfeld wird nicht wieder erzeugt
+                // hauptmenue.setVisible(true); //das Hauptmenü wird wieder eingeblendet
+                // hauptmenue.setIstSpielstartGedrueckt(false); //das Spielfeld wird nicht wieder erzeugt
                 spielfeld.setVisible(false); //das Spielfeld wird wieder ausgeblendet
                 spielfeld = null; //das Spielfeld wird gelöscht
                 
@@ -201,49 +195,50 @@ public class Game implements Runnable
             {
                 while(endscreen.getIstZurueckGedrueckt()==false) //solange nicht zurück gedrückt wurde
                 {
-                    hauptmenue.setVisible(false); //bleibt das Hauptmenü ausgeblendet
+                    // hauptmenue.setVisible(false); //bleibt das Hauptmenü ausgeblendet
                 }
-                hauptmenue.setVisible(true); //danach wird das Hauptmenü wieder eingeblendet
+                // hauptmenue.setVisible(true); //danach wird das Hauptmenü wieder eingeblendet
                 endscreen.setVisible(false); //das Endfenster wird ausgeblendet
                 endscreen = null; //und gelöscht
+                spielLauf=false;
             }
             
-            if(hauptmenue.getIstSpielanleitungGedrueckt()) //wenn man auf den Knopf "Spielanleitung" drückt
-            {
-                spielanleitungZiel = new Spielanleitung(1); //wird ein neues Spielanleitungsobjekt (1.Teil) erzeugt
-                while(spielanleitungZiel.getIstZurueckGedrueckt()==false) //solange nicht zurück gedrückt wurde
-                {
-                    hauptmenue.setVisible(false); //bleibt das Hauptmenü ausgeblendet
-                    if(spielanleitungZiel.getIstWeiterGedrueckt()) //wenn weiter gedrueckt wird
-                    {
-                        spielanleitungZiel2 = new Spielanleitung(2); //2.Teil der Spielanleitung geoeffnet
-                        while(spielanleitungZiel2.getIstZurueckGedrueckt()==false) //solange nicht wieder zurueck gedrueckt wird
-                        {
-                            spielanleitungZiel.setVisible(false); //1.Teil der Spielanleitung wird unsichtbar gemacht
-                            if(spielanleitungZiel2.getIstWeiterGedrueckt()) //wenn weiter gedrueckt
-                            {
-                                spielanleitungTasten = new Spielanleitung(0); //3.Teil der Spielanleitung geoffnet
-                                while(spielanleitungTasten.getIstZurueckGedrueckt()==false) //solange nicht wieder zurueck gedrueckt wird
-                                {
-                                    spielanleitungZiel2.setVisible(false); //2.Teil der Spielanleitung wird unsichtbar gemacht
-                                }
-                                spielanleitungZiel2.setVisible(true); //2.Teil wieder eingeblendet
-                                spielanleitungZiel2.setIstWeiterGedrueckt(false); //Weiter-nopf wird nicht gedrueckt
-                                spielanleitungTasten.setVisible(false); //3.Teil wird nicht mehr angezeigt
-                                spielanleitungTasten = null; //und geloescht
-                            }
-                        }
-                        spielanleitungZiel.setVisible(true);
-                        spielanleitungZiel.setIstWeiterGedrueckt(false);
-                        spielanleitungZiel2.setVisible(false);
-                        spielanleitungZiel2 = null;
-                    }
-                }
-                hauptmenue.setVisible(true); //danach wird das Hauptmenü wieder eingeblendet
-                hauptmenue.setIstSpielanleitungGedrueckt(false); //es wird keine neue Spielanleitung erzeugt oder eingeblendet
-                spielanleitungZiel.setVisible(false); //die Spielanleitung wird ausgeblendet
-                spielanleitungZiel = null; //und gelöscht
-            }
+            // if(hauptmenue.getIstSpielanleitungGedrueckt()) //wenn man auf den Knopf "Spielanleitung" drückt
+            // {
+                // spielanleitungZiel = new Spielanleitung(1); //wird ein neues Spielanleitungsobjekt (1.Teil) erzeugt
+                // while(spielanleitungZiel.getIstZurueckGedrueckt()==false) //solange nicht zurück gedrückt wurde
+                // {
+                    // hauptmenue.setVisible(false); //bleibt das Hauptmenü ausgeblendet
+                    // if(spielanleitungZiel.getIstWeiterGedrueckt()) //wenn weiter gedrueckt wird
+                    // {
+                        // spielanleitungZiel2 = new Spielanleitung(2); //2.Teil der Spielanleitung geoeffnet
+                        // while(spielanleitungZiel2.getIstZurueckGedrueckt()==false) //solange nicht wieder zurueck gedrueckt wird
+                        // {
+                            // spielanleitungZiel.setVisible(false); //1.Teil der Spielanleitung wird unsichtbar gemacht
+                            // if(spielanleitungZiel2.getIstWeiterGedrueckt()) //wenn weiter gedrueckt
+                            // {
+                                // spielanleitungTasten = new Spielanleitung(0); //3.Teil der Spielanleitung geoffnet
+                                // while(spielanleitungTasten.getIstZurueckGedrueckt()==false) //solange nicht wieder zurueck gedrueckt wird
+                                // {
+                                    // spielanleitungZiel2.setVisible(false); //2.Teil der Spielanleitung wird unsichtbar gemacht
+                                // }
+                                // spielanleitungZiel2.setVisible(true); //2.Teil wieder eingeblendet
+                                // spielanleitungZiel2.setIstWeiterGedrueckt(false); //Weiter-nopf wird nicht gedrueckt
+                                // spielanleitungTasten.setVisible(false); //3.Teil wird nicht mehr angezeigt
+                                // spielanleitungTasten = null; //und geloescht
+                            // }
+                        // }
+                        // spielanleitungZiel.setVisible(true);
+                        // spielanleitungZiel.setIstWeiterGedrueckt(false);
+                        // spielanleitungZiel2.setVisible(false);
+                        // spielanleitungZiel2 = null;
+                    // }
+                // }
+                // hauptmenue.setVisible(true); //danach wird das Hauptmenü wieder eingeblendet
+                // hauptmenue.setIstSpielanleitungGedrueckt(false); //es wird keine neue Spielanleitung erzeugt oder eingeblendet
+                // spielanleitungZiel.setVisible(false); //die Spielanleitung wird ausgeblendet
+                // spielanleitungZiel = null; //und gelöscht
+            // }
             
             // if(hauptmenue.getIstBeendenGedrueckt()) //wenn man beenden dückt
             // {
@@ -533,6 +528,7 @@ public class Game implements Runnable
         }
         catch(IOException e)
         {
+            e.printStackTrace();
         }
         
         for(int i=0;i<pics;i++) //eine .png bzw. .gif Datei wird in ein BufferedImage Array umgewandelt
@@ -570,7 +566,13 @@ public class Game implements Runnable
         }
     }
     
-    
+    public Endscreen getEndscreen()
+    {
+        if(endscreen!=null)
+        return endscreen;
+        else
+        return null;
+    }
     
 
 }
