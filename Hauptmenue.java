@@ -3,6 +3,8 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import java.util.Vector;
+
 /**
  * Hauptmenüfenster des Hüpfburg-2D Spiels
  *
@@ -92,7 +94,8 @@ public class Hauptmenue extends Menue
                             if(e.getSource()==info)
                             //wenn info Button gedrueckt
                             {
-                                istSpielanleitungGedrueckt=true;
+                                //istSpielanleitungGedrueckt=true;
+                                öffneSpielanleitung();
                             }
                         }
                     });
@@ -157,6 +160,49 @@ public class Hauptmenue extends Menue
         // }
     // }
     
+    public void öffneSpielanleitung()
+    {
+        Spielanleitung spielanleitungZiel;//Die Spielanleitung
+        Spielanleitung spielanleitungZiel2;//Die Spielanleitung
+        Spielanleitung spielanleitungTasten;//Die Spielanleitung
+    
+    
+        spielanleitungZiel = new Spielanleitung(1); //wird ein neues Spielanleitungsobjekt (1.Teil) erzeugt
+        while(spielanleitungZiel.getIstZurueckGedrueckt()==false) //solange nicht zurück gedrückt wurde
+        {
+            setVisible(false); //bleibt das Hauptmenü ausgeblendet
+            if(spielanleitungZiel.getIstWeiterGedrueckt()) //wenn weiter gedrueckt wird
+            {
+                spielanleitungZiel2 = new Spielanleitung(2); //2.Teil der Spielanleitung geoeffnet
+                while(spielanleitungZiel2.getIstZurueckGedrueckt()==false) //solange nicht wieder zurueck gedrueckt wird
+                {
+                    spielanleitungZiel.setVisible(false); //1.Teil der Spielanleitung wird unsichtbar gemacht
+                    if(spielanleitungZiel2.getIstWeiterGedrueckt()) //wenn weiter gedrueckt
+                    {
+                        spielanleitungTasten = new Spielanleitung(0); //3.Teil der Spielanleitung geoffnet
+                        while(spielanleitungTasten.getIstZurueckGedrueckt()==false) //solange nicht wieder zurueck gedrueckt wird
+                        {
+                            spielanleitungZiel2.setVisible(false); //2.Teil der Spielanleitung wird unsichtbar gemacht
+                        }
+                        spielanleitungZiel2.setVisible(true); //2.Teil wieder eingeblendet
+                        spielanleitungZiel2.setIstWeiterGedrueckt(false); //Weiter-nopf wird nicht gedrueckt
+                        spielanleitungTasten.setVisible(false); //3.Teil wird nicht mehr angezeigt
+                        spielanleitungTasten = null; //und geloescht
+                    }
+                }
+                spielanleitungZiel.setVisible(true);
+                spielanleitungZiel.setIstWeiterGedrueckt(false);
+                spielanleitungZiel2.setVisible(false);
+                spielanleitungZiel2 = null;
+            }
+        }
+        setVisible(true); //danach wird das Hauptmenü wieder eingeblendet
+        //setIstSpielanleitungGedrueckt(false); //es wird keine neue Spielanleitung erzeugt oder eingeblendet
+        spielanleitungZiel.setVisible(false); //die Spielanleitung wird ausgeblendet
+        spielanleitungZiel = null; //und gelöscht
+            
+    }
+    
     /**
      * @author(Clemens Zander und Shium Rahman)
      * get-Methode fuer den Zustand des Beenden-Buttons
@@ -213,4 +259,18 @@ public class Hauptmenue extends Menue
     {
         istSpielanleitungGedrueckt=zustand;
     }
+    
+    // public Spielfeld returnNewSpielfeld(Vector<Sprite> actors, Vector<Sprite> painter, KeyManager keyManager)
+    // {
+        // Spielfeld spielfeld;
+        // if(getIstSpielstartGedrueckt()) 
+        // {
+            // spielfeld = new Spielfeld(1280, 960, painter, actors); //Das Spielfeld wird erstellt
+            // spielfeld.getFrame().addKeyListener(keyManager);
+            // setVisible(false); //Das Hauptmenü wird ausgeblendet
+            // return spielfeld;
+        // }
+        // else return null;
+        
+    // }
 }

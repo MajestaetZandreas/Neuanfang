@@ -47,6 +47,9 @@ public class Game implements Runnable
     private boolean getroffen; //Dieses Attribut ist true, nachdem der Gegner Schaden genommen hat und verhindert den sofortigen Sieg
     private int getroffenTime=100; //Dieses Attribut wird zur Berechnung der Dauer der sicheren Zeit des Gegners benötigt
     
+    private boolean gegnerSchuss; //Dieses Attribut ist true, nachdem der Gegner Schaden genommen hat und verhindert den sofortigen Sieg
+    private int letzterGegnerSchuss=150; //Dieses Attribut wird zur Berechnung der Dauer der sicheren Zeit des Gegners benötigt
+    
     private JFrame frame;
     
     private Spieler player;
@@ -57,7 +60,7 @@ public class Game implements Runnable
     
     private int rndG; //Int-Wert zur Bestimmung, welche Gegner-Grafik benutzt werden soll
     private int rndP; ////Int-Wert zur Bestimmung, auf welche Plattform der Gegner nach erlittenem Schaden teleportiert werden soll
-    //^noch nicht in Benutzung
+    //noch nicht in Benutzung
     private long delta; //Dauer eines Durchlaufs
     private long last; //Die Zeit vom Anfang eines Durchlaufs
     private long fps; //Anzahl Bilder pro Sekunde
@@ -81,6 +84,7 @@ public class Game implements Runnable
     private Lebensanzeige lebenspunkteG; //Die Lenspunkte des Gegners
     
     private Waffe kugel;
+    private Waffe gKugel;
     
     //Diese Bilder müssen hier angelegt werden, da sie im Laufe des Spiels geändert werden müssen
     private BufferedImage[] spieler_image;
@@ -156,7 +160,7 @@ public class Game implements Runnable
                     
                     moveObjects(); //Die Objekte werden bewegt und neu gezeichnet
                     cloneVectors(); //Der actors Vector wird erneut in den painter Vektor geklont
-                    if(reload) //wenn an schon geschossen hat
+                    if(reload) //wenn man schon geschossen hat
                     reloadTime--; //wird die Zeit in welcher nicht gefeuert werden kann  verringert
                     if(reloadTime <= 0) //wenn sie bei 0 ist
                     {
@@ -178,6 +182,14 @@ public class Game implements Runnable
                     {
                         getroffen=false; //kann der Gegner wieder Schaden erleiden
                         getroffenTime=100; //die Zeit in der der gegner sicher ist wird wieder auf 100 gesetzt
+                    }
+                    
+                    if(gegnerSchuss) //wenn der Gegner schon geschossen hat
+                    letzterGegnerSchuss--; //wird die Zeit in welcher nicht gefeuert wird verringert
+                    if(letzterGegnerSchuss <= 0) //wenn sie bei 0 ist
+                    {
+                        schuss(gegner.get(rndG).getX(),gegner.get(rndG).getY(),gegner.get(rndG).hSpeed(),gegner.get(rndG).vSpeed(), true);
+                        letzterGegnerSchuss=150; //die Nachladezeit wird wieder auf 150 gesetzt
                     }
                     
                     spielfeld.repaint();//Neuzeichnung wird ausgelöst
@@ -208,42 +220,42 @@ public class Game implements Runnable
                 endscreen = null; //und gelöscht
             }
             
-            if(hauptmenue.getIstSpielanleitungGedrueckt()) //wenn man auf den Knopf "Spielanleitung" drückt
-            {
-                spielanleitungZiel = new Spielanleitung(1); //wird ein neues Spielanleitungsobjekt (1.Teil) erzeugt
-                while(spielanleitungZiel.getIstZurueckGedrueckt()==false) //solange nicht zurück gedrückt wurde
-                {
-                    hauptmenue.setVisible(false); //bleibt das Hauptmenü ausgeblendet
-                    if(spielanleitungZiel.getIstWeiterGedrueckt()) //wenn weiter gedrueckt wird
-                    {
-                        spielanleitungZiel2 = new Spielanleitung(2); //2.Teil der Spielanleitung geoeffnet
-                        while(spielanleitungZiel2.getIstZurueckGedrueckt()==false) //solange nicht wieder zurueck gedrueckt wird
-                        {
-                            spielanleitungZiel.setVisible(false); //1.Teil der Spielanleitung wird unsichtbar gemacht
-                            if(spielanleitungZiel2.getIstWeiterGedrueckt()) //wenn weiter gedrueckt
-                            {
-                                spielanleitungTasten = new Spielanleitung(0); //3.Teil der Spielanleitung geoffnet
-                                while(spielanleitungTasten.getIstZurueckGedrueckt()==false) //solange nicht wieder zurueck gedrueckt wird
-                                {
-                                    spielanleitungZiel2.setVisible(false); //2.Teil der Spielanleitung wird unsichtbar gemacht
-                                }
-                                spielanleitungZiel2.setVisible(true); //2.Teil wieder eingeblendet
-                                spielanleitungZiel2.setIstWeiterGedrueckt(false); //Weiter-nopf wird nicht gedrueckt
-                                spielanleitungTasten.setVisible(false); //3.Teil wird nicht mehr angezeigt
-                                spielanleitungTasten = null; //und geloescht
-                            }
-                        }
-                        spielanleitungZiel.setVisible(true);
-                        spielanleitungZiel.setIstWeiterGedrueckt(false);
-                        spielanleitungZiel2.setVisible(false);
-                        spielanleitungZiel2 = null;
-                    }
-                }
-                hauptmenue.setVisible(true); //danach wird das Hauptmenü wieder eingeblendet
-                hauptmenue.setIstSpielanleitungGedrueckt(false); //es wird keine neue Spielanleitung erzeugt oder eingeblendet
-                spielanleitungZiel.setVisible(false); //die Spielanleitung wird ausgeblendet
-                spielanleitungZiel = null; //und gelöscht
-            }
+            // if(hauptmenue.getIstSpielanleitungGedrueckt()) //wenn man auf den Knopf "Spielanleitung" drückt
+            // {
+                // spielanleitungZiel = new Spielanleitung(1); //wird ein neues Spielanleitungsobjekt (1.Teil) erzeugt
+                // while(spielanleitungZiel.getIstZurueckGedrueckt()==false) //solange nicht zurück gedrückt wurde
+                // {
+                    // hauptmenue.setVisible(false); //bleibt das Hauptmenü ausgeblendet
+                    // if(spielanleitungZiel.getIstWeiterGedrueckt()) //wenn weiter gedrueckt wird
+                    // {
+                        // spielanleitungZiel2 = new Spielanleitung(2); //2.Teil der Spielanleitung geoeffnet
+                        // while(spielanleitungZiel2.getIstZurueckGedrueckt()==false) //solange nicht wieder zurueck gedrueckt wird
+                        // {
+                            // spielanleitungZiel.setVisible(false); //1.Teil der Spielanleitung wird unsichtbar gemacht
+                            // if(spielanleitungZiel2.getIstWeiterGedrueckt()) //wenn weiter gedrueckt
+                            // {
+                                // spielanleitungTasten = new Spielanleitung(0); //3.Teil der Spielanleitung geoffnet
+                                // while(spielanleitungTasten.getIstZurueckGedrueckt()==false) //solange nicht wieder zurueck gedrueckt wird
+                                // {
+                                    // spielanleitungZiel2.setVisible(false); //2.Teil der Spielanleitung wird unsichtbar gemacht
+                                // }
+                                // spielanleitungZiel2.setVisible(true); //2.Teil wieder eingeblendet
+                                // spielanleitungZiel2.setIstWeiterGedrueckt(false); //Weiter-nopf wird nicht gedrueckt
+                                // spielanleitungTasten.setVisible(false); //3.Teil wird nicht mehr angezeigt
+                                // spielanleitungTasten = null; //und geloescht
+                            // }
+                        // }
+                        // spielanleitungZiel.setVisible(true);
+                        // spielanleitungZiel.setIstWeiterGedrueckt(false);
+                        // spielanleitungZiel2.setVisible(false);
+                        // spielanleitungZiel2 = null;
+                    // }
+                // }
+                // hauptmenue.setVisible(true); //danach wird das Hauptmenü wieder eingeblendet
+                // hauptmenue.setIstSpielanleitungGedrueckt(false); //es wird keine neue Spielanleitung erzeugt oder eingeblendet
+                // spielanleitungZiel.setVisible(false); //die Spielanleitung wird ausgeblendet
+                // spielanleitungZiel = null; //und gelöscht
+            // }
             
             // if(hauptmenue.getIstBeendenGedrueckt()) //wenn man beenden dückt
             // {
@@ -295,9 +307,8 @@ public class Game implements Runnable
         Spikes spike6=new Spikes(spikes_image,943,577,100);
         
         player = new Spieler(spieler_image,60,740,60, keyManager);
-        ghost=new Gegner(gegnerGhost_image,560,50,60);
+        ghost=new Gegner(gegnerGhost_image,560,50,60, player);
         
-        kugel=new Waffe(energieKugel_image,player.getX(),player.getY()+10,100);
         
         
         
@@ -309,6 +320,7 @@ public class Game implements Runnable
         spikes.add(spike6);
         
         gegner.add(ghost);
+        
         
         // lebenspunkte=new Lebensanzeige(herz3_image,0,10,100); //Muss vom Char geändert werden
         lebenspunkte=new Lebensanzeige(herz3_imageSpieler,0,10,100);
@@ -325,6 +337,8 @@ public class Game implements Runnable
         actors.add(lebenspunkte);
         actors.add(lebenspunkteG);
         
+        kugel=new Waffe(energieKugel_image,player.getX(),player.getY()+10,100);
+        gKugel=new Waffe(energieKugel_image,gegner.get(rndG).getX(),gegner.get(rndG).getY()+10,100);
        
     }
     
@@ -386,11 +400,10 @@ public class Game implements Runnable
         
         if(keyManager.fire&&reload==false) //wenn der Tastaturbefehl zum Schuss gegeben wird und nicht bereits geschossen wurde
         {
-            kugel=new Waffe(energieKugel_image,player.getX(),player.getY()+10,100); //wird eine neue Kugel an der Stelle des Spielers (seine Brust) erzeugt
-            actors.add(kugel); //den actors hinzugefügt
             
-            if(player.getImage()==spielerR_image)kugel.setHorizontalSpeed(300); //und mit einer festen Geschwindigkeit abgefeuert
-            else kugel.setHorizontalSpeed(-300);  //je nach Bild nach rechts oder links, also immer in Blickrichtung
+            
+            if(player.getImage()==spielerR_image)schuss(player.getX(), player.getY(),300, 0, false); //und mit einer festen Geschwindigkeit abgefeuert
+            else schuss(player.getX(), player.getY(),-300, 0, false); //je nach Bild nach rechts oder links, also immer in Blickrichtung
             
             reload=true; //der Spieler kann nicht mehr schießen, muss also nachladen
         }
@@ -398,6 +411,16 @@ public class Game implements Runnable
         
     }
     
+    public void schuss(double x, double y, double vSpeed, double hSpeed, boolean gegner)
+    {
+        if(gegner)
+        gKugel=new Waffe(energieKugel_image,x,y+10,100); //wird eine neue Kugel an der Stelle des Gegners (seine Brust) erzeugt
+        else
+        kugel=new Waffe(energieKugel_image,x,y+10,100); //wird eine neue Kugel an der Stelle des Spielers (seine Brust) erzeugt
+        actors.add(kugel); //den actors hinzugefügt
+        kugel.setHorizontalSpeed(hSpeed); 
+        kugel.setVerticalSpeed(vSpeed); 
+    }
     
     /**
      * @author(Jupp B., Gideon S., Shium R., Cihan K., zu kleinsten Teilen noch vom Tutorial kopiert)
