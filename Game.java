@@ -27,7 +27,7 @@ import java.util.Random;
 */
 public class Game implements Runnable
 {
-    private static Hauptmenue hauptmenue; //Das Hauptmenü, welches vor dem Spielen geöffnet wird
+    
     private Spielanleitung spielanleitungZiel;//Die Spielanleitung
     private Spielanleitung spielanleitungZiel2;//Die Spielanleitung
     private Spielanleitung spielanleitungTasten;//Die Spielanleitung
@@ -37,6 +37,7 @@ public class Game implements Runnable
     
     private boolean spielStart=true; //Dieses Attribut ist solange true, wie das Spiel läuft
     private boolean victory=false; //Dieses Attribut gibt an, ob der Spieler gewonnen oder verloren hat
+    private boolean spielLauf;
     
     private boolean reload; //Dieses Attribut ist true, nachdem der Spieler geschossen hat und verhindert Dauerfeuer
     private int reloadTime=100; //Dieses Attribut wird zur Berechnung der Dauer des Nachladens benötigt
@@ -101,17 +102,9 @@ public class Game implements Runnable
     private ArrayList<Gegner> gegner;
     private ArrayList<Spikes> spikes;
     
-    public static void main(String[] arg)
+    public Game(/*Hauptmenue hauptmenue*/)
     {
-        Game game = new Game();
-        
-        new Thread(game).start();
-    }
-    
-    public Game()
-    {
-        hauptmenue = new Hauptmenue();
-        hauptmenue.setVisible(true);
+        // this.hauptmenue=hauptmenue;
         keyManager = new KeyManager();
         levels= new Level();
         
@@ -121,7 +114,7 @@ public class Game implements Runnable
         Random rand=new Random();
         rndG=rand.nextInt(1);
         rndP=rand.nextInt(35);
-        
+        new Thread(this).start();
         // Thread thread = new Thread(this);
         // thread.start();
     }
@@ -140,14 +133,15 @@ public class Game implements Runnable
     @Override
     public void run()
     {
+        spielLauf=true;
         while(spielStart) //eigentlich immer, nur in dieser Schleife abbbrechbar
         {   
-            if(hauptmenue.getIstSpielstartGedrueckt()) 
+            if(/*hauptmenue.getIstSpielstartGedrueckt()*/spielLauf==true) 
             {
                 doInitialisierung(); //Alle Grafiken werden erstellt und intialisiert
                 spielfeld = new Spielfeld(1280, 960, painter, actors); //Das Spielfeld wird erstellt
                 spielfeld.getFrame().addKeyListener(keyManager);
-                hauptmenue.setVisible(false); //Das Hauptmenü wird ausgeblendet
+                //hauptmenue.setVisible(false); //Das Hauptmenü wird ausgeblendet
                 while(spielfeld.getFrame().isVisible())//solange das Fenster angezeigt wird
                 {
                     computeDelta(); //Errechnung der Zeit für den vorhergehenden Schleifendurchlauf
@@ -201,8 +195,8 @@ public class Game implements Runnable
                     {
                     }
                 }
-                hauptmenue.setVisible(true); //das Hauptmenü wird wieder eingeblendet
-                hauptmenue.setIstSpielstartGedrueckt(false); //das Spielfeld wird nicht wieder erzeugt
+                // hauptmenue.setVisible(true); //das Hauptmenü wird wieder eingeblendet
+                // hauptmenue.setIstSpielstartGedrueckt(false); //das Spielfeld wird nicht wieder erzeugt
                 spielfeld.setVisible(false); //das Spielfeld wird wieder ausgeblendet
                 spielfeld = null; //das Spielfeld wird gelöscht
                 
@@ -213,11 +207,12 @@ public class Game implements Runnable
             {
                 while(endscreen.getIstZurueckGedrueckt()==false) //solange nicht zurück gedrückt wurde
                 {
-                    hauptmenue.setVisible(false); //bleibt das Hauptmenü ausgeblendet
+                    // hauptmenue.setVisible(false); //bleibt das Hauptmenü ausgeblendet
                 }
-                hauptmenue.setVisible(true); //danach wird das Hauptmenü wieder eingeblendet
+                // hauptmenue.setVisible(true); //danach wird das Hauptmenü wieder eingeblendet
                 endscreen.setVisible(false); //das Endfenster wird ausgeblendet
                 endscreen = null; //und gelöscht
+                spielLauf=false;
             }
             
             // if(hauptmenue.getIstSpielanleitungGedrueckt()) //wenn man auf den Knopf "Spielanleitung" drückt
@@ -561,6 +556,7 @@ public class Game implements Runnable
         }
         catch(IOException e)
         {
+            e.printStackTrace();
         }
         
         for(int i=0;i<pics;i++) //eine .png bzw. .gif Datei wird in ein BufferedImage Array umgewandelt
@@ -598,7 +594,13 @@ public class Game implements Runnable
         }
     }
     
-    
+    public Endscreen getEndscreen()
+    {
+        if(endscreen!=null)
+        return endscreen;
+        else
+        return null;
+    }
     
 
 }

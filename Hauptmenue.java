@@ -16,15 +16,21 @@ import java.util.Vector;
 public class Hauptmenue extends Menue 
 {
     //Attribute für die vier Buttons, welche auf dem Fenster zu sehen sein sollen
+    //Das Hauptmenü, welches vor dem Spielen geöffnet wird
     private JButton start;
     private JButton einstellungen;
     private JButton info;
     private JButton ende;
-    
+    private Game game;
     //Attribute für die Zustände der Buttons
     private boolean istSpielstartGedrueckt=false;
     private boolean istSpielanleitungGedrueckt=false;
     private boolean istBeendenGedrueckt=false;
+    
+    public static void main(String[] arg)
+    {
+        new Hauptmenue();
+    }
     
     /**
      * @author(Clemens Zander und Shium Rahman)
@@ -55,17 +61,18 @@ public class Hauptmenue extends Menue
         // start.setForeground(Color.WHITE);//Schriftfarbe gesetzt
         // start.setBackground(Color.BLACK);//Hintergrundfarbe gesetzt                
         start.addActionListener(new java.awt.event.ActionListener() {
-                        // Beim Drücken des start-Buttons wird actionPerformed aufgerufen
-                        public void actionPerformed(java.awt.event.ActionEvent e) {
-                            if(e.getSource()==start)
-                            //wenn start Button gedrueckt
-                            {
-                                istSpielstartGedrueckt=true;
-                                //Attribut auf true geaendert, da der Button gedrueckt wurde
-                            }
-   
-                        }
-                    });//neuer Actionlistener für den Button erstellt
+            // Beim Drücken des start-Buttons wird actionPerformed aufgerufen
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                if(e.getSource()==start)
+                //wenn start Button gedrueckt
+                {
+                    Game game = new Game(/*getHauptmenue()*/);
+                    setVisible(false);
+                    //Attribut auf true geaendert, da der Button gedrueckt wurde
+                }
+                
+            }
+        });//neuer Actionlistener für den Button erstellt
     
         //Einstellungen-Button
         einstellungen = new JButton("Einstellungen");
@@ -73,15 +80,15 @@ public class Hauptmenue extends Menue
         // einstellungen.setForeground(Color.WHITE);
         // einstellungen.setBackground(Color.BLACK);                
         einstellungen.addActionListener(new java.awt.event.ActionListener() {
-                        // Beim Drücken des einstellungen-Button wird actionPerformed aufgerufen
-                        public void actionPerformed(java.awt.event.ActionEvent e) {
-                            if(e.getSource()==einstellungen)
-                            //wenn einstellungen Button gedrueckt
-                            {
-                                //nur für das Design/beinhaltet keine Funktionen
-                            }
-                        }
-                    });
+            // Beim Drücken des einstellungen-Button wird actionPerformed aufgerufen
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                if(e.getSource()==einstellungen)
+                //wenn einstellungen Button gedrueckt
+                {
+                    //nur für das Design/beinhaltet keine Funktionen
+                }
+            }
+        });
         
         //Spielanleitung-Button
         info = new JButton("Spielanleitung");
@@ -89,16 +96,17 @@ public class Hauptmenue extends Menue
         // info.setForeground(Color.WHITE); 
         // info.setBackground(Color.BLACK);       
         info.addActionListener(new java.awt.event.ActionListener() {
-                        // Beim Drücken des info-Buttons wird actionPerformed aufgerufen
-                        public void actionPerformed(java.awt.event.ActionEvent e) {
-                            if(e.getSource()==info)
-                            //wenn info Button gedrueckt
-                            {
-                                //istSpielanleitungGedrueckt=true;
-                                öffneSpielanleitung();
-                            }
-                        }
-                    });
+            // Beim Drücken des info-Buttons wird actionPerformed aufgerufen
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                if(e.getSource()==info)
+                //wenn info Button gedrueckt
+                {
+                    istSpielanleitungGedrueckt=true;
+                    // öffneSpielanleitung();
+                }
+            }
+        });
+        
         
         //Beenden-Button
         ende = new JButton("Beenden");
@@ -106,17 +114,30 @@ public class Hauptmenue extends Menue
         // ende.setForeground(Color.WHITE);
         // ende.setBackground(Color.BLACK);
         ende.addActionListener(new java.awt.event.ActionListener() {
-                    // Beim Drücken des ende-Buutons wird actionPerformed aufgerufen
-                        public void actionPerformed(java.awt.event.ActionEvent e) {
-                        if(e.getSource()==ende)
-                        //wenn ende Button gedrueckt
-                            {
-                                istBeendenGedrueckt=true;
-                                System.exit(0); //und das Spiel geschlossen
-                                //Attribut auf true geaendert, da der Button gedrueckt wurde
-                            }
-                        }
-                    });
+            // Beim Drücken des ende-Buutons wird actionPerformed aufgerufen
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                if(e.getSource()==ende)
+                //wenn ende Button gedrueckt
+                   {
+                      istBeendenGedrueckt=true;
+                      System.exit(0); //und das Spiel geschlossen
+                      //Attribut auf true geaendert, da der Button gedrueckt wurde
+                   }
+            }
+        });
+        
+        // if(game!=null)
+        // {
+            // while(game.getEndscreen()!=null)
+            // {
+                // if(game.getEndscreen().getIstZurueckGedrueckt())
+                // //wenn ende Button gedrueckt
+                // {                    
+                    // setVisible(true);
+                // }
+            // }
+        // }
+
         
         //Buttons und Hintergrund auf Frame geadded
         add(start);
@@ -126,7 +147,10 @@ public class Hauptmenue extends Menue
         add(background);
         
         setVisible(true);//Frame wird angezeigt
+        
     }
+}
+    
     
     // /**
      // * @author(Clemens Zander Shium Rahman)
@@ -159,118 +183,3 @@ public class Hauptmenue extends Menue
             // istBeendenGedrueckt=true;//Attribut auf true geaendert, da der Button gedrueckt wurde
         // }
     // }
-    
-    public void öffneSpielanleitung()
-    {
-        Spielanleitung spielanleitungZiel;//Die Spielanleitung
-        Spielanleitung spielanleitungZiel2;//Die Spielanleitung
-        Spielanleitung spielanleitungTasten;//Die Spielanleitung
-    
-    
-        spielanleitungZiel = new Spielanleitung(1); //wird ein neues Spielanleitungsobjekt (1.Teil) erzeugt
-        while(spielanleitungZiel.getIstZurueckGedrueckt()==false) //solange nicht zurück gedrückt wurde
-        {
-            setVisible(false); //bleibt das Hauptmenü ausgeblendet
-            if(spielanleitungZiel.getIstWeiterGedrueckt()) //wenn weiter gedrueckt wird
-            {
-                spielanleitungZiel2 = new Spielanleitung(2); //2.Teil der Spielanleitung geoeffnet
-                while(spielanleitungZiel2.getIstZurueckGedrueckt()==false) //solange nicht wieder zurueck gedrueckt wird
-                {
-                    spielanleitungZiel.setVisible(false); //1.Teil der Spielanleitung wird unsichtbar gemacht
-                    if(spielanleitungZiel2.getIstWeiterGedrueckt()) //wenn weiter gedrueckt
-                    {
-                        spielanleitungTasten = new Spielanleitung(0); //3.Teil der Spielanleitung geoffnet
-                        while(spielanleitungTasten.getIstZurueckGedrueckt()==false) //solange nicht wieder zurueck gedrueckt wird
-                        {
-                            spielanleitungZiel2.setVisible(false); //2.Teil der Spielanleitung wird unsichtbar gemacht
-                        }
-                        spielanleitungZiel2.setVisible(true); //2.Teil wieder eingeblendet
-                        spielanleitungZiel2.setIstWeiterGedrueckt(false); //Weiter-nopf wird nicht gedrueckt
-                        spielanleitungTasten.setVisible(false); //3.Teil wird nicht mehr angezeigt
-                        spielanleitungTasten = null; //und geloescht
-                    }
-                }
-                spielanleitungZiel.setVisible(true);
-                spielanleitungZiel.setIstWeiterGedrueckt(false);
-                spielanleitungZiel2.setVisible(false);
-                spielanleitungZiel2 = null;
-            }
-        }
-        setVisible(true); //danach wird das Hauptmenü wieder eingeblendet
-        //setIstSpielanleitungGedrueckt(false); //es wird keine neue Spielanleitung erzeugt oder eingeblendet
-        spielanleitungZiel.setVisible(false); //die Spielanleitung wird ausgeblendet
-        spielanleitungZiel = null; //und gelöscht
-            
-    }
-    
-    /**
-     * @author(Clemens Zander und Shium Rahman)
-     * get-Methode fuer den Zustand des Beenden-Buttons
-     */
-    public boolean getIstBeendenGedrueckt()
-    {
-        return istBeendenGedrueckt;
-    }
-    
-    /**
-     * @author(Clemens Zander und Shium Rahman)
-     * get-Methode fuer den Zustand des Spielstart-Buttons
-     */
-    public boolean getIstSpielstartGedrueckt()
-    {
-        return istSpielstartGedrueckt;
-    }
-    
-    /**
-     * @author(Clemens Zander und Shium Rahman)
-     * get-Methode fuer den Zustand des Spielanleitung-Buttons
-     */
-    public boolean getIstSpielanleitungGedrueckt()
-    {
-        return istSpielanleitungGedrueckt;
-    }
-    
-    /**
-     * @author(Clemens Zander und Shium Rahman)
-     * set-Methode fuer den Zustand des Beenden-Buttons
-     * @param zustand boolean Wert fuer den Zustand des Buttons
-     */
-    public void setIstBeendenGedrueckt(boolean zustand)
-    {
-        istBeendenGedrueckt=zustand;
-    }
-    
-    /**
-     * @author(Clemens Zander und Shium Rahman)
-     * set-Methode fuer den Zustand des Spielstart-Buttons
-     * @param zustand boolean Wert fuer den Zustand des Buttons
-     */
-    public void setIstSpielstartGedrueckt(boolean zustand)
-    {
-        istSpielstartGedrueckt=zustand;
-    }
-    
-    /**
-     * @author(Clemens Zander und Shium Rahman)
-     * set-Methode fuer den Zustand des Spielanleitung-Buttons
-     * @param zustand boolean Wert fuer den Zustand des Buttons
-     */
-    public void setIstSpielanleitungGedrueckt(boolean zustand)
-    {
-        istSpielanleitungGedrueckt=zustand;
-    }
-    
-    // public Spielfeld returnNewSpielfeld(Vector<Sprite> actors, Vector<Sprite> painter, KeyManager keyManager)
-    // {
-        // Spielfeld spielfeld;
-        // if(getIstSpielstartGedrueckt()) 
-        // {
-            // spielfeld = new Spielfeld(1280, 960, painter, actors); //Das Spielfeld wird erstellt
-            // spielfeld.getFrame().addKeyListener(keyManager);
-            // setVisible(false); //Das Hauptmenü wird ausgeblendet
-            // return spielfeld;
-        // }
-        // else return null;
-        
-    // }
-}
