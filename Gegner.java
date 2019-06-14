@@ -26,18 +26,18 @@ public class Gegner extends Sprite
     
     public double vSpeed()
     {
-        dx=getX()-spieler.getX();
-        dy=getY()-spieler.getY();
+        dx=getX()-spieler.getX()-10;
+        dy=getY()-spieler.getY()-10;
         double m=dy/dx;
         double vSpeed=Math.sqrt(90000/(1+m*m));
-         
-        return vSpeed;
+        if(spieler.getX()>getX()) return vSpeed;
+        else return -vSpeed;
     }
     
     public double hSpeed()
     {
-        dx=getX()-spieler.getX();
-        dy=getY()-spieler.getY();
+        dx=getX()-spieler.getX()-10;
+        dy=getY()-spieler.getY()-10;
         double m=dy/dx;
         double vSpeed=Math.sqrt(90000/(1+m*m));
         double hSpeed=Math.sqrt(90000-vSpeed*vSpeed);

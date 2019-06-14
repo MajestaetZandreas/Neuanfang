@@ -47,7 +47,7 @@ public class Game implements Runnable
     private boolean getroffen; //Dieses Attribut ist true, nachdem der Gegner Schaden genommen hat und verhindert den sofortigen Sieg
     private int getroffenTime=100; //Dieses Attribut wird zur Berechnung der Dauer der sicheren Zeit des Gegners benötigt
     
-    private boolean gegnerSchuss; //Dieses Attribut ist true, nachdem der Gegner Schaden genommen hat und verhindert den sofortigen Sieg
+    private boolean gegnerSchuss=true; //Dieses Attribut ist true, nachdem der Gegner Schaden genommen hat und verhindert den sofortigen Sieg
     private int letzterGegnerSchuss=150; //Dieses Attribut wird zur Berechnung der Dauer der sicheren Zeit des Gegners benötigt
     
     private JFrame frame;
@@ -400,10 +400,8 @@ public class Game implements Runnable
         
         if(keyManager.fire&&reload==false) //wenn der Tastaturbefehl zum Schuss gegeben wird und nicht bereits geschossen wurde
         {
-            
-            
-            if(player.getImage()==spielerR_image)schuss(player.getX(), player.getY(),300, 0, false); //und mit einer festen Geschwindigkeit abgefeuert
-            else schuss(player.getX(), player.getY(),-300, 0, false); //je nach Bild nach rechts oder links, also immer in Blickrichtung
+            if(player.getImage()==spielerR_image)schuss(player.getX(), player.getY(),0, 300, false); //und mit einer festen Geschwindigkeit abgefeuert
+            else schuss(player.getX(), player.getY(),0, -300, false); //je nach Bild nach rechts oder links, also immer in Blickrichtung
             
             reload=true; //der Spieler kann nicht mehr schießen, muss also nachladen
         }
@@ -414,12 +412,19 @@ public class Game implements Runnable
     public void schuss(double x, double y, double vSpeed, double hSpeed, boolean gegner)
     {
         if(gegner)
-        gKugel=new Waffe(energieKugel_image,x,y+10,100); //wird eine neue Kugel an der Stelle des Gegners (seine Brust) erzeugt
+        {
+            gKugel=new Waffe(energieKugel_image,x,y+10,100); //wird eine neue Kugel an der Stelle des Gegners (seine Brust) erzeugt
+            actors.add(gKugel); //den actors hinzugefügt
+            gKugel.setHorizontalSpeed(hSpeed); 
+            gKugel.setVerticalSpeed(vSpeed); 
+        }
         else
-        kugel=new Waffe(energieKugel_image,x,y+10,100); //wird eine neue Kugel an der Stelle des Spielers (seine Brust) erzeugt
-        actors.add(kugel); //den actors hinzugefügt
-        kugel.setHorizontalSpeed(hSpeed); 
-        kugel.setVerticalSpeed(vSpeed); 
+        {
+            kugel=new Waffe(energieKugel_image,x,y+10,100); //wird eine neue Kugel an der Stelle des Spielers (seine Brust) erzeugt
+            actors.add(kugel); //den actors hinzugefügt
+            kugel.setHorizontalSpeed(hSpeed); 
+            kugel.setVerticalSpeed(vSpeed); 
+        }
     }
     
     /**
