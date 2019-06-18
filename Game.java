@@ -518,7 +518,13 @@ public class Game implements Runnable
         {
             gegner.get(rndG).reduceHP(); //erleidet er Schaden
             getroffen=true; //und kann keinen Schaden mehr erleiden
-        } 
+        }
+        
+        if(player.collidedWith(gKugel)&&!safe) //wenn der Spieler mit einer gegnerischen kollidiert und Schaden erleiden kann
+        {
+            player.reduceHP(); //erleidet er Schaden
+            safe=true; //und kann keinen Schaden mehr erleiden
+        }
     }
     
     /**
